@@ -29,7 +29,7 @@ minetest.register_craftitem("witchcraft:scroll_wild", {
 	inventory_image = "witchcraft_scroll.png^witchcraft_dark_over.png",
 	stack_max = 1,
 	on_use = function(item, placer)
-	local pos = placer:getpos();
+	local pos = placer:get_pos();
 	minetest.env:add_entity(pos, "pmobs:dog")
 	item:take_item()
 	return item
@@ -43,15 +43,15 @@ minetest.register_craftitem("witchcraft:scroll_fireball", {
 	stack_max = 1,
 	on_use = function(item, placer, pos)
 	local dir = placer:get_look_dir();
-	local playerpos = placer:getpos();
+	local playerpos = placer:get_pos();
 	local obj = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:fireball")
 	local obj2 = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:fireball")
 	local obj3 = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:fireball")
 	local obj4 = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:fireball")
-	obj2:setvelocity({x=dir.x*7+0.5,y=dir.y*7,z=dir.z*7+0.5})
-	obj3:setvelocity({x=dir.x*7-0.5,y=dir.y*7,z=dir.z*7-0.5})
-	obj4:setvelocity({x=dir.x*7,y=dir.y*7-0.5,z=dir.z*7})
-	obj:setvelocity({x=dir.x*7,y=dir.y*7+0.5,z=dir.z*7})
+	obj2:set_velocity({x=dir.x*7+0.5,y=dir.y*7,z=dir.z*7+0.5})
+	obj3:set_velocity({x=dir.x*7-0.5,y=dir.y*7,z=dir.z*7-0.5})
+	obj4:set_velocity({x=dir.x*7,y=dir.y*7-0.5,z=dir.z*7})
+	obj:set_velocity({x=dir.x*7,y=dir.y*7+0.5,z=dir.z*7})
 		item:take_item()
 		return item
 	end,
@@ -63,7 +63,7 @@ minetest.register_craftitem("witchcraft:scroll_lightning", {
 	inventory_image = "witchcraft_scroll.png^witchcraft_thunder_over.png",
 	stack_max = 1,
 	on_use = function(item, placer, pos)
-	local playerpos = placer:getpos();
+	local playerpos = placer:get_pos();
 	local dir = placer:get_look_dir();
 	lightning.strike({x=playerpos.x+dir.x*2,y=playerpos.y+0+dir.y,z=playerpos.z+dir.z*2})
 		item:take_item()
@@ -78,14 +78,14 @@ minetest.register_craftitem("witchcraft:scroll_icicle", {
 	stack_max = 1,
 	on_use = function(item, placer, pos)
 	local dir = placer:get_look_dir();
-	local playerpos = placer:getpos();
+	local playerpos = placer:get_pos();
 	local vec = {x=dir.x*7,y=dir.y*7,z=dir.z*7}
 	local obj = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:ice")
 	local obj2 = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+1+dir.z}, "witchcraft:ice")
 	local obj3 = minetest.env:add_entity({x=playerpos.x+1+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:ice")
-	obj:setvelocity(vec)
-	obj2:setvelocity(vec)
-	obj3:setvelocity(vec)
+	obj:set_velocity(vec)
+	obj2:set_velocity(vec)
+	obj3:set_velocity(vec)
 	
 		item:take_item()
 		return item
@@ -99,10 +99,10 @@ minetest.register_craftitem("witchcraft:scroll_nature", {
 	stack_max = 1,
 	on_use = function(item, placer, pos)
 	local dir = placer:get_look_dir();
-	local playerpos = placer:getpos();
+	local playerpos = placer:get_pos();
 	local vec = {x=dir.x*6,y=dir.y*6,z=dir.z*6}
 	local obj = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:tree")
-	obj:setvelocity(vec)
+	obj:set_velocity(vec)
 	
 		item:take_item()
 		return item
@@ -221,7 +221,7 @@ minetest.register_entity("witchcraft:fireball", {
 		local remove = minetest.after(2, function() 
 		self.object:remove()
 		end)
-		local pos = self.object:getpos()
+		local pos = self.object:get_pos()
 		local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 2)	
 			for k, obj in pairs(objs) do
 				if obj:get_luaentity() ~= nil then
@@ -251,7 +251,7 @@ minetest.register_entity("witchcraft:fireball", {
 						end
 					end
 			hit_node = function(self, pos, node)
---	local pos = self.object:getpos()
+--	local pos = self.object:get_pos()
 		for dx=-4,4 do
 			for dy=-4,4 do
 				for dz=-4,4 do
@@ -269,8 +269,8 @@ minetest.register_entity("witchcraft:fireball", {
 		end
 		end
 
-		local apos = self.object:getpos()
-		local vec = self.object:getvelocity()
+		local apos = self.object:get_pos()
+		local vec = self.object:get_velocity()
 		local part = minetest.add_particlespawner(
 			6, --amount
 			0.3, --time
@@ -302,13 +302,13 @@ minetest.register_entity("witchcraft:tree", {
 		local remove = minetest.after(2, function() 
 		self.object:remove()
 		end)
-		local pos = self.object:getpos()
+		local pos = self.object:get_pos()
 		local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 2)	
 			for k, obj in pairs(objs) do
 				if obj:get_luaentity() ~= nil then
 					if obj:get_luaentity().name ~= "witchcraft:tree" and obj:get_luaentity().name ~= "__builtin:item" then
 						obj:remove()
-						local treepos = self.object:getpos()
+						local treepos = self.object:get_pos()
 						default.grow_new_jungle_tree(treepos)
 					self.object:remove()
 					end
@@ -321,7 +321,7 @@ minetest.register_entity("witchcraft:tree", {
 								local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 								local n = minetest.env:get_node(p).name
 								if n ~= "witchcraft:tree" and n ~="air" then	
-						local treepos = self.object:getpos()
+						local treepos = self.object:get_pos()
 						default.grow_new_jungle_tree(treepos)
 						self.object:remove()
 								elseif n == "default:wood" or n =="default:tree" or n =="default:dirt_with_grass" or n =="default:dirt_with_dry_grass" then
@@ -333,11 +333,11 @@ minetest.register_entity("witchcraft:tree", {
 						end
 					end
 			hit_node = function(self, pos, node)
-						local treepos = self.object:getpos()
+						local treepos = self.object:get_pos()
 						default.grow_new_jungle_tree(treepos)
 		end
 
-		local apos = self.object:getpos()
+		local apos = self.object:get_pos()
 		local part = minetest.add_particlespawner(
 			6, --amount
 			0.3, --time
@@ -372,7 +372,7 @@ minetest.register_entity("witchcraft:ice", {
 		local remove = minetest.after(10, function() 
 		self.object:remove()
 		end)
-		local pos = self.object:getpos()
+		local pos = self.object:get_pos()
 		local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 2)	
 			for k, obj in pairs(objs) do
 				if obj:get_luaentity() ~= nil then
@@ -391,12 +391,12 @@ minetest.register_entity("witchcraft:ice", {
 								local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 								local n = minetest.env:get_node(p).name
 								if n == "default:water_source" or n =="default:river_water_source" then	
-								local pos = self.object:getpos()
+								local pos = self.object:get_pos()
 								minetest.set_node(pos, {name="default:ice"})
 								self.object:remove()
 								elseif n ~= "air" then
-									local velo = self.object:getvelocity()
-									self.object:setvelocity({x=velo.x*-1, y=velo.y*0, z=velo.z*1})
+									local velo = self.object:get_velocity()
+									self.object:set_velocity({x=velo.x*-1, y=velo.y*0, z=velo.z*1})
 									--self.object:remove()
 									return
 								end
@@ -404,7 +404,7 @@ minetest.register_entity("witchcraft:ice", {
 						end
 					end
 
-		local apos = self.object:getpos()
+		local apos = self.object:get_pos()
 		local part = minetest.add_particlespawner(
 			10, --amount
 			0.3, --time

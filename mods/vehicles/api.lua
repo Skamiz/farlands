@@ -57,21 +57,21 @@ function vehicles.object_attach(entity, player, attach_at, visible, eye_offset)
 	minetest.after(0.2, function()
 		default.player_set_animation(player, "sit" , 30)
 	end)
-	entity.object:setyaw(player:get_look_yaw() - math.pi / 2)
+	entity.object:set_yaw(player:get_look_yaw() - math.pi / 2)
 end
 
 function vehicles.object_detach(entity, player, offset)
 	entity.driver = nil
-	entity.object:setvelocity({x=0, y=0, z=0})
+	entity.object:set_velocity({x=0, y=0, z=0})
 	player:set_detach()
 	default.player_attached[player:get_player_name()] = false
 	default.player_set_animation(player, "stand" , 30)
 	player:set_properties({visual_size = {x=1, y=1}})
 	player:set_eye_offset({x=0, y=0, z=0}, {x=0, y=0, z=0})
-	local pos = player:getpos()
+	local pos = player:get_pos()
 	pos = {x = pos.x + offset.x, y = pos.y + 0.2 + offset.y, z = pos.z + offset.z}
 	minetest.after(0.1, function()
-		player:setpos(pos)
+		player:set_pos(pos)
 	end)
 end
 -------------------------------------------------------------------------------
@@ -154,12 +154,12 @@ function vehicles.object_drive(entity, dtime, def)
 	
 	--variables
 	local ctrl = entity.driver:get_player_control()
-	local velo = entity.object:getvelocity()
+	local velo = entity.object:get_velocity()
 	local dir = entity.driver:get_look_dir();
 	local vec_backward = {x=-dir.x*speed/4,y=velo.y+1*-2,z=-dir.z*speed/4}
 	local vec_stop = {x=velo.x*decell,y=velo.y+1*-2,z=velo.z*decell}
 	local yaw = entity.driver:get_look_yaw();
-	local pos = entity.object:getpos()
+	local pos = entity.object:get_pos()
 	local node = minetest.get_node(pos).name
 	local node_under = minetest.get_node({x=pos.x, y=pos.y+2, z=pos.z})
 	local accell = 1
@@ -273,20 +273,20 @@ function vehicles.object_drive(entity, dtime, def)
 	
 	--face the right way
 	local target_yaw = yaw+math.pi+math.pi/2+extra_yaw
-	local entity_yaw = entity.object:getyaw()
+	local entity_yaw = entity.object:get_yaw()
 	local change_yaw = (((target_yaw-entity_yaw+math.pi)%(math.pi*2))-math.pi)/(turning_factor*absolute_speed+1)
 	if entity_yaw ~= target_yaw and not uses_arrow_keys then
-		entity.object:setyaw(entity_yaw+change_yaw)
+		entity.object:set_yaw(entity_yaw+change_yaw)
 		dir.x = -math.sin(entity_yaw)
 		dir.z = math.cos(entity_yaw)
 	else
 		--minetest.chat_send_all("yaw:"..entity_yaw)
 		--minetest.chat_send_all("dirx: "..dir.x.." dirz:"..dir.z)
 		if ctrl.left then
-			entity.object:setyaw(entity_yaw+(math.pi/360)*absolute_speed/2)
+			entity.object:set_yaw(entity_yaw+(math.pi/360)*absolute_speed/2)
 		end
 		if ctrl.right then
-			entity.object:setyaw(entity_yaw-(math.pi/360)*absolute_speed/2)
+			entity.object:set_yaw(entity_yaw-(math.pi/360)*absolute_speed/2)
 		end
 		dir.x = -math.sin(entity_yaw)
 		dir.z = math.cos(entity_yaw)
@@ -311,11 +311,11 @@ function vehicles.object_drive(entity, dtime, def)
 	
 	--apply water effects
 	if is_watercraft and entity.in_water then
-		entity.object:setvelocity({x=velo.x*0.9, y=velo.y+1, z=velo.z*0.9})
+		entity.object:set_velocity({x=velo.x*0.9, y=velo.y+1, z=velo.z*0.9})
 	elseif is_watercraft and entity.on_water == false then
-		entity.object:setvelocity({x=velo.x*decell,y=velo.y-1,z=velo.z*decell})
+		entity.object:set_velocity({x=velo.x*decell,y=velo.y-1,z=velo.z*decell})
 	elseif (entity.on_water or entity.in_water) and not is_watercraft then
-		entity.object:setvelocity({x=velo.x*0.9, y=-1, z=velo.z*0.9})
+		entity.object:set_velocity({x=velo.x*0.9, y=-1, z=velo.z*0.9})
 	
 	--brakes
 	elseif ctrl.jump and brakes and not ctrl.up then
@@ -324,7 +324,7 @@ function vehicles.object_drive(entity, dtime, def)
 			velo2 = velo
 		end
 		local effect_pos = {x=pos.x-dir.x*2, y=pos.y, z=pos.z-dir.z*2}
-		entity.object:setvelocity({x=velo2.x*(0.95), y=velo.y, z=velo2.z*(0.95)})
+		entity.object:set_velocity({x=velo2.x*(0.95), y=velo.y, z=velo2.z*(0.95)})
 				minetest.add_particlespawner(
 			4, --amount
 			0.5, --time
@@ -350,7 +350,7 @@ function vehicles.object_drive(entity, dtime, def)
 			velo3 = velo
 		end
 		local effect_pos = {x=pos.x-dir.x*2, y=pos.y, z=pos.z-dir.z*2}
-		entity.object:setvelocity({x=velo.x*(decell), y=velo.y, z=velo.z*(decell)})
+		entity.object:set_velocity({x=velo.x*(decell), y=velo.y, z=velo.z*(decell)})
 				minetest.add_particlespawner(
 			4, --amount
 			0.5, --time
@@ -373,7 +373,7 @@ function vehicles.object_drive(entity, dtime, def)
 	
 	--boost
 	elseif ctrl.up and not shoots2 and ctrl.aux1 and entity.boost then
-		entity.object:setvelocity({x=dir.x*(speed*0.2)*math.log(timer+0.5)+8*dir.x,y=velo.y-gravity/2,z=dir.z*(speed*0.2)*math.log(timer+0.5)+8*dir.z})
+		entity.object:set_velocity({x=dir.x*(speed*0.2)*math.log(timer+0.5)+8*dir.x,y=velo.y-gravity/2,z=dir.z*(speed*0.2)*math.log(timer+0.5)+8*dir.z})
 		if boost_effect ~= nil then
 		local effect_pos = {x=pos.x-dir.x*2, y=pos.y, z=pos.z-dir.z*2}
 			minetest.add_particlespawner(
@@ -403,7 +403,7 @@ function vehicles.object_drive(entity, dtime, def)
 	end
 	--rise
 	elseif ctrl.jump and fly and fly_mode == "rise" then
-		entity.object:setvelocity(vec_rise)
+		entity.object:set_velocity(vec_rise)
 		--lib_mount animation
 	if moving_anim ~= nil and not entity.moving then
 		entity.object:set_animation(moving_anim, anim_speed, 0)
@@ -411,15 +411,15 @@ function vehicles.object_drive(entity, dtime, def)
 	end
 	--hover in place
 	elseif ctrl.jump and ctrl.up and fly and fly_mode == "hold" then
-		entity.object:setvelocity({x=dir.x*speed, y=0, z=dir.z*speed})
+		entity.object:set_velocity({x=dir.x*speed, y=0, z=dir.z*speed})
 	--move forward
 	elseif ctrl.up and not fixed then
 		if not fly and not is_watercraft then
-		entity.object:setvelocity({x=(dir.x*(speed*0.2)*math.log(timer+0.5)+4*dir.x)/(braking*(0.1)+1),y=velo.y-0.5,z=(dir.z*(speed*0.2)*math.log(timer+0.5)+4*dir.z)/(braking*(0.1)+1)})
+		entity.object:set_velocity({x=(dir.x*(speed*0.2)*math.log(timer+0.5)+4*dir.x)/(braking*(0.1)+1),y=velo.y-0.5,z=(dir.z*(speed*0.2)*math.log(timer+0.5)+4*dir.z)/(braking*(0.1)+1)})
 		elseif not fly then
-		entity.object:setvelocity({x=dir.x*(speed*0.2)*math.log(timer+0.5)+4*dir.x,y=0,z=dir.z*(speed*0.2)*math.log(timer+0.5)+4*dir.z})
+		entity.object:set_velocity({x=dir.x*(speed*0.2)*math.log(timer+0.5)+4*dir.x,y=0,z=dir.z*(speed*0.2)*math.log(timer+0.5)+4*dir.z})
 		else
-		entity.object:setvelocity({x=dir.x*(speed*0.2)*math.log(timer+0.5)+4*dir.x,y=dir.y*(speed*0.2)*math.log(timer+0.5)+4*dir.y+1,z=dir.z*(speed*0.2)*math.log(timer+0.5)+4*dir.z})
+		entity.object:set_velocity({x=dir.x*(speed*0.2)*math.log(timer+0.5)+4*dir.x,y=dir.y*(speed*0.2)*math.log(timer+0.5)+4*dir.y+1,z=dir.z*(speed*0.2)*math.log(timer+0.5)+4*dir.z})
 		end
 	--animation
 	if moving_anim ~= nil and not entity.moving and not hovering then
@@ -435,7 +435,7 @@ function vehicles.object_drive(entity, dtime, def)
 			velo2 = velo
 		end
 		local effect_pos = {x=pos.x-dir.x*2, y=pos.y, z=pos.z-dir.z*2}
-		entity.object:setvelocity({x=velo2.x*(0.95), y=velo.y, z=velo2.z*(0.95)})
+		entity.object:set_velocity({x=velo2.x*(0.95), y=velo.y, z=velo2.z*(0.95)})
 				minetest.add_particlespawner(
 			4, --amount
 			0.5, --time
@@ -456,7 +456,7 @@ function vehicles.object_drive(entity, dtime, def)
 		timer = timer-timer/10
 		end
 			else
-			entity.object:setvelocity({x=-dir.x*(speed/4)*accell,y=velo.y-0.5,z=-dir.z*(speed/4)*accell})
+			entity.object:set_velocity({x=-dir.x*(speed/4)*accell,y=velo.y-0.5,z=-dir.z*(speed/4)*accell})
 			end
 		else
 			if brakes and absolute_speed > 5 then
@@ -465,7 +465,7 @@ function vehicles.object_drive(entity, dtime, def)
 			velo2 = velo
 		end
 		local effect_pos = {x=pos.x-dir.x*2, y=pos.y, z=pos.z-dir.z*2}
-		entity.object:setvelocity({x=velo2.x*(0.95), y=velo.y, z=velo2.z*(0.95)})
+		entity.object:set_velocity({x=velo2.x*(0.95), y=velo.y, z=velo2.z*(0.95)})
 				minetest.add_particlespawner(
 			4, --amount
 			0.5, --time
@@ -486,7 +486,7 @@ function vehicles.object_drive(entity, dtime, def)
 		timer = timer-timer/10
 		end
 			else
-		entity.object:setvelocity({x=-dir.x*(speed/4)*accell,y=0,z=-dir.z*(speed/4)*accell})
+		entity.object:set_velocity({x=-dir.x*(speed/4)*accell,y=0,z=-dir.z*(speed/4)*accell})
 		end
 		end
 	--animation
@@ -496,7 +496,7 @@ function vehicles.object_drive(entity, dtime, def)
 	end
 	--stop
 	elseif not ctrl.down or ctrl.up then
-		entity.object:setvelocity({x=velo.x*decell,y=velo.y-gravity,z=velo.z*decell})
+		entity.object:set_velocity({x=velo.x*decell,y=velo.y-gravity,z=velo.z*decell})
 	--animation
 	if moving_anim ~= nil and entity.moving and not hovering then
 		entity.object:set_animation(stand_anim, anim_speed, 0)
@@ -510,8 +510,8 @@ function vehicles.object_drive(entity, dtime, def)
 			entity.loaded = false
 			local obj = minetest.env:add_entity({x=pos.x+0+dir.x*2,y=pos.y+shoot_y+dir.y,z=pos.z+0+dir.z*2}, arrow)
 			local vec = {x=dir.x*14,y=dir.y*14+shoot_angle,z=dir.z*14}
-			obj:setyaw(yaw+math.pi/2+extra_yaw)
-			obj:setvelocity(vec)
+			obj:set_yaw(yaw+math.pi/2+extra_yaw)
+			obj:set_velocity(vec)
 			local object = obj:get_luaentity()
 			object.launcher = entity.driver
 			object.vehicle = entity.object
@@ -534,8 +534,8 @@ function vehicles.object_drive(entity, dtime, def)
 			entity.loaded2 = false
 			local obj = minetest.env:add_entity({x=pos.x+0+dir.x*2,y=pos.y+shoot_y2+dir.y,z=pos.z+0+dir.z*2}, arrow2)
 			local vec = {x=dir.x*20,y=dir.y*20+shoot_angle,z=dir.z*20}
-			obj:setyaw(yaw+math.pi/2+extra_yaw)
-			obj:setvelocity(vec)
+			obj:set_yaw(yaw+math.pi/2+extra_yaw)
+			obj:set_velocity(vec)
 			local object = obj:get_luaentity()
 			object.launcher = entity.driver
 			object.vehicle = entity.object
@@ -555,9 +555,9 @@ function vehicles.object_drive(entity, dtime, def)
 	if jump == "hover" and ctrl.jump and not entity.jumpcharge then
 		if not ctrl.up then
 		local vec_hover = {x=velo.x+0,y=hover_speed,z=velo.z+0}
-		entity.object:setvelocity(vec_hover)
+		entity.object:set_velocity(vec_hover)
 		else
-		entity.object:setvelocity({x=dir.x*(speed*0.2)*math.log(timer+0.5)+4*dir.x,y=hover_speed,z=dir.z*(speed*0.2)*math.log(timer+0.5)+4*dir.z})
+		entity.object:set_velocity({x=dir.x*(speed*0.2)*math.log(timer+0.5)+4*dir.x,y=hover_speed,z=dir.z*(speed*0.2)*math.log(timer+0.5)+4*dir.z})
 		end
 		hovering = true
 		if jump_anim ~= nil and entity.object:get_animation().range ~= jump_anim and hovering then
@@ -575,9 +575,9 @@ function vehicles.object_drive(entity, dtime, def)
 	if jump == "jump" and ctrl.jump and not entity.jumpcharge then
 		if not ctrl.up then
 		local vec_jump = {x=velo.x+0,y=jump_speed,z=velo.z+0}
-		entity.object:setvelocity(vec_jump)
+		entity.object:set_velocity(vec_jump)
 		else
-		entity.object:setvelocity({x=dir.x*speed/4*math.atan(0.5*timer-2)+8*dir.x,y=jump_speed,z=dir.z*speed/4*math.atan(0.5*timer-2)+8*dir.z})
+		entity.object:set_velocity({x=dir.x*speed/4*math.atan(0.5*timer-2)+8*dir.x,y=jump_speed,z=dir.z*speed/4*math.atan(0.5*timer-2)+8*dir.z})
 		end
 		hovering = true
 		if jump_anim ~= nil and entity.object:get_animation().range ~= jump_anim and hovering then
@@ -608,41 +608,41 @@ end
 
 function vehicles.object_drive_simple(entity, dtime, speed, decell)
 	local ctrl = entity.driver:get_player_control()
-	local velo = entity.object:getvelocity()
+	local velo = entity.object:get_velocity()
 	local dir = entity.driver:get_look_dir();
 	local vec_forward = {x=dir.x*speed,y=velo.y+1*-2,z=dir.z*speed}
 	local vec_backward = {x=-dir.x*speed,y=velo.y+1*-2,z=-dir.z*speed}
 	local vec_stop = {x=velo.x*decell,y=velo.y+1*-2,z=velo.z*decell}
 	local yaw = entity.driver:get_look_yaw();
-		entity.object:setyaw(yaw+math.pi+math.pi/2)
+		entity.object:set_yaw(yaw+math.pi+math.pi/2)
 	if ctrl.up then
-		entity.object:setvelocity(vec_forward)
+		entity.object:set_velocity(vec_forward)
 	elseif ctrl.down then
-		entity.object:setvelocity(vec_backward)
+		entity.object:set_velocity(vec_backward)
 	elseif not ctrl.down or ctrl.up then
-		entity.object:setvelocity(vec_stop)
+		entity.object:set_velocity(vec_stop)
 	end
 end
 
 function vehicles.object_glide(entity, dtime, speed, decell, gravity, moving_anim, stand_anim)
 	local ctrl = entity.driver:get_player_control()
 	local dir = entity.driver:get_look_dir();
-	local velo = entity.object:getvelocity();
+	local velo = entity.object:get_velocity();
 	local vec_glide = {x=dir.x*speed*decell, y=velo.y, z=dir.z*speed*decell}
 	local yaw = entity.driver:get_look_yaw();
 	if not ctrl.sneak then
-		entity.object:setyaw(yaw+math.pi+math.pi/2)
-		entity.object:setvelocity(vec_glide)
-		entity.object:setacceleration({x=0, y=gravity, z=0})
+		entity.object:set_yaw(yaw+math.pi+math.pi/2)
+		entity.object:set_velocity(vec_glide)
+		entity.object:set_acceleration({x=0, y=gravity, z=0})
 	end
 	if ctrl.sneak then
 			local vec = {x=0,y=gravity*15,z=0}
 			local yaw = entity.driver:get_look_yaw();
-			entity.object:setyaw(yaw+math.pi+math.pi/2)
-			entity.object:setvelocity(vec)
+			entity.object:set_yaw(yaw+math.pi+math.pi/2)
+			entity.object:set_velocity(vec)
 	end
 	if velo.y == 0 then
-		local pos = entity.object:getpos()
+		local pos = entity.object:get_pos()
 		for dx=-1,1 do
 						for dy=-1,1 do
 							for dz=-1,1 do
@@ -650,7 +650,7 @@ function vehicles.object_glide(entity, dtime, speed, decell, gravity, moving_ani
 								local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 								local n = minetest.env:get_node(p).name
 								if n ~= "massdestruct:parachute" and n ~= "air" then
-									local pos = entity.object:getpos()
+									local pos = entity.object:get_pos()
 									entity.object:remove()
 									return
 								end
@@ -668,21 +668,21 @@ minetest.register_craftitem(vehicle.."_spawner", {
 	wield_scale = {x = 1.5, y = 1.5, z = 1},
 	on_place = function(item, placer, pointed_thing)
 			local dir = placer:get_look_dir();
-			local playerpos = placer:getpos();
+			local playerpos = placer:get_pos();
 			if pointed_thing.type == "node" and not is_boat then
 			local obj = minetest.env:add_entity(pointed_thing.above, vehicle)
 			local object = obj:get_luaentity()
 			object.owner = placer
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 			item:take_item()
 			return item
 			end
 			elseif pointed_thing.type == "node" and minetest.get_item_group(pointed_thing.name, "water") then
 			local obj = minetest.env:add_entity(pointed_thing.under, vehicle)
-			obj:setvelocity({x=0, y=-1, z=0})
+			obj:set_velocity({x=0, y=-1, z=0})
 			local object = obj:get_luaentity()
 			object.owner = placer
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 			item:take_item()
 			return item
 			end
@@ -692,7 +692,7 @@ minetest.register_craftitem(vehicle.."_spawner", {
 end
 
 function vehicles.explodinate(ent, radius)
-	local pos = ent.object:getpos()
+	local pos = ent.object:get_pos()
 	minetest.add_particle({
 		pos = {x=pos.x, y=pos.y, z=pos.z},
 		velocity = {x=0, y=1, z=0},
@@ -778,7 +778,7 @@ function vehicles.on_punch(self, puncher)
 	local creative_mode = creative and creative.is_enabled_for and creative.is_enabled_for(self.driver:get_player_name())
 	if self.driver == puncher and (hp == self.hp_max-5 or hp == self.hp_max or creative_mode) then
 		local name = self.object:get_luaentity().name
-		local pos = self.object:getpos()
+		local pos = self.object:get_pos()
 		minetest.env:add_item(pos, name.."_spawner")
 		vehicles.object_detach(self, self.driver, {x=1, y=0, z=1})
 		self.object:remove()
@@ -793,8 +793,8 @@ function vehicles.object_no_drive(entity, dtime, def)
 	local stand_anim = def.stand_anim
 
 	--variables
-	local velo = entity.object:getvelocity()
-	local pos = entity.object:getpos()
+	local velo = entity.object:get_velocity()
+	local pos = entity.object:get_pos()
 	local node = minetest.get_node(pos).name
 
 	--timer dependant variables
@@ -818,14 +818,14 @@ function vehicles.object_no_drive(entity, dtime, def)
 
 	--apply water effects
 	if is_watercraft and entity.in_water then
-		entity.object:setvelocity({x=velo.x*0.9, y=velo.y+1, z=velo.z*0.9})
+		entity.object:set_velocity({x=velo.x*0.9, y=velo.y+1, z=velo.z*0.9})
 	elseif is_watercraft and entity.on_water == false then
-		entity.object:setvelocity({x=velo.x*decell,y=velo.y-1,z=velo.z*decell})
+		entity.object:set_velocity({x=velo.x*decell,y=velo.y-1,z=velo.z*decell})
 	elseif entity.on_water and not is_watercraft then
-		entity.object:setvelocity({x=velo.x*0.9, y=-1, z=velo.z*0.9})
+		entity.object:set_velocity({x=velo.x*0.9, y=-1, z=velo.z*0.9})
 	else
 	--stop
-		entity.object:setvelocity(vec_stop)
+		entity.object:set_velocity(vec_stop)
 		--animation
 		if moving_anim ~= nil and entity.moving and not hovering then
 			entity.object:set_animation(stand_anim, 20, 0)

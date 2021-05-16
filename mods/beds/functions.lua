@@ -1,7 +1,7 @@
 local pi = math.pi
 local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()
-local enable_respawn = minetest.setting_getbool("enable_bed_respawn")
+local enable_respawn = minetest.settings:get_bool("enable_bed_respawn")
 if enable_respawn == nil then
 	enable_respawn = true
 end
@@ -22,7 +22,7 @@ local function get_look_yaw(pos)
 end
 
 local function is_night_skip_enabled()
-	local enable_night_skip = minetest.setting_getbool("enable_bed_night_skip")
+	local enable_night_skip = minetest.settings:get_bool("enable_bed_night_skip")
 	if enable_night_skip == nil then
 		enable_night_skip = true
 	end
@@ -65,7 +65,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 			return
 		end
 		if p then
-			player:setpos(p)
+			player:set_pos(p)
 		end
 
 		-- physics, eye_offset, etc
@@ -91,7 +91,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		print(dump(player:get_physics_override()))
 		player:set_physics_override(0, 0, 0)
 		print(dump(player:get_physics_override()))
-		player:setpos(p)
+		player:set_pos(p)
 		default.player_attached[name] = true
 		hud_flags.wielditem = false
 		default.player_set_animation(player, "lay" , 0)
@@ -136,7 +136,7 @@ end
 
 function beds.on_rightclick(pos, player)
 	local name = player:get_player_name()
-	local ppos = player:getpos()
+	local ppos = player:get_pos()
 	local tod = minetest.get_timeofday()
 
 	if tod > 0.2 and tod < 0.805 then
@@ -182,7 +182,7 @@ if enable_respawn then
 		local name = player:get_player_name()
 		local pos = beds.spawn[name]
 		if pos then
-			player:setpos(pos)
+			player:set_pos(pos)
 			return true
 		end
 	end)

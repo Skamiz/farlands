@@ -77,12 +77,12 @@ mobs:register_mob("mobs_npc:igor", {
 		-- right clicking with gold lump drops random item from mobs.npc_drops
 		if item:get_name() == "default:gold_lump" then
 
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				item:take_item()
 				clicker:set_wielded_item(item)
 			end
 
-			local pos = self.object:getpos()
+			local pos = self.object:get_pos()
 			pos.y = pos.y + 0.5
 
 			minetest.add_item(pos, {

@@ -1,4 +1,4 @@
-if minetest.setting_get("enable_weather") then
+if minetest.settings:get("enable_weather") then
 local weathers = {
 	{"snow", "rain", "storm", "dust", "insects", "none"},
 }
@@ -14,7 +14,7 @@ minetest.register_node("weather:ice", {
 	tiles = {
 		"weather_ice.png",
 	},
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -33,7 +33,12 @@ local apply_weather = function(player, pos, weather_type)
 	--weather effects
 	if weather_type == "snow" then
 		if minetest.get_timeofday()*24000 >= 6000 and minetest.get_timeofday()*24000 <= 19000 then
-		player:set_sky({r=208, g=223, b=238}, "plain", nil, true)
+			-- player:set_sky({r=208, g=223, b=238}, "plain", nil, true)
+			player:set_sky({
+				base_color = {r=208, g=223, b=238},
+				type = "plain",
+				clouds = true,
+			})
 		end
 		for i=1,24 do
 		minetest.add_particle({
@@ -57,7 +62,12 @@ local apply_weather = function(player, pos, weather_type)
 		end
 	elseif weather_type == "rain" then
 		if minetest.get_timeofday()*24000 >= 6000 and minetest.get_timeofday()*24000 <= 19000 then
-		player:set_sky({r=177, g=177, b=177}, "plain", nil, true)
+			-- player:set_sky({r=177, g=177, b=177}, "plain", nil, true)
+			player:set_sky({
+				base_color = {r=177, g=177, b=177},
+				type = "plain",
+				clouds = true,
+			})
 		end
 		for i=1,24 do
 		minetest.add_particle({
@@ -75,7 +85,12 @@ local apply_weather = function(player, pos, weather_type)
 		end
 	elseif weather_type == "storm" then
 		if minetest.get_timeofday()*24000 >= 6000 and minetest.get_timeofday()*24000 <= 19000 then
-		player:set_sky({r=101, g=101, b=101}, "plain", nil, true)
+			-- player:set_sky({r=101, g=101, b=101}, "plain", nil, true)
+			player:set_sky({
+				base_color = {r=101, g=101, b=101},
+				type = "plain",
+				clouds = true,
+			})
 		end
 		for i=1,48 do
 		minetest.add_particle({
@@ -96,7 +111,12 @@ local apply_weather = function(player, pos, weather_type)
 		end
 	elseif weather_type == "dust" then
 		if minetest.get_timeofday()*24000 >= 6000 and minetest.get_timeofday()*24000 <= 19000 then
-		player:set_sky({r=215, g=156, b=91}, "plain", nil, true)
+			-- player:set_sky({r=215, g=156, b=91}, "plain", nil, true)
+			player:set_sky({
+				base_color = {r=215, g=156, b=91},
+				type = "plain",
+				clouds = true,
+			})
 		end
 		for i=1,12 do
 		minetest.add_particle({
@@ -113,10 +133,18 @@ local apply_weather = function(player, pos, weather_type)
 		})
 		end
 	elseif weather_type == "insects" then
-		player:set_sky(nil, "regular", nil, true)
+		-- player:set_sky(nil, "regular", nil, true)
+		player:set_sky({
+			type = "regular",
+			clouds = true,
+		})
 	elseif weather_type == "none" then
-		player:set_sky(nil, "regular", nil, true)
-		return 
+		-- player:set_sky(nil, "regular", nil, true)
+		player:set_sky({
+			type = "regular",
+			clouds = true,
+		})
+		return
 	end
 end
 
@@ -142,7 +170,7 @@ minetest.register_globalstep(function(dtime)
 	end
 	--player specific
 	for _, player in ipairs(minetest.get_connected_players()) do
-		local pos = player:getpos()
+		local pos = player:get_pos()
 		--check if weather should occur at current location
 		local display_weather = false
 		for _, row in ipairs(nodes) do
@@ -150,7 +178,7 @@ minetest.register_globalstep(function(dtime)
 				display_weather = true
 			elseif row[weather.current] == nil then
 				display_weather = true
-			else 
+			else
 				display_weather = false
 			end
 		end
@@ -159,7 +187,11 @@ minetest.register_globalstep(function(dtime)
 		if display_weather then
 			apply_weather(player, pos, weather.weather)
 			if minetest.get_timeofday()*24000 <= 6000 or minetest.get_timeofday()*24000 >= 19000 then
-				player:set_sky(nil, "regular", nil, true)
+				-- player:set_sky(nil, "regular", nil, true)
+				player:set_sky({
+					type = "regular",
+					clouds = true,
+				})
 			end
 		else
 			apply_weather(player, pos, "none")

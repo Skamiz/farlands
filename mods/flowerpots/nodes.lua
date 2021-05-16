@@ -62,6 +62,7 @@ minetest.register_node("flowerpots:flower_pot", {
 	tiles = {
 		"flowerpot.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_scale = {x=1.0, y=1.0, z=1.0},
 	paramtype = "light",
@@ -82,7 +83,7 @@ minetest.register_node("flowerpots:flower_pot", {
 			local flower_node = row[2]
 			if item == flower_node then
 				minetest.set_node(pos, {name="flowerpots:flower_pot_"..flower})
-				if not minetest.setting_getbool("creative") then
+				if not minetest.settings:get_bool("creative") then
 				itemstack:take_item()
 				end
 			end
@@ -92,7 +93,7 @@ minetest.register_node("flowerpots:flower_pot", {
 			local flower_node = row[2]
 			if item == flower_node then
 				minetest.set_node(pos, {name="flowerpots:flower_pot_"..flower})
-				if not minetest.setting_getbool("creative") then
+				if not minetest.settings:get_bool("creative") then
 				itemstack:take_item()
 				end
 			end
@@ -121,6 +122,7 @@ minetest.register_node("flowerpots:flower_pot_"..flower, {
 	tiles = {
 		"[combine:32x32:0,0=flowerpot.png:0,0="..texture[1],
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_scale = {x=1.0, y=1.0, z=1.0},
 	paramtype = "light",
@@ -155,6 +157,7 @@ minetest.register_node("flowerpots:flower_pot_"..flower, {
 	tiles = {
 		"flowerpot_"..flower..".png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_scale = {x=1.0, y=1.0, z=1.0},
 	paramtype = "light",

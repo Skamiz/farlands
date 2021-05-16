@@ -252,6 +252,7 @@ minetest.register_node("flowers:waterlily", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"flowers_waterlily.png", "flowers_waterlily_bottom.png"},
+	use_texture_alpha = "clip",
 	inventory_image = "flowers_waterlily.png",
 	wield_image = "flowers_waterlily.png",
 	liquids_pointable = true,
@@ -282,7 +283,7 @@ minetest.register_node("flowers:waterlily", {
 			if not minetest.is_protected(pos, player_name) then
 				minetest.set_node(pos, {name = "flowers:waterlily",
 					param2 = math.random(0, 3)})
-				if not minetest.setting_getbool("creative_mode") then
+				if not minetest.settings:get_bool("creative_mode") then
 					itemstack:take_item()
 				end
 			else

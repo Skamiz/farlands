@@ -1,6 +1,6 @@
 dofile(minetest.get_modpath("creative") .. "/inventory.lua")
 
-if minetest.setting_getbool("creative_mode") then
+if minetest.settings:get_bool("creative_mode") then
 	-- Dig time is modified according to difference (leveldiff) between tool
 	-- 'maxlevel' and node 'level'. Digtime is divided by the larger of
 	-- leveldiff and 1.

@@ -57,6 +57,7 @@ for _, row in ipairs(paintings) do
 	tiles = {
 		"paintings_"..name..".png",
 	},
+	use_texture_alpha = "opaque",
 	visual_scale = 0.5,
 	wield_scale = {x=0.5, y=0.5, z=0.5},
 	paramtype = "light",
@@ -78,7 +79,7 @@ for _, row in ipairs(paintings) do
 })
 end
 
-local easel_formspec = 
+local easel_formspec =
 	"size[8,9]" ..
 	default.gui_bg ..
 	default.gui_bg_img ..
@@ -91,12 +92,13 @@ local easel_formspec =
 	"listring[current_name;output]" ..
 	"listring[current_player;main]" ..
 	default.get_hotbar_bg(0,4.85)
-	
+
 minetest.register_node("paintings:easel", {
 	description = "Easel",
 	drawtype = "mesh",
 	mesh = "easel.obj",
 	tiles = {"paintings_easel.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {choppy=1},
@@ -146,7 +148,7 @@ minetest.register_node("paintings:easel", {
 					inv:set_stack("output", 11, row[12])
 					inv:set_stack("output", 12, row[13])
 				end
-			end			
+			end
 		end
 	end,
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
@@ -155,7 +157,7 @@ minetest.register_node("paintings:easel", {
 			local stack = inv:get_stack("input", 1)
 			local stack_name = stack:get_name()
 			inv:remove_item("input", stack_name.." 1")
-			
+
 			inv:set_stack("output", 1, "")
 			inv:set_stack("output", 2, "")
 			inv:set_stack("output", 3, "")

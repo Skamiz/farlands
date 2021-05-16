@@ -9,6 +9,7 @@ minetest.register_node("mapgen:"..name, {
 	tiles = {
 		"mapgen_fern"..texnumber..".png",
 	},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	selection_box = {
 		type = "fixed",
@@ -30,6 +31,7 @@ minetest.register_node("mapgen:"..name, {
 	tiles = {
 		"mapgen_shrub"..texnumber..".png",
 	},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	selection_box = {
 		type = "fixed",
@@ -88,7 +90,7 @@ minetest.register_node("mapgen:dungeon_spawner", {
 		elseif node_below == "default:desert_sand" then
 		end
 		minetest.chat_send_player(clicker:get_player_name(), "This node is unfinished")
-	end,	
+	end,
 })
 
 --plants (PLNT01)
@@ -101,6 +103,7 @@ minetest.register_node("mapgen:waterlily", {
 	paramtype2 = "facedir",
 	visual_scale = 0.5,
 	tiles = {"mapgen_waterlily_noflower.png",},
+	use_texture_alpha = "clip",
 	inventory_image = "mapgen_waterlily_item.png",
 	wield_image = "mapgen_waterlily_item.png",
 	liquids_pointable = true,
@@ -132,7 +135,7 @@ minetest.register_node("mapgen:waterlily", {
 				minetest.set_node(pos, {name = "flowers:waterlily",
 					param2 = math.random(0, 3)})
 				end
-				if not minetest.setting_getbool("creative_mode") then
+				if not minetest.settings:get_bool("creative_mode") then
 					itemstack:take_item()
 				end
 			else
@@ -167,7 +170,7 @@ minetest.override_item("flowers:waterlily", {
 				minetest.set_node(pos, {name = "flowers:waterlily",
 					param2 = math.random(0, 3)})
 				end
-				if not minetest.setting_getbool("creative_mode") then
+				if not minetest.settings:get_bool("creative_mode") then
 					itemstack:take_item()
 				end
 			else
@@ -187,6 +190,7 @@ minetest.register_node("mapgen:dicksonia", {
 	tiles = {
 		"mapgen_dicksonia.png",
 	},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	selection_box = {
 		type = "fixed",
@@ -207,6 +211,7 @@ minetest.register_node("mapgen:statue", {
 	tiles = {
 		"mapgen_statue.png",
 	},
+	use_texture_alpha = "opaque",
 	wield_scale = {x=0.5, y=0.5, z=0.5},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -402,7 +407,7 @@ minetest.register_node("mapgen:creeper", {
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1},
 	sounds = default.node_sound_leaves_defaults(),
 	is_ground_content=true,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	walkable = false,
 	inventory_image = "mapgen_creeper.png",
@@ -422,7 +427,7 @@ minetest.register_node("mapgen:cavefern1", {
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1},
 	sounds = default.node_sound_leaves_defaults(),
 	is_ground_content=true,
-	buildable_to = true, 
+	buildable_to = true,
 	walkable = false,
 	inventory_image = "mapgen_cavefern.png",
 	paramtype = "light",
@@ -442,7 +447,7 @@ minetest.register_node("mapgen:cavefern2", {
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1},
 	sounds = default.node_sound_leaves_defaults(),
 	is_ground_content=true,
-	buildable_to = true, 
+	buildable_to = true,
 	walkable = false,
 	inventory_image = "mapgen_cavefern2.png",
 	paramtype = "light",
@@ -582,7 +587,7 @@ minetest.register_node("mapgen:tallgrass", {
 	tiles = {"mapgen_longgrass.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_longgrass.png",
 	visual_scale = 2,
@@ -602,7 +607,7 @@ minetest.register_node("mapgen:giantgrass", {
 	tiles = {"mapgen_giantgrass.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_giantgrass.png",
 	visual_scale = 4,
@@ -623,7 +628,7 @@ minetest.register_node("mapgen:bananaplant", {
 	tiles = {"mapgen_banana_plant.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_banana_plant.png",
 	visual_scale = 2,
@@ -643,7 +648,7 @@ minetest.register_node("mapgen:jungletree", {
 	tiles = {"mapgen_jungletree.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_jungletree.png",
 	visual_scale = 2,
@@ -712,10 +717,11 @@ minetest.register_node("mapgen:bamboo_grass", {
 minetest.register_node("mapgen:bamboo", {
 	description = "Bamboo",
 	tiles = {
-	"mapgen_bamboo_top.png",	
+	"mapgen_bamboo_top.png",
 	"mapgen_bamboo_top.png",
 	"mapgen_bamboo.png"
 	},
+	use_texture_alpha = "clip",
 	is_ground_content = false,
 	sunlight_propagates = false,
 	groups = {choppy=1, flammable=1, oddly_breakable_by_hand=1, tree=1},
@@ -749,6 +755,7 @@ minetest.register_node("mapgen:bamboo_leaves", {
 	description = "Bamboo Leaves",
 	drawtype = "allfaces_optional",
 	tiles = {"mapgen_bamboo_leaves.png"},
+	use_texture_alpha = "clip",
 	waving = 1,
 	paramtype = "light",
 	is_ground_content = false,
@@ -789,6 +796,7 @@ minetest.register_node("mapgen:bamboo_with_leaves", {
 	"mapgen_bamboo_top.png",
 	"mapgen_bamboo_leaves.png^mapgen_bamboo.png"
 	},
+	use_texture_alpha = "clip",
 	is_ground_content = false,
 	sunlight_propagates = false,
 	groups = {choppy=1, flammable=1, oddly_breakable_by_hand=1, tree=1, leaves=1},
@@ -831,7 +839,7 @@ minetest.register_node("mapgen:jungle_grass_1", {
 	tiles = {"mapgen_jungle_grass_1.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:jungle_grass_5",
 	inventory_image = "mapgen_jungle_grass_1.png",
@@ -850,7 +858,7 @@ minetest.register_node("mapgen:jungle_grass_2", {
 	tiles = {"mapgen_jungle_grass_2.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:jungle_grass_5",
 	inventory_image = "mapgen_jungle_grass_2.png",
@@ -869,7 +877,7 @@ minetest.register_node("mapgen:jungle_grass_3", {
 	tiles = {"mapgen_jungle_grass_3.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:jungle_grass_5",
 	inventory_image = "mapgen_jungle_grass_3.png",
@@ -888,7 +896,7 @@ minetest.register_node("mapgen:jungle_grass_4", {
 	tiles = {"mapgen_jungle_grass_4.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:jungle_grass_5",
 	inventory_image = "mapgen_jungle_grass_4.png",
@@ -907,7 +915,7 @@ minetest.register_node("mapgen:jungle_grass_5", {
 	tiles = {"mapgen_jungle_grass_5.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:jungle_grass_5",
 	inventory_image = "mapgen_jungle_grass_5.png",
@@ -930,7 +938,7 @@ minetest.register_node("mapgen:snow_grass_1", {
 	tiles = {"mapgen_snow_grass_1.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:snow_grass_5",
 	inventory_image = "mapgen_snow_grass_1.png",
@@ -949,7 +957,7 @@ minetest.register_node("mapgen:snow_grass_2", {
 	tiles = {"mapgen_snow_grass_2.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:snow_grass_5",
 	inventory_image = "mapgen_snow_grass_2.png",
@@ -968,7 +976,7 @@ minetest.register_node("mapgen:snow_grass_3", {
 	tiles = {"mapgen_snow_grass_3.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:snow_grass_5",
 	inventory_image = "mapgen_snow_grass_3.png",
@@ -987,7 +995,7 @@ minetest.register_node("mapgen:snow_grass_4", {
 	tiles = {"mapgen_snow_grass_1.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:snow_grass_5",
 	inventory_image = "mapgen_snow_grass_4.png",
@@ -1006,7 +1014,7 @@ minetest.register_node("mapgen:snow_grass_5", {
 	tiles = {"mapgen_snow_grass_5.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:snow_grass_5",
 	inventory_image = "mapgen_snow_grass_5.png",
@@ -1025,7 +1033,7 @@ minetest.register_node("mapgen:swamp_grass_1", {
 	tiles = {"mapgen_swamp_grass_1.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:swamp_grass_5",
 	inventory_image = "mapgen_swamp_grass_1.png",
@@ -1044,7 +1052,7 @@ minetest.register_node("mapgen:swamp_grass_2", {
 	tiles = {"mapgen_swamp_grass_2.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:swamp_grass_5",
 	inventory_image = "mapgen_swamp_grass_2.png",
@@ -1063,7 +1071,7 @@ minetest.register_node("mapgen:swamp_grass_3", {
 	tiles = {"mapgen_swamp_grass_3.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:swamp_grass_5",
 	inventory_image = "mapgen_swamp_grass_3.png",
@@ -1082,7 +1090,7 @@ minetest.register_node("mapgen:swamp_grass_4", {
 	tiles = {"mapgen_swamp_grass_4.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:swamp_grass_5",
 	inventory_image = "mapgen_swamp_grass_4.png",
@@ -1101,7 +1109,7 @@ minetest.register_node("mapgen:swamp_grass_5", {
 	tiles = {"mapgen_swamp_grass_5.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	drop = "mapgen:swamp_grass_5",
 	inventory_image = "mapgen_swamp_grass_5.png",
@@ -1130,6 +1138,7 @@ minetest.register_node("mapgen:vine", {
 	"mapgen_vine.png",
 	"mapgen_vine.png",
 	},
+	use_texture_alpha = "clip",
 	inventory_image = "mapgen_vine.png",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -1164,7 +1173,7 @@ minetest.register_node("mapgen:aloe_vera", {
 	tiles = {"mapgen_aloe_vera.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_aloe_vera.png",
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1},
@@ -1182,7 +1191,7 @@ minetest.register_node("mapgen:cattail", {
 	tiles = {"mapgen_cattail.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_cattail.png",
 	visual_scale = 2,
@@ -1202,7 +1211,7 @@ minetest.register_node("mapgen:small_cactus", {
 	tiles = {"mapgen_small_cactus.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_small_cactus.png",
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1},
@@ -1220,7 +1229,7 @@ minetest.register_node("mapgen:small_cactus_1", {
 	tiles = {"mapgen_small_cactus_1.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_small_cactus_1.png",
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1},
@@ -1238,7 +1247,7 @@ minetest.register_node("mapgen:wild_oat", {
 	tiles = {"mapgen_wild_oat.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_wild_oat.png",
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1},
@@ -1256,7 +1265,7 @@ minetest.register_node("mapgen:wild_oat_dry", {
 	tiles = {"mapgen_wild_oat_dry.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_wild_oat_dry.png",
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1},
@@ -1274,7 +1283,7 @@ minetest.register_node("mapgen:dead_grass_1", {
 	tiles = {"mapgen_dead_grass_2.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_dead_grass_1.png",
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1, not_in_creative_inventory=1},
@@ -1293,7 +1302,7 @@ minetest.register_node("mapgen:dead_grass_2", {
 	tiles = {"mapgen_dead_grass_3.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_dead_grass_2.png",
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1, not_in_creative_inventory=1},
@@ -1312,7 +1321,7 @@ minetest.register_node("mapgen:dead_grass_3", {
 	tiles = {"mapgen_dead_grass_4.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_dead_grass_3.png",
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1, not_in_creative_inventory=1},
@@ -1331,7 +1340,7 @@ minetest.register_node("mapgen:dead_grass_4", {
 	tiles = {"mapgen_dead_grass_5.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_dead_grass_4.png",
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1, not_in_creative_inventory=1},
@@ -1350,7 +1359,7 @@ minetest.register_node("mapgen:dead_grass_5", {
 	tiles = {"mapgen_dead_grass_5.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_dead_grass_4.png",
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1},
@@ -1375,7 +1384,7 @@ minetest.register_node("mapgen:big_coral", {
 	tiles = {"mapgen_big_coral.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	waving = 1,
 	inventory_image = "mapgen_big_coral.png",
@@ -1394,7 +1403,7 @@ minetest.register_node("mapgen:red_coral", {
 	tiles = {"mapgen_pink_coral.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	waving = 1,
 	inventory_image = "mapgen_pink_coral.png",
@@ -1413,7 +1422,7 @@ minetest.register_node("mapgen:orange_coral", {
 	tiles = {"mapgen_orange_coral.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	waving = 1,
 	inventory_image = "mapgen_orange_coral.png",
@@ -1432,7 +1441,7 @@ minetest.register_node("mapgen:blue_coral", {
 	tiles = {"mapgen_blue_coral.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	waving = 1,
 	inventory_image = "mapgen_blue_coral.png",
@@ -1451,7 +1460,7 @@ minetest.register_node("mapgen:anemone", {
 	tiles = {"mapgen_anemone.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	waving = 1,
 	inventory_image = "mapgen_anemone.png",
@@ -1506,7 +1515,7 @@ minetest.register_node("mapgen:seagrass_1", {
 	tiles = {"mapgen_seagrass_1.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	waving = 1,
 	inventory_image = "mapgen_seagrass_1.png",
@@ -1530,7 +1539,7 @@ minetest.register_node("mapgen:seagrass_2", {
 	tiles = {"mapgen_seagrass_2.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	waving = 1,
 	inventory_image = "mapgen_seagrass_2.png",
@@ -1550,7 +1559,7 @@ minetest.register_node("mapgen:seagrass_3", {
 	tiles = {"mapgen_seagrass_3.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	waving = 1,
 	inventory_image = "mapgen_seagrass_3.png",
@@ -1794,11 +1803,12 @@ minetest.register_node("mapgen:crystal_block", {
 		name = "mapgen_crystal_stone.png",
 		animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 1.00},
 	}},
+	use_texture_alpha = "blend",
 	drawtype = "nodebox",
 	paramtype = "light",
 	light_source = 7,
 	groups = {cracky=2, dig_immediate=3, flammable=1},
-	sounds = default.node_sound_glass_defaults()	
+	sounds = default.node_sound_glass_defaults()
 })
 
 minetest.register_node("mapgen:crystal_small", {
@@ -1807,7 +1817,7 @@ minetest.register_node("mapgen:crystal_small", {
 		name = "mapgen_crystal_anim.png",
 		animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 1.00},
 	}},
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -1828,7 +1838,7 @@ minetest.register_node("mapgen:crystal_small", {
 		}
 	},
 	groups = {cracky=2, dig_immediate=3, flammable=1},
-	sounds = default.node_sound_glass_defaults()	
+	sounds = default.node_sound_glass_defaults()
 })
 
 minetest.register_node("mapgen:crystal", {
@@ -1837,7 +1847,7 @@ minetest.register_node("mapgen:crystal", {
 		name = "mapgen_crystal_anim.png",
 		animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 1.00},
 	}},
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -1914,7 +1924,7 @@ minetest.register_abm({
 	chance = 1,
 	action = function(pos, node)
 		if minetest.get_timeofday() <= 0.6 and minetest.get_timeofday() >= 0.2 and pos.y >= -20 then
-		return 
+		return
 		end
 		minetest.add_particle({
 			pos = {x=pos.x, y=pos.y+0.1, z=pos.z},
@@ -1938,7 +1948,7 @@ minetest.register_abm({
 	chance = 1,
 	action = function(pos, node)
 		if minetest.get_timeofday() <= 0.6 and minetest.get_timeofday() >= 0.2 and pos.y >= -20  then
-		return 
+		return
 		end
 		local dir = minetest.facedir_to_dir(node.param2)
 		local particle_pos = {x=pos.x-0.22*dir.z*1.2, y=pos.y+0.1, z=pos.z-0.18*dir.x*1.2}
@@ -1981,7 +1991,7 @@ minetest.register_node("mapgen:dirty_water_source", {
 	drawtype = "liquid",
 	tiles = {
 		{
-			name = "mapgen_dirty_water_source_animated.png",
+			name = "mapgen_dirty_water_source_animated.png^[opacity:200",
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -1990,19 +2000,20 @@ minetest.register_node("mapgen:dirty_water_source", {
 			},
 		},
 	},
-	special_tiles = {
-		{
-			name = "mapgen_dirty_water_source_animated.png",
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 2.0,
-			},
-			backface_culling = false,
-		},
-	},
-	alpha = 160,
+	-- special_tiles = {
+	-- 	{
+	-- 		name = "mapgen_dirty_water_source_animated.png",
+	-- 		animation = {
+	-- 			type = "vertical_frames",
+	-- 			aspect_w = 16,
+	-- 			aspect_h = 16,
+	-- 			length = 2.0,
+	-- 		},
+	-- 		backface_culling = false,
+	-- 	},
+	-- },
+	-- alpha = 160,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	walkable = false,
 	pointable = false,
@@ -2025,10 +2036,10 @@ minetest.register_node("mapgen:dirty_water_source", {
 minetest.register_node("mapgen:dirty_water_flowing", {
 	description = "Flowing Dirty Water",
 	drawtype = "flowingliquid",
-	tiles = {"default_river_water.png^[colorize:green:100"},
+	-- tiles = {"default_river_water.png^[colorize:green:100"},
 	special_tiles = {
 		{
-			name = "mapgen_dirty_water_flowing_animated.png",
+			name = "mapgen_dirty_water_flowing_animated.png^[opacity:200",
 			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
@@ -2038,7 +2049,7 @@ minetest.register_node("mapgen:dirty_water_flowing", {
 			},
 		},
 		{
-			name = "mapgen_dirty_water_flowing_animated.png",
+			name = "mapgen_dirty_water_flowing_animated.png^[opacity:200",
 			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
@@ -2048,7 +2059,8 @@ minetest.register_node("mapgen:dirty_water_flowing", {
 			},
 		},
 	},
-	alpha = 160,
+	-- alpha = 160,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	paramtype2 = "flowingliquid",
 	walkable = false,
@@ -2151,7 +2163,7 @@ minetest.register_node("mapgen:glowing_mushroom_white", {
 	paramtype = "light",
 	light_source = 9,
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "mapgen_glowing_mushroom_white.png",
 	groups = {snappy=3, flammable=1, attached_node=1, flora=1},

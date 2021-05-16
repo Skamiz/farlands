@@ -15,7 +15,7 @@ minetest.register_entity("fireworks:dummy_entity", {
 		for i=1,2 do
 		minetest.after(i/10, function()
 			if self.object ~= nil then
-			local pos = self.object:getpos()
+			local pos = self.object:get_pos()
 			if pos == nil then
 			return end
 			minetest.add_particle({
@@ -48,7 +48,7 @@ minetest.register_entity("fireworks:firework_"..number.."_rocket", {
 	on_activate = function(self)
 		minetest.after(3, function()
 			local pos = self.object:get_pos()
-			local velo = self.object:getvelocity()
+			local velo = self.object:get_velocity()
 			if pos == nil or velo == nil then
 			return
 			end
@@ -130,7 +130,7 @@ minetest.register_entity("fireworks:firework_"..number.."_rocket", {
 	on_activate = function(self)
 		minetest.after(3, function()
 			local pos = self.object:get_pos()
-			local velo = self.object:getvelocity()
+			local velo = self.object:get_velocity()
 			if pos == nil or velo == nil then
 			return
 			end
@@ -155,14 +155,14 @@ minetest.register_entity("fireworks:firework_"..number.."_rocket", {
 			local spark = minetest.add_entity(pos, "fireworks:dummy_entity")
 			local spark_thing = spark:get_luaentity()
 			spark_thing.texture = tex1
-			spark:setvelocity({x=math.random(-1,1)*3, y=math.random(-1,1)*3, z=math.random(-1,1)*3})
-			spark:setacceleration({x=math.random(-1,1)*3, y=math.random(-4,-4), z=math.random(-1,1)*3})
+			spark:set_velocity({x=math.random(-1,1)*3, y=math.random(-1,1)*3, z=math.random(-1,1)*3})
+			spark:set_acceleration({x=math.random(-1,1)*3, y=math.random(-4,-4), z=math.random(-1,1)*3})
 			elseif shape == "scatter" then
 			local spark = minetest.add_entity(pos, "fireworks:dummy_entity")
 			local spark_thing = spark:get_luaentity()
 			spark_thing.texture = tex1
-			spark:setvelocity({x=math.random(-4,4), y=math.random(-4,4), z=math.random(-4,4)})
-			spark:setacceleration({x=math.random(-4,4), y=math.random(-4,-4), z=math.random(-4,4)})
+			spark:set_velocity({x=math.random(-4,4), y=math.random(-4,4), z=math.random(-4,4)})
+			spark:set_acceleration({x=math.random(-4,4), y=math.random(-4,-4), z=math.random(-4,4)})
 			minetest.add_particle({
 				pos = {x=pos.x, y=pos.y, z=pos.z},
 				velocity = {x=math.random(-2,2), y=math.random(5,9), z=math.random(-2,2)},
@@ -195,7 +195,7 @@ minetest.register_entity("fireworks:firework_"..number.."_rocket", {
 	on_activate = function(self)
 		minetest.after(3, function()
 			local pos = self.object:get_pos()
-			local velo = self.object:getvelocity()
+			local velo = self.object:get_velocity()
 			if pos == nil or velo == nil then
 			return
 			end
@@ -272,18 +272,18 @@ minetest.register_tool("fireworks:gun", {
 	if number == nil then
 	return item
 	end
-		local pos = placer:getpos()
+		local pos = placer:get_pos()
 		if pointed_thing ~= nil then
 			local dir = placer:get_look_dir()
 			local obj =  minetest.env:add_entity({x=pos.x+dir.x, y=pos.y+dir.y+0.5, z=pos.z+dir.z}, "fireworks:firework_"..number.."_rocket")
 			minetest.sound_play("firework_whistle", {pos = pos, gain = 0.2, max_hear_distance = 15})
-			obj:setvelocity({x=dir.x*15, y=dir.y*20, z=dir.z*15})
-			obj:setacceleration({x=dir.x*2, y=-2, z=dir.z*2})
+			obj:set_velocity({x=dir.x*15, y=dir.y*20, z=dir.z*15})
+			obj:set_acceleration({x=dir.x*2, y=-2, z=dir.z*2})
 			local rocket = obj:get_luaentity()
 			for i=1,23 do
 			minetest.after(i/9, function()
 			local pos = rocket.object:get_pos()
-			local velo = rocket.object:getvelocity()
+			local velo = rocket.object:get_velocity()
 			if pos == nil or velo == nil then
 			return item
 			end
@@ -310,13 +310,13 @@ function firework_launch(pos, name)
 minetest.remove_node(pos)
 local obj =  minetest.env:add_entity({x=pos.x, y=pos.y, z=pos.z}, name.."_rocket")
 			minetest.sound_play("firework_whistle", {pos = pos, gain = 0.2, max_hear_distance = 15})
-			obj:setvelocity({x=0, y=15, z=0})
-			obj:setacceleration({x=0, y=2, z=0})
+			obj:set_velocity({x=0, y=15, z=0})
+			obj:set_acceleration({x=0, y=2, z=0})
 			local rocket = obj:get_luaentity()
 			for i=1,23 do
 			minetest.after(i/9, function()
 			local pos = rocket.object:get_pos()
-			local velo = rocket.object:getvelocity()
+			local velo = rocket.object:get_velocity()
 			if pos == nil or velo == nil then
 			return
 			end
@@ -343,6 +343,7 @@ minetest.register_node("fireworks:firework_1", {
 	drawtype = "mesh",
 	mesh = "firework_rocket2.b3d",
 	tiles = {"firework_rocket.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	collision_box = {
 	type = "fixed",
@@ -367,6 +368,7 @@ minetest.register_node("fireworks:firework_2", {
 	drawtype = "mesh",
 	mesh = "firework_rocket2.b3d",
 	tiles = {"firework_rocket.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	collision_box = {
 	type = "fixed",
@@ -391,6 +393,7 @@ minetest.register_node("fireworks:firework_3", {
 	drawtype = "mesh",
 	mesh = "firework_rocket2.b3d",
 	tiles = {"firework_rocket.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	collision_box = {
 	type = "fixed",
@@ -415,6 +418,7 @@ minetest.register_node("fireworks:firework_4", {
 	drawtype = "mesh",
 	mesh = "firework_rocket2.b3d",
 	tiles = {"firework_rocket.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	collision_box = {
 	type = "fixed",
@@ -439,6 +443,7 @@ minetest.register_node("fireworks:firework_5", {
 	drawtype = "mesh",
 	mesh = "firework_rocket2.b3d",
 	tiles = {"firework_rocket.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	collision_box = {
 	type = "fixed",
@@ -463,6 +468,7 @@ minetest.register_node("fireworks:firework_6", {
 	drawtype = "mesh",
 	mesh = "firework_rocket2.b3d",
 	tiles = {"firework_rocket.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	collision_box = {
 	type = "fixed",
@@ -487,6 +493,7 @@ minetest.register_node("fireworks:firework_7", {
 	drawtype = "mesh",
 	mesh = "firework_rocket2.b3d",
 	tiles = {"firework_rocket.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	collision_box = {
 	type = "fixed",
@@ -511,6 +518,7 @@ minetest.register_node("fireworks:firework_8", {
 	drawtype = "mesh",
 	mesh = "firework_rocket2.b3d",
 	tiles = {"firework_rocket.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	collision_box = {
 	type = "fixed",
@@ -535,6 +543,7 @@ minetest.register_node("fireworks:firework_9", {
 	drawtype = "mesh",
 	mesh = "firework_rocket2.b3d",
 	tiles = {"firework_rocket.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	collision_box = {
 	type = "fixed",

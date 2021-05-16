@@ -1,0 +1,1 @@
+mapgen:bamboo_grass isn't buidable_to

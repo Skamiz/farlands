@@ -5,6 +5,7 @@ minetest.register_node("backpack:backpack", {
 	tiles = {
 		"backpack.png",
 	},
+	use_texture_alpha = "opaque",
 	visual_scale = 0.5,
 	wield_image = "backpack_item.png",
 	wield_scale = {x=1.0, y=1.0, z=1.0},

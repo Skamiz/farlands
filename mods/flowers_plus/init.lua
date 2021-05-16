@@ -50,7 +50,7 @@ minetest.register_node("flowers_plus:foxglove", {
 	tiles = {"flowers_foxglove_pink.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "flowers_foxglove_pink.png",
 	visual_scale = 2,
@@ -70,7 +70,7 @@ minetest.register_node("flowers_plus:foxglove_purple", {
 	tiles = {"flowers_foxglove_purple.png"},
 	paramtype = "light",
 	is_ground_content = false,
-	buildable_to = true, 
+	buildable_to = true,
 	sunlight_propagates = true,
 	inventory_image = "flowers_foxglove_purple.png",
 	visual_scale = 2,
@@ -92,6 +92,7 @@ minetest.register_node("flowers_plus:red_ground_flower", {
 	tiles = {
 		"flowers_red_ground_flower.png",
 	},
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -111,6 +112,7 @@ minetest.register_node("flowers_plus:pink_ground_flower", {
 	tiles = {
 		"flowers_pink_ground_flower.png",
 	},
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -130,6 +132,7 @@ minetest.register_node("flowers_plus:blue_ground_flower", {
 	tiles = {
 		"flowers_blue_ground_flower.png",
 	},
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "fixed",
 		fixed = {

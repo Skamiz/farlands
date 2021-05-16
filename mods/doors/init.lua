@@ -82,6 +82,7 @@ minetest.register_node("doors:hidden", {
 	on_blast = function() end,
 	tiles = {"doors_blank.png"},
 	-- 1px transparent block inside door hinge near node top.
+	use_texture_alpha = "clip",
 	nodebox = {
 		type = "fixed",
 		fixed = {-15/32, 13/32, -15/32, -13/32, 1/2, -13/32},
@@ -327,7 +328,7 @@ function doors.register(name, def)
 				meta:set_string("infotext", "Owned by " .. pn)
 			end
 
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:take_item()
 			end
 
@@ -439,6 +440,7 @@ end
 
 doors.register("door_wood", {
 		tiles = {{ name = "doors_door_wood.png", backface_culling = true }},
+		use_texture_alpha = "clip",
 		description = "Oak Wood Door",
 		inventory_image = "doors_item_wood.png",
 		groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -451,6 +453,7 @@ doors.register("door_wood", {
 
 doors.register("door_jungle_wood", {
 		tiles = {{ name = "doors_jungle_wood_door.png", backface_culling = true }},
+		use_texture_alpha = "clip",
 		description = "Jungle Wood Door",
 		inventory_image = "doors_jungle_wood_door_item.png",
 		groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -463,6 +466,7 @@ doors.register("door_jungle_wood", {
 
 doors.register("door_pine_wood", {
 		tiles = {{ name = "doors_pine_wood_door.png", backface_culling = true }},
+		use_texture_alpha = "clip",
 		description = "Pine Wood Door",
 		inventory_image = "doors_pine_wood_door_item.png",
 		groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -475,6 +479,7 @@ doors.register("door_pine_wood", {
 
 doors.register("door_acacia_wood", {
 		tiles = {{ name = "doors_acacia_wood_door.png", backface_culling = true }},
+		use_texture_alpha = "clip",
 		description = "Acacia Wood Door",
 		inventory_image = "doors_acacia_wood_door_item.png",
 		groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -487,6 +492,7 @@ doors.register("door_acacia_wood", {
 
 doors.register("door_aspen_wood", {
 		tiles = {{ name = "doors_aspen_wood_door.png", backface_culling = true }},
+		use_texture_alpha = "clip",
 		description = "Aspen Wood Door",
 		inventory_image = "doors_aspen_wood_door_item.png",
 		groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -499,6 +505,7 @@ doors.register("door_aspen_wood", {
 
 doors.register("door_willow_wood", {
 		tiles = {{ name = "doors_willow_wood_door.png", backface_culling = true }},
+		use_texture_alpha = "clip",
 		description = "Willow Wood Door",
 		inventory_image = "doors_willow_wood_door_item.png",
 		groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -511,6 +518,7 @@ doors.register("door_willow_wood", {
 
 doors.register("door_baobab_wood", {
 		tiles = {{ name = "doors_baobab_wood_door.png", backface_culling = true }},
+		use_texture_alpha = "clip",
 		description = "Baobab Wood Door",
 		inventory_image = "doors_baobab_wood_door_item.png",
 		groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -523,6 +531,7 @@ doors.register("door_baobab_wood", {
 
 doors.register("door_yellow_ipewood", {
 		tiles = {{ name = "doors_yellow_ipe_wood_door.png", backface_culling = true }},
+		use_texture_alpha = "clip",
 		description = "Yellow Ipe Wood Door",
 		inventory_image = "doors_yellow_ipe_wood_door_item.png",
 		groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -535,6 +544,7 @@ doors.register("door_yellow_ipewood", {
 
 doors.register("door_palm_wood", {
 		tiles = {{ name = "doors_palm_wood_door.png", backface_culling = true }},
+		use_texture_alpha = "clip",
 		description = "Palm Wood Door",
 		inventory_image = "doors_palm_wood_door_item.png",
 		groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -547,6 +557,7 @@ doors.register("door_palm_wood", {
 
 doors.register("door_copper", {
 		tiles = {{ name = "doors_door_copper.png", backface_culling = true }},
+		use_texture_alpha = "clip",
 		description = "Copper Door",
 		inventory_image = "doors_item_copper.png",
 		groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -559,6 +570,7 @@ doors.register("door_copper", {
 
 doors.register("door_bamboo", {
 		tiles = {{ name = "doors_door_bamboo.png", backface_culling = true }},
+		use_texture_alpha = "clip",
 		description = "Bamboo Door",
 		inventory_image = "doors_item_bamboo.png",
 		groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -571,6 +583,7 @@ doors.register("door_bamboo", {
 
 doors.register("door_steel", {
 		tiles = {{name = "doors_door_steel.png", backface_culling = true}},
+		use_texture_alpha = "clip",
 		description = "Steel Door",
 		inventory_image = "doors_item_steel.png",
 		protected = true,
@@ -587,6 +600,7 @@ doors.register("door_steel", {
 
 doors.register("door_ice", {
 		tiles = {{name = "doors_door_ice.png", backface_culling = true}},
+		use_texture_alpha = "opaque",
 		description = "ice Door",
 		inventory_image = "doors_item_ice.png",
 		groups = {door=1, cracky=3, oddly_breakable_by_hand=3},
@@ -602,6 +616,7 @@ doors.register("door_ice", {
 
 doors.register("door_glass", {
 		tiles = {"doors_door_glass.png"},
+		use_texture_alpha = "clip",
 		description = "Glass Door",
 		inventory_image = "doors_item_glass.png",
 		groups = {door=1, cracky=3, oddly_breakable_by_hand=3},
@@ -617,6 +632,7 @@ doors.register("door_glass", {
 
 doors.register("door_obsidian_glass", {
 		tiles = {"doors_door_obsidian_glass.png"},
+		use_texture_alpha = "clip",
 		description = "Obsidian Glass Door",
 		inventory_image = "doors_item_obsidian_glass.png",
 		groups = {door=1, cracky=3},
@@ -719,7 +735,7 @@ function doors.register_trapdoor(name, def)
 			meta:set_string("doors_owner", pn)
 			meta:set_string("infotext", "Owned by "..pn)
 
-			return minetest.setting_getbool("creative_mode")
+			return minetest.settings:get_bool("creative_mode")
 		end
 
 		def.on_blast = function() end
@@ -812,6 +828,7 @@ doors.register_trapdoor("doors:trapdoor", {
 	wield_image = "doors_trapdoor.png",
 	tile_front = "doors_trapdoor.png",
 	tile_side = "doors_trapdoor_side.png",
+	use_texture_alpha = "opaque",
 	groups = {door=1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, door = 1},
 })
 
@@ -821,6 +838,7 @@ doors.register_trapdoor("doors:trapdoor_steel", {
 	wield_image = "doors_trapdoor_steel.png",
 	tile_front = "doors_trapdoor_steel.png",
 	tile_side = "doors_trapdoor_steel_side.png",
+	use_texture_alpha = "clip",
 	protected = true,
 	sounds = default.node_sound_metal_defaults(),
 	sound_open = "doors_steel_door_open",

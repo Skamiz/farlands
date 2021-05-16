@@ -79,7 +79,7 @@ local function update_entity(pos)
 				yaw = math.pi / 2
 			end
 		end
-		object:setyaw(yaw)
+		object:set_yaw(yaw)
 		object:set_properties({textures={texture}})
 	end
 end
@@ -103,6 +103,7 @@ minetest.register_node("3d_armor_stand:armor_stand", {
 	drawtype = "mesh",
 	mesh = "3d_armor_stand.obj",
 	tiles = {"3d_armor_stand.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	paramtype2 = "facedir",
 	walkable = false,
@@ -170,6 +171,7 @@ minetest.register_node("3d_armor_stand:locked_armor_stand", {
 	drawtype = "mesh",
 	mesh = "3d_armor_stand.obj",
 	tiles = {"3d_armor_stand_locked.png"},
+	use_texture_alpha = "opaque",
 	paramtype = "light",
 	paramtype2 = "facedir",
 	walkable = false,
@@ -258,7 +260,7 @@ minetest.register_entity("3d_armor_stand:armor_entity", {
 	pos = nil,
 	timer = 0,
 	on_activate = function(self)
-		local pos = self.object:getpos()
+		local pos = self.object:get_pos()
 		if pos then
 			self.pos = vector.round(pos)
 			update_entity(pos)
@@ -271,7 +273,7 @@ minetest.register_entity("3d_armor_stand:armor_entity", {
 		self.timer = self.timer + dtime
 		if self.timer > 1 then
 			self.timer = 0
-			local pos = self.object:getpos()
+			local pos = self.object:get_pos()
 			if pos then
 				if vector.equals(vector.round(pos), self.pos) then
 					return
@@ -298,4 +300,3 @@ minetest.register_craft({
 		{"3d_armor_stand:armor_stand", "default:steel_ingot"},
 	}
 })
-

@@ -78,7 +78,7 @@ minetest.register_node("mobs_npc:beacon", {
 			{0.4375, -0.5, -0.5, 0.5, 0.5, -0.4375}, -- NodeBox12
 		}
 	},
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	groups = {cracky=1, oddly_breakeable_by_hand=1},
 	sounds = default.node_sound_glass_defaults()
 })

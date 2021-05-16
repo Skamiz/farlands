@@ -326,6 +326,7 @@ for i=1, #nodes do
 			drawtype = "nodebox",
 			sounds = def.sounds,
 			tiles = tiles,
+			use_texture_alpha = "clip",
 			groups = groups,
 			-- `unpack` has been changed to `table.unpack` in newest Lua versions.
 			node_box = workbench:pixelbox(16, {unpack(d, 3)}),
@@ -335,4 +336,3 @@ for i=1, #nodes do
 	end
 end
 end
-

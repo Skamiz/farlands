@@ -56,11 +56,11 @@ do
 		if(string ~= nil) then
 			local savetable = minetest.deserialize(string)
 			playereffects.inactive_effects = savetable.inactive_effects
-			minetest.debug("[playereffects] playereffects.mt successfully read.")
-			minetest.debug("[playereffects] inactive_effects = "..dump(playereffects.inactive_effects))
+			-- minetest.debug("[playereffects] playereffects.mt successfully read.")
+			-- minetest.debug("[playereffects] inactive_effects = "..dump(playereffects.inactive_effects))
 			playereffects.last_effect_id = savetable.last_effect_id
-			minetest.debug("[playereffects] last_effect_id = "..dump(playereffects.last_effect_id))
-			
+			-- minetest.debug("[playereffects] last_effect_id = "..dump(playereffects.last_effect_id))
+
 		end
 	end
 end
@@ -88,7 +88,7 @@ function playereffects.register_effect_type(effect_type_id, description, icon, g
 		effect_type.hidden = false
 	end
 	if cancel_on_death ~= nil then
-		effect_type.cancel_on_death = cancel_on_death 
+		effect_type.cancel_on_death = cancel_on_death
 	else
 		effect_type.cancel_on_death = true
 	end
@@ -180,7 +180,7 @@ function playereffects.apply_effect_type(effect_type_id, duration, player, repea
 	end
 
 	local effect = {
-			playername = playername, 
+			playername = playername,
 			effect_id = effect_id,
 			effect_type_id = effect_type_id,
 			start_time = start_time,
@@ -295,7 +295,7 @@ function playereffects.get_player_effects(playername)
 		end
 		return effects
 	else
-		return {} 
+		return {}
 	end
 end
 
@@ -410,7 +410,7 @@ minetest.register_globalstep(function(dtime)
 	-- Update HUDs of all players
 	if(playereffects.globalstep_timer >= 1) then
 		playereffects.globalstep_timer = 0
-	
+
 		local players = minetest.get_connected_players()
 		for p=1,#players do
 			playereffects.hud_update(players[p])
@@ -496,7 +496,7 @@ function playereffects.hud_effect(effect_type_id, player, pos, time_left, repeat
 			alignment = { x = -1, y = 0 },
 			direction = 1,
 			number = color,
-			offset = { x = -5, y = pos*20 } 
+			offset = { x = -5, y = pos*20 }
 		})
 		if(playereffects.effect_types[effect_type_id].icon ~= nil) then
 			icon_id = player:hud_add({
@@ -509,7 +509,7 @@ function playereffects.hud_effect(effect_type_id, player, pos, time_left, repeat
 				direction = 0,
 				offset = { x = -186, y = pos*20 },
 			})
-		end	
+		end
 	else
 		text_id = nil
 		icon_id = nil

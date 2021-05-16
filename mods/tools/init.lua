@@ -4,7 +4,7 @@ minetest.register_globalstep(function()
 	if player:get_player_name() ~= "singleplayer" then return end
 		local item = player:get_wielded_item():get_name()
 		if item == "default:torch" or item == "decoblocks:lantern" then
-			local pos = player:getpos()
+			local pos = player:get_pos()
 			pos.y = pos.y+1.2
 			if minetest.get_node(pos).name == "air" then
 				minetest.set_node(pos, {name="tools:light"})
@@ -44,7 +44,7 @@ minetest.register_craftitem("tools:watering_can", {
 	on_use = function(item, placer, pointed_thing)
 	if pointed_thing.under == nil then return end
 	local dir = placer:get_look_dir()
-	local pos1 = placer:getpos()
+	local pos1 = placer:get_pos()
 	local pos = pointed_thing.under
 	for i=1,10 do
 		minetest.add_particle({

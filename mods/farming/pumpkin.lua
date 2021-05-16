@@ -50,6 +50,7 @@ minetest.register_node("farming:pumpkin_3", {
 	"farming_pumpkin_3_top.png",
 	"farming_pumpkin_3.png",
 	},
+	use_texture_alpha = "clip",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -84,6 +85,7 @@ minetest.register_node("farming:pumpkin_4", {
 	"farming_pumpkin_4_top.png",
 	"farming_pumpkin_4.png",
 	},
+	use_texture_alpha = "clip",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {

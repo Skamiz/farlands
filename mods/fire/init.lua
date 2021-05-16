@@ -115,7 +115,7 @@ minetest.register_tool("fire:flint_and_steel", {
 				minetest.set_node(pt.above, {name = "fire:basic_flame"})
 			end
 		end
-		if not minetest.setting_getbool("creative_mode") then
+		if not minetest.settings:get_bool("creative_mode") then
 			-- Wear tool
 			local wdef = itemstack:get_definition()
 			itemstack:add_wear(1000)
@@ -159,7 +159,7 @@ minetest.override_item("default:coalblock", {
 -- Sound
 --
 
-local flame_sound = minetest.setting_getbool("flame_sound")
+local flame_sound = minetest.settings:get_bool("flame_sound")
 if flame_sound == nil then
 	-- Enable if no setting present
 	flame_sound = true
@@ -180,7 +180,7 @@ if flame_sound then
 	function fire.update_player_sound(player)
 		local player_name = player:get_player_name()
 		-- Search for flame nodes in radius around player
-		local ppos = player:getpos()
+		local ppos = player:get_pos()
 		local areamin = vector.subtract(ppos, radius)
 		local areamax = vector.add(ppos, radius)
 		local fpos, num = minetest.find_nodes_in_area(
@@ -301,11 +301,11 @@ minetest.register_abm({
 
 -- Enable the following ABMs according to 'enable fire' setting
 
-local fire_enabled = minetest.setting_getbool("enable_fire")
+local fire_enabled = minetest.settings:get_bool("enable_fire")
 if fire_enabled == nil then
 	-- New setting not specified, check for old setting.
 	-- If old setting is also not specified, 'not nil' is true.
-	fire_enabled = not minetest.setting_getbool("disable_fire")
+	fire_enabled = not minetest.settings:get_bool("disable_fire")
 end
 
 if not fire_enabled then

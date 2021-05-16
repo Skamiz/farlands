@@ -160,7 +160,7 @@ mobs:register_mob("mobs_m:pterodactyl_walking", {
 			local obj = minetest.add_entity(pos, "mobs_m:pterodactyl")
 			local newmob = obj:get_luaentity()
 			newmob.hp = self.object:get_hp()
-			obj:setpos({x=pos.x, y=pos.y+1, z=pos.z})
+			obj:set_pos({x=pos.x, y=pos.y+1, z=pos.z})
 			self.object:remove()
 		end
 	end,

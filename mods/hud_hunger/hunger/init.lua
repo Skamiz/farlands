@@ -35,7 +35,7 @@ hud.save_hunger = hunger.save
 hud.load_hunger = hunger.load
 
 -- Callbacks
-if minetest.setting_getbool("enable_damage") then
+if minetest.settings:get_bool("enable_damage") then
 
 	minetest.register_on_joinplayer(function(player)
 		local inv = player:get_inventory()

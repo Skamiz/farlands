@@ -6,7 +6,7 @@
 	-- These first to avoid other ores in blobs
 
 	--kelp stone
-	
+
 	minetest.register_ore({
 		ore_type        = "blob",
 		ore             = "mapgen:stone_with_sea_grass",
@@ -25,7 +25,7 @@
 			persist = 0.0
 		},
 	})
-	
+
 	-- Clay
 	-- This first to avoid clay in sand blobs
 
@@ -47,7 +47,7 @@
 			persist = 0.0
 		},
 	})
-	
+
 
 	-- Sand
 
@@ -93,7 +93,7 @@
 		biomes = {"taiga", "snowy_grassland", "grassland", "coniferous_forest",
 			"deciduous_forest", "savanna", "rainforest"}
 	})
-	
+
 		minetest.register_ore({
 		ore_type        = "blob",
 		ore             = "mapgen:coarse_dirt",
@@ -135,11 +135,11 @@
 			persist = 0.0
 		},
 	})
-	
 
-	
+
+
 	--swamp water
-	
+
 		minetest.register_ore({
 		ore_type        = "blob",
 		ore             = "mapgen:dirty_water_source",
@@ -158,9 +158,9 @@
 			persist = 0.0
 		},
 	})
-	
+
 	--new stone
-	
+
 		minetest.register_ore({
 		ore_type        = "blob",
 		ore             = "mapgen:limestone",
@@ -179,7 +179,7 @@
 			persist = 0.0
 		},
 	})
-	
+
 		minetest.register_ore({
 		ore_type        = "blob",
 		ore             = "mapgen:granite_brown",
@@ -198,7 +198,7 @@
 			persist = 0.0
 		},
 	})
-	
+
 		minetest.register_ore({
 		ore_type        = "blob",
 		ore             = "mapgen:granite",
@@ -217,7 +217,7 @@
 			persist = 0.0
 		},
 	})
-	
+
 		minetest.register_ore({
 		ore_type        = "blob",
 		ore             = "mapgen:dry_dirt",
@@ -238,7 +238,7 @@
 	})
 
 	--dirt with leaves
-	
+
 	--[[minetest.register_ore({
 		ore_type        = "blob",
 		ore             = "mapgen:dirt_with_leafygrass",
@@ -260,7 +260,7 @@
 	})]]
 
 	--coarse dirt
-	
+
 			minetest.register_ore({
 		ore_type        = "blob",
 		ore             = "mapgen:coarse_dirt",
@@ -279,7 +279,7 @@
 			persist = 0.0
 		},
 	})
-	
+
 	minetest.register_ore({
 		ore_type        = "blob",
 		ore             = "mapgen:coarse_dirt",
@@ -299,7 +299,7 @@
 		},
 		biomes = {"coniferous_forest_tall",}
 	})
-	
+
 	-- Scatter ores
 
 	-- Coal
@@ -360,7 +360,7 @@
 	})
 
 	--Tin
-	
+
 	minetest.register_ore({
 		ore_type       = "scatter",
 		ore            = "mapgen:tin_ore",
@@ -371,7 +371,7 @@
 		y_min          = -1000,
 		y_max          = 1025,
 	})
-	
+
 	-- Iron
 
 	minetest.register_ore({
@@ -571,9 +571,9 @@
 		y_max          = -1024,
 	})
 	]]
-	
+
 	--fossils
-	
+
 	minetest.register_ore({
 		ore_type       = "scatter",
 		ore            = "mapgen:stone_with_ammonite",
@@ -584,7 +584,7 @@
 		y_min          = 625,
 		y_max          = 31000,
 	})
-	
+
 	minetest.register_ore({
 		ore_type       = "scatter",
 		ore            = "mapgen:stone_with_bone",
@@ -595,7 +595,7 @@
 		y_min          = 625,
 		y_max          = 31000,
 	})
-	
+
 	minetest.clear_registered_biomes()
 
 	--Swamp
@@ -615,8 +615,8 @@
 	y_max = 21000,
 		heat_point = 40,
 		humidity_point = 0,
-})	
-	
+})
+
 	-- Icesheet
 
 	minetest.register_biome({
@@ -804,7 +804,7 @@
 	})
 
 	--bamboo forest
-	
+
 	minetest.register_biome({
 		name = "bamboo_forest",
 		--node_dust = "",
@@ -908,8 +908,8 @@
 		heat_point = 45,
 		humidity_point = 70,
 	})
-	
-	
+
+
 	minetest.register_biome({
 		name = "coniferous_forest_tall",
 		--node_dust = "",
@@ -1012,7 +1012,7 @@
 		humidity_point = 70,
 	})
 
-	
+
 	minetest.register_biome({
 		name = "deciduous_forest_shore",
 		--node_dust = "",
@@ -1137,7 +1137,7 @@
 		humidity_point = 0,
 	})
 
-	
+
 	-- Cold desert
 	--[[
 	minetest.register_biome({
@@ -1436,7 +1436,7 @@ end
 	minetest.clear_registered_decorations()
 
 	--bamboo
-	
+
 	minetest.register_decoration({
 	deco_type = "simple",
 	place_on = "default:dirt_with_grass",
@@ -1454,7 +1454,7 @@ end
 	decoration = "mapgen:bamboo_small",
 	height = 3,
 	})
-	
+
 	minetest.register_decoration({
 	deco_type = "simple",
 	place_on = "default:dirt_with_grass", "mapgen:dirt_with_leafygrass",
@@ -1471,7 +1471,7 @@ end
 	decoration = "mapgen:bamboo_grass",
 	height = 1,
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1490,7 +1490,7 @@ end
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/bamboo1.mts",
 		flags = "place_center_x, place_center_z",
 	})
-	
+
 			minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1509,7 +1509,7 @@ end
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/bamboo2.mts",
 		flags = "place_center_x, place_center_z",
 	})
-	
+
 				minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1528,9 +1528,9 @@ end
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/bamboo5.mts",
 		flags = "place_center_x, place_center_z",
 	})
-	
+
 	--stone
-	
+
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1548,7 +1548,7 @@ end
 		y_max = 31000,
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/savanna_rock1.mts",
 		flags = "place_center_x, place_center_z",
-	})	
+	})
 		minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1566,7 +1566,7 @@ end
 		y_max = 31000,
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/savanna_rock2.mts",
 		flags = "place_center_x, place_center_z",
-	})	
+	})
 		minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1584,8 +1584,8 @@ end
 		y_max = 31000,
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/savanna_rock3.mts",
 		flags = "place_center_x, place_center_z",
-	})	
-	
+	})
+
 		minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1603,7 +1603,7 @@ end
 		y_max = 31000,
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/rock1.mts",
 		flags = "place_center_x, place_center_z",
-	})	
+	})
 		minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1621,7 +1621,7 @@ end
 		y_max = 31000,
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/rock2.mts",
 		flags = "place_center_x, place_center_z",
-	})	
+	})
 		minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1639,8 +1639,8 @@ end
 		y_max = 31000,
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/rock3.mts",
 		flags = "place_center_x, place_center_z",
-	})	
-	
+	})
+
 			minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:desert_sand"},
@@ -1658,7 +1658,7 @@ end
 		y_max = 31000,
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/desert_rock1.mts",
 		flags = "place_center_x, place_center_z",
-	})	
+	})
 		minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:desert_sand"},
@@ -1676,7 +1676,7 @@ end
 		y_max = 31000,
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/desert_rock2.mts",
 		flags = "place_center_x, place_center_z",
-	})	
+	})
 		minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:desert_sand"},
@@ -1694,10 +1694,10 @@ end
 		y_max = 31000,
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/rocks/desert_rock3.mts",
 		flags = "place_center_x, place_center_z",
-	})	
-	
+	})
+
 	--deciduous_forest trees
-	
+
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1715,8 +1715,8 @@ end
 		y_max = 31000,
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/deciduous_tree1.mts",
 		flags = "place_center_x, place_center_z",
-	})	
-	
+	})
+
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1735,7 +1735,7 @@ end
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/deciduous_tree2.mts",
 		flags = "place_center_x, place_center_z",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1754,8 +1754,8 @@ end
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/deciduous_tree3.mts",
 		flags = "place_center_x, place_center_z",
 	})
-	
-	
+
+
 	-- Apple tree and log
 
 		minetest.register_decoration({
@@ -1776,7 +1776,7 @@ end
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/oak.mts",
 		flags = "place_center_x, place_center_z",
 	})
-	
+
 			minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -1935,7 +1935,7 @@ end
 		schematic = minetest.get_modpath("default") .. "/schematics/pine_tree.mts",
 		flags = "place_center_x, place_center_z",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"mapgen:dirt_with_leafygrass"},
@@ -1954,7 +1954,7 @@ end
 		schematic = minetest.get_modpath("default") .. "/schematics/pine_tree.mts",
 		flags = "place_center_x, place_center_z",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"mapgen:dirt_with_leafygrass", "mapgen:coarse_dirt"},
@@ -2008,7 +2008,7 @@ end
 	})
 
 	--yellow ipe
-	
+
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass"},
@@ -2028,9 +2028,9 @@ end
 		flags = "place_center_x, place_center_z",
 		rotation = "random",
 	})
-	
+
 	--baobab tree
-	
+
 		minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_dry_grass"},
@@ -2050,7 +2050,7 @@ end
 		flags = "place_center_x, place_center_z",
 		rotation = "random",
 	})
-	
+
 			minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_dry_grass"},
@@ -2070,7 +2070,7 @@ end
 		flags = "place_center_x, place_center_z",
 		rotation = "random",
 	})
-	
+
 			minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_dry_grass"},
@@ -2159,7 +2159,7 @@ minetest.register_decoration({
 	decoration = "mapgen:wild_oat",
 	height = 1,
 })
-	
+
 	-- Acacia tree and log
 
 	minetest.register_decoration({
@@ -2233,7 +2233,7 @@ minetest.register_decoration({
 		flags = "place_center_x, place_center_z",
 	})
 	]]
-	
+
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"mapgen:dirt_with_swampgrass"},
@@ -2252,7 +2252,7 @@ minetest.register_decoration({
 		schematic = minetest.get_modpath("mapgen") .. "/schematics/willow2.mts",
 		flags = "place_center_x, place_center_z",
 	})
-	
+
 	-- Aspen tree and log
 
 	minetest.register_decoration({
@@ -2370,9 +2370,9 @@ minetest.register_decoration({
 		y_max = 0,
 		schematic = minetest.get_modpath("default") .. "/schematics/papyrus.mts",
 	})
-	
+
 	--tall grass
-	
+
 	minetest.register_decoration({
 	deco_type = "simple",
 	place_on = "default:dirt_with_grass", "mapgen:dirt_with_leafygrass", "mapgen:dirt_with_swampgrass",
@@ -2407,7 +2407,7 @@ minetest.register_decoration({
 })
 
 	--shrubs
-	
+
 	minetest.register_decoration({
 	deco_type = "simple",
 	place_on = "mapgen:dirt_with_leafygrass",
@@ -2428,7 +2428,7 @@ minetest.register_decoration({
 	biomes = {"deciduous_forest2",},
 	decoration = "mapgen:creeper",
 	height = 1,
-})	
+})
 
 minetest.register_decoration({
 	deco_type = "simple",
@@ -2438,7 +2438,7 @@ minetest.register_decoration({
 	biomes = {"deciduous_forest2",},
 	decoration = "mapgen:shrub2",
 	height = 1,
-})	
+})
 
 minetest.register_decoration({
 	deco_type = "simple",
@@ -2448,7 +2448,7 @@ minetest.register_decoration({
 	biomes = {"deciduous_forest2",},
 	decoration = "mapgen:bush",
 	height = 1,
-})	
+})
 
 	--ferns
 
@@ -2461,7 +2461,7 @@ minetest.register_decoration({
 	decoration = "mapgen:fern",
 	height = 1,
 })
-	
+
 minetest.register_decoration({
 	deco_type = "simple",
 	place_on = "mapgen:dirt_with_junglegrass",
@@ -2542,7 +2542,7 @@ minetest.register_decoration({
 		schematic = minetest.get_modpath("default") .. "/schematics/bush.mts",
 		flags = "place_center_x, place_center_z",
 	})
-	
+
 	minetest.register_decoration({
 		deco_type = "schematic",
 		place_on = {"default:dirt_with_grass",},
@@ -2591,31 +2591,31 @@ minetest.register_decoration({
 	register_grass_decoration(0.015,  0.045, 2)
 	register_grass_decoration(0.03,   0.03,  1)
 
-	--Jungle grasses 
-	
+	--Jungle grasses
+
 	register_jungle_grass_decoration(-0.03,  0.09,  5)
 	register_jungle_grass_decoration(-0.015, 0.075, 4)
 	register_jungle_grass_decoration(0,      0.06,  3)
 	register_jungle_grass_decoration(0.015,  0.045, 2)
 	register_jungle_grass_decoration(0.03,   0.03,  1)
-	
+
 	--Snow grasses
-	
+
 	register_snow_grass_decoration(-0.03,  0.09,  5)
 	register_snow_grass_decoration(-0.015, 0.075, 4)
 	register_snow_grass_decoration(0,      0.06,  3)
 	register_snow_grass_decoration(0.015,  0.045, 2)
 	register_snow_grass_decoration(0.03,   0.03,  1)
-	
+
 	--Swamp grasses
-	
-	
+
+
 	register_swamp_grass_decoration(-0.03,  0.09,  5)
 	register_swamp_grass_decoration(-0.015, 0.075, 4)
 	register_swamp_grass_decoration(0,      0.06,  3)
 	register_swamp_grass_decoration(0.015,  0.045, 2)
 	register_swamp_grass_decoration(0.03,   0.03,  1)
-	
+
 	-- Dry grasses
 
 	register_dry_grass_decoration(0.01, 0.05,  5)
@@ -2636,7 +2636,7 @@ minetest.register_decoration({
 		y_max = 31000,
 		decoration = "default:junglegrass",
 	})
-	
+
 	--Aloe Vera
 
 minetest.register_decoration({
@@ -2669,9 +2669,9 @@ minetest.register_decoration({
 		y_max = 31000,
 		decoration = "default:dry_shrub",
 	})
-	
+
 	--small cacti
-	
+
 		minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:desert_sand",
@@ -2690,7 +2690,7 @@ minetest.register_decoration({
 		y_max = 31000,
 		decoration = "mapgen:small_cactus",
 	})
-	
+
 			minetest.register_decoration({
 		deco_type = "simple",
 		place_on = {"default:desert_sand",
@@ -2952,7 +2952,9 @@ if minetest.get_modpath("flowers_plus") then
 flowers_plus_decorations()
 end
 
-if minetest.get_mapgen_params().mgname == "v6" then
+local mg_name = minetest.get_mapgen_setting("mg_name")
+
+if mg_name == "v6" then
 	farming.register_mgv6_decorations()
 	flowers.register_mgv6_decorations()
 else

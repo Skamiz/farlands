@@ -5,6 +5,7 @@ minetest.register_node("decoblocks:bamboo_fence", {
 		"decoblocks_bamboo_fence_top.png",
 		"decoblocks_bamboo_fence.png",
 	},
+	use_texture_alpha = "opaque",
 	inventory_image = "default_fence_overlay.png^decoblocks_bamboo.png^default_fence_overlay.png^[makealpha:255,126,126",
 	wield_image = "default_fence_overlay.png^decoblocks_bamboo.png^default_fence_overlay.png^[makealpha:255,126,126",
 	drawtype = "nodebox",
@@ -229,6 +230,7 @@ minetest.register_node("decoblocks:scarecrow", {
 	tiles = {
 		"decoblocks_scarecrow.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_image = "decoblocks_scarecrow_item.png",
 	wield_scale = {x=1.0, y=1.0, z=1.0},
@@ -254,6 +256,7 @@ minetest.register_node("decoblocks:human_skull", {
 	tiles = {
 		"human_skull.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_image = "decoblocks_skull_item.png",
 	wield_scale = {x=1.0, y=1.0, z=1.0},
@@ -280,6 +283,7 @@ minetest.register_node("decoblocks:vase", {
 	tiles = {
 		"vase.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_scale = {x=0.5, y=0.5, z=0.5},
 	paramtype = "light",
@@ -296,13 +300,14 @@ minetest.register_node("decoblocks:vase", {
 })
 
 
-minetest.register_node("decoblocks:Ancient_vase", {
+minetest.register_node("decoblocks:ancient_vase", {
 	description = "Ancient Vase",
 	drawtype = "mesh",
 	mesh = "vase.obj",
 	tiles = {
 		"Ancient_vase.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_scale = {x=0.5, y=0.5, z=0.5},
 	paramtype = "light",
@@ -318,13 +323,14 @@ minetest.register_node("decoblocks:Ancient_vase", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("decoblocks:Ancient_vase_sand", {
+minetest.register_node("decoblocks:ancient_vase_sand", {
 	description = "Sandstone Vase",
 	drawtype = "mesh",
 	mesh = "vase.obj",
 	tiles = {
 		"Ancient_vase_sand.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_scale = {x=0.5, y=0.5, z=0.5},
 	paramtype = "light",
@@ -432,8 +438,8 @@ minetest.register_entity("decoblocks:dart", {
 		end)
 	end,
 	on_step = function(self, dtime)
-		local pos = self.object:getpos()
-		local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y-0.5,z=pos.z}, 0.5)	
+		local pos = self.object:get_pos()
+		local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y-0.5,z=pos.z}, 0.5)
 			for k, obj in pairs(objs) do
 				if obj:is_player() then
 					obj:punch(self.object, 1.0, {
@@ -476,8 +482,8 @@ minetest.register_entity("decoblocks:dart2", {
 		end)
 	end,
 	on_step = function(self, dtime)
-		local pos = self.object:getpos()
-		local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y-0.5,z=pos.z}, 0.5)	
+		local pos = self.object:get_pos()
+		local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y-0.5,z=pos.z}, 0.5)
 			for k, obj in pairs(objs) do
 				if obj:is_player() then
 					obj:punch(self.object, 1.0, {
@@ -576,7 +582,7 @@ minetest.register_abm({
 		for _, obj in ipairs(objs) do
 			if obj:is_player() then
 				local ent = minetest.env:add_entity(pos, "decoblocks:dart")
-				ent:setvelocity({x=7*x, y=0, z=7*z})
+				ent:set_velocity({x=7*x, y=0, z=7*z})
 			end
 		end
 		end
@@ -637,7 +643,7 @@ minetest.register_abm({
 			texture = "default_stone.png"
 			})
 				minetest.set_node(pos, {name = "air"})
-				
+
 			end
 		end
 	end
@@ -648,16 +654,16 @@ minetest.register_tool("decoblocks:blowpipe", {
 	inventory_image = "decoblocks_blowdart.png",
 	on_use = function(itemstack, placer)
 		local dir = placer:get_look_dir()
-		local pos = placer:getpos()
+		local pos = placer:get_pos()
 		local pname = placer:get_player_name();
 		inv = minetest.get_inventory({type="player", name=pname})
 		if inv:contains_item("main", "decoblocks:dart_item2") then
 		local ent = minetest.env:add_entity({x=pos.x+1*dir.x, y=pos.y+1.5, z=pos.z+1*dir.z}, "decoblocks:dart2")
-		ent:setvelocity({x=15*dir.x, y=15*dir.y, z=15*dir.z})
+		ent:set_velocity({x=15*dir.x, y=15*dir.y, z=15*dir.z})
 		local remov = inv:remove_item("main", "decoblocks:dart_item2")
 		elseif inv:contains_item("main", "decoblocks:dart_item") then
 		local ent = minetest.env:add_entity({x=pos.x+1*dir.x, y=pos.y+1.5, z=pos.z+1*dir.z}, "decoblocks:dart")
-		ent:setvelocity({x=15*dir.x, y=15*dir.y, z=15*dir.z})
+		ent:set_velocity({x=15*dir.x, y=15*dir.y, z=15*dir.z})
 		local remov = inv:remove_item("main", "decoblocks:dart_item")
 		end
 	end,
@@ -680,6 +686,7 @@ minetest.register_node("decoblocks:old_skeleton", {
 	tiles = {
 		"decoblocks_old_skeleton.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_image = "decoblocks_skull_item.png",
 	wield_scale = {x=1.0, y=1.0, z=1.0},
@@ -705,6 +712,7 @@ minetest.register_node("decoblocks:old_skeleton_alt", {
 	tiles = {
 		"decoblocks_old_skeleton.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_image = "decoblocks_skull_item.png",
 	wield_scale = {x=1.0, y=1.0, z=1.0},
@@ -730,6 +738,7 @@ minetest.register_node("decoblocks:candle", {
 	tiles = {
 		"decoblocks_candle.png",
 	},
+	use_texture_alpha = "opaque",
 	visual_scale = 0.5,
 	wield_image = "decoblocks_candle_item.png",
 	wield_scale = {x=1.0, y=1.0, z=1.0},
@@ -838,6 +847,7 @@ minetest.register_node("decoblocks:altar", {
 	tiles = {
 		"decoblocks_altar.png",
 	},
+	use_texture_alpha = "opaque",
 	visual_scale = 0.5,
 	wield_scale = {x=1.0, y=1.0, z=1.0},
 	paramtype = "light",
@@ -859,9 +869,10 @@ minetest.register_node("decoblocks:anvil", {
 	drawtype = "mesh",
 	mesh = "anvil.obj",
 	paramtype2 = "facedir",
-tiles = {
+	tiles = {
 		"decoblocks_anvil.png",
 	},
+	use_texture_alpha = "opaque",
 	visual_scale = 0.5,
 	wield_scale = {x=1.0, y=1.0, z=1.0},
 	paramtype = "light",
@@ -902,6 +913,7 @@ minetest.register_node("decoblocks:D00Med_Statue", {
 	tiles = {
 		"decoblocks_D00Med_statue.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_scale = {x=1.0, y=1.0, z=1.0},
 	paramtype = "light",
@@ -925,6 +937,7 @@ minetest.register_node("decoblocks:toby109tt_Statue", {
 	tiles = {
 		"decoblocks_toby109tt_statue.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_scale = {x=1.0, y=1.0, z=1.0},
 	paramtype = "light",
@@ -948,6 +961,7 @@ minetest.register_node("decoblocks:GreenXenith_Statue", {
 	tiles = {
 		"decoblocks_GreenXenith_statue.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_scale = {x=1.0, y=1.0, z=1.0},
 	paramtype = "light",
@@ -971,6 +985,7 @@ minetest.register_node("decoblocks:DS_Minetest_Statue", {
 	tiles = {
 		"decoblocks_DS_Minetest_statue.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	wield_scale = {x=1.0, y=1.0, z=1.0},
 	paramtype = "light",
@@ -1207,6 +1222,7 @@ minetest.register_node("decoblocks:bear_rug", {
 	tiles = {
 		"mobs_bear.png",
 	},
+	use_texture_alpha = "opaque",
 	visual_scale = 0.5,
 	wield_scale = {x=0.5, y=0.5, z=0.5},
 	paramtype = "light",
@@ -1231,6 +1247,7 @@ minetest.register_node("decoblocks:polar_bear_rug", {
 	tiles = {
 		"mobs_polar_bear.png",
 	},
+	use_texture_alpha = "opaque",
 	visual_scale = 0.5,
 	wield_scale = {x=0.5, y=0.5, z=0.5},
 	paramtype = "light",
@@ -1314,14 +1331,14 @@ minetest.register_node("decoblocks:"..colour.."_glass", {
 	description = ""..desc.." Stained Glass",
 	drawtype = "glasslike",
 	tiles = {"decoblocks_"..colour.."_glass.png"},
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	sounds = default.node_sound_glass_defaults(),
 	groups = {cracky=1, oddly_breakable_by_hand=3, snappy=2}
 })
 xpanes.register_pane(""..colour.."_glass", {
 	description = ""..desc.." Stained Glass Pane",
 	textures = {"decoblocks_"..colour.."_glass.png","decoblocks_"..colour.."_glass.png","decoblocks_"..colour.."_glass.png"},
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	inventory_image = "decoblocks_"..colour.."_glass.png",
 	wield_image = "decoblocks_"..colour.."_glass.png",
 	sounds = default.node_sound_glass_defaults(),

@@ -1,7 +1,7 @@
 minetest.register_globalstep(function(dtime)
 	for _,player in ipairs(minetest.get_connected_players()) do
-		if player:get_hp() > 0 or not minetest.setting_getbool("enable_damage") then
-			local pos = player:getpos()
+		if player:get_hp() > 0 or not minetest.settings:get_bool("enable_damage") then
+			local pos = player:get_pos()
 			local inv = player:get_inventory()
 			
 			for _,object in ipairs(minetest.get_objects_inside_radius(pos, 0.75)) do
@@ -23,12 +23,12 @@ minetest.register_globalstep(function(dtime)
 						if inv and inv:room_for_item("main", ItemStack(object:get_luaentity().itemstring)) then
 							local pos1 = pos
 							pos1.y = pos1.y+0.2
-							local pos2 = object:getpos()
+							local pos2 = object:get_pos()
 							local vec = {x=pos1.x-pos2.x, y=pos1.y-pos2.y, z=pos1.z-pos2.z}
 							vec.x = vec.x*3
 							vec.y = vec.y*3
 							vec.z = vec.z*3
-							object:setvelocity(vec)
+							object:set_velocity(vec)
 							object:get_luaentity().physical_state = false
 							object:get_luaentity().object:set_properties({
 								physical = false
@@ -47,7 +47,7 @@ minetest.register_globalstep(function(dtime)
 									object:get_luaentity().itemstring = ""
 									object:remove()
 								else
-									object:setvelocity({x = 0,y = 0,z = 0})
+									object:set_velocity({x = 0,y = 0,z = 0})
 									object:get_luaentity().physical_state = true
 									object:get_luaentity().object:set_properties({
 										physical = true
@@ -66,7 +66,7 @@ end)
 --[[
 function minetest.handle_node_drops(pos, drops, digger)
 	local inv
-	if minetest.setting_getbool("creative_mode") and digger and digger:is_player() then
+	if minetest.settings:get_bool("creative_mode") and digger and digger:is_player() then
 		inv = digger:get_inventory()
 	end
 	for _,item in ipairs(drops) do
@@ -91,11 +91,11 @@ function minetest.handle_node_drops(pos, drops, digger)
 					if math.random(1,2) == 1 then
 						z = -z
 					end
-					obj:setvelocity({x=1/x, y=obj:getvelocity().y, z=1/z})
+					obj:set_velocity({x=1/x, y=obj:get_velocity().y, z=1/z})
 					
 					-- FIXME this doesnt work for deactiveted objects
-					if minetest.setting_get("remove_items") and tonumber(minetest.setting_get("remove_items")) then
-						minetest.after(tonumber(minetest.setting_get("remove_items")), function(obj)
+					if minetest.settings:get("remove_items") and tonumber(minetest.settings:get("remove_items")) then
+						minetest.after(tonumber(minetest.settings:get("remove_items")), function(obj)
 							obj:remove()
 						end, obj)
 					end
@@ -106,6 +106,6 @@ function minetest.handle_node_drops(pos, drops, digger)
 end
 --]]
 
-if minetest.setting_getbool("log_mods") then
+if minetest.settings:get_bool("log_mods") then
 	minetest.log("action", "Carbone: [item_drop] loaded.")
 end

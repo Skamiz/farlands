@@ -63,7 +63,7 @@ dofile(farming.path.."/compatibility.lua") -- Farming Plus compatibility
 
 -- Utility Functions
 
-local time_speed = tonumber(minetest.setting_get("time_speed")) or 72
+local time_speed = tonumber(minetest.settings:get("time_speed")) or 72
 local SECS_PER_CYCLE = (time_speed > 0 and 24 * 60 * 60 / time_speed) or 0 --nil
 
 local function clamp(x, min, max)
@@ -373,6 +373,7 @@ function farming.plant_growth_timer(pos, elapsed, node_name)
 		if growth < 1 then return true end
 	end
 
+	assert(type(stages.stages_left[growth]) == "string", node_name .. " can't grow to stage: " .. growth )
 	minetest.swap_node(pos, { name = stages.stages_left[growth] })
 
 	return growth ~= max_growth
@@ -459,7 +460,7 @@ function farming.place_seed(itemstack, placer, pointed_thing, plantname)
 	-- if not protected then add node and remove 1 item from the itemstack
 	if not minetest.is_protected(pt.above, placer:get_player_name()) then
 		minetest.set_node(pt.above, {name = plantname, param2 = 1})
-		if not minetest.setting_getbool("creative_mode") then
+		if not minetest.settings:get_bool("creative_mode") then
 			itemstack:take_item()
 			-- check for refill
 			if itemstack:get_count() == 0

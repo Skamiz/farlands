@@ -21,8 +21,8 @@ local bones_formspec =
 	"listring[current_player;main]" ..
 	default.get_hotbar_bg(0,4.85)
 
-local share_bones_time = tonumber(minetest.setting_get("share_bones_time")) or 1200
-local share_bones_time_early = tonumber(minetest.setting_get("share_bones_time_early")) or share_bones_time / 4
+local share_bones_time = tonumber(minetest.settings:get("share_bones_time")) or 1200
+local share_bones_time_early = tonumber(minetest.settings:get("share_bones_time_early")) or share_bones_time / 4
 
 minetest.register_node("bones:bones", {
 	description = "Bones",
@@ -31,6 +31,7 @@ minetest.register_node("bones:bones", {
 	tiles = {
 		"tombstone.png",
 	},
+	use_texture_alpha = "opaque",
 	visual_scale = 0.5,
 	wield_image = "tombstone_item.png",
 	wield_scale = {x=1.0, y=1.0, z=1.0},
@@ -161,7 +162,7 @@ end
 local drop = function(pos, itemstack)
 	local obj = minetest.add_item(pos, itemstack:take_item(itemstack:get_count()))
 	if obj then
-		obj:setvelocity({
+		obj:set_velocity({
 			x = math.random(-10, 10) / 9,
 			y = 5,
 			z = math.random(-10, 10) / 9,
@@ -171,13 +172,13 @@ end
 
 minetest.register_on_dieplayer(function(player)
 
-	local bones_mode = minetest.setting_get("bones_mode") or "bones"
+	local bones_mode = minetest.settings:get("bones_mode") or "bones"
 	if bones_mode ~= "bones" and bones_mode ~= "drop" and bones_mode ~= "keep" then
 		bones_mode = "bones"
 	end
 
 	-- return if keep inventory set or in creative mode
-	if bones_mode == "keep" or minetest.setting_getbool("creative_mode") then
+	if bones_mode == "keep" or minetest.settings:get_bool("creative_mode") then
 		return
 	end
 
@@ -187,7 +188,7 @@ minetest.register_on_dieplayer(function(player)
 		return
 	end
 
-	local pos = vector.round(player:getpos())
+	local pos = vector.round(player:get_pos())
 	local player_name = player:get_player_name()
 
 	-- check if it's possible to place bones, if not find space near player

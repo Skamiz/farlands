@@ -13,7 +13,7 @@ minetest.register_node("witchcraft:brewing_stand", {
 		"witchcraft_brewing_stand_side.png"
 	},
 	drawtype = "nodebox",
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	drop = {
 		items = {
@@ -59,9 +59,9 @@ minetest.register_node("witchcraft:brewing_stand_active", {
 		"witchcraft_brewing_stand_side.png"
 	},
 	drawtype = "nodebox",
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	paramtype = "light",
-	light_source = 1, 
+	light_source = 1,
 	drop = {
 		items = {
 			{items = {'witchcraft:brewing_stand_unready'}, rarity = 1},
@@ -96,9 +96,9 @@ minetest.register_node("witchcraft:brewing_stand_unready", {
 	},
 	inventory_image = "witchcraft_brewing_stand_inv.png",
 	drawtype = "nodebox",
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	paramtype = "light",
-	light_source = 1, 
+	light_source = 1,
 	drop = {
 		items = {
 			{items = {'witchcraft:brewing_stand_unready'}, rarity = 1},

@@ -45,7 +45,7 @@ mobs:register_mob("mobs_m:mimic", {
 		if self.state ~= "attack" then
 			minetest.after(3, function()
 			if self.state ~= "attack" and self.object ~= nil then
-			local pos = self.object:getpos()
+			local pos = self.object:get_pos()
 			if pos ~= nil then
 			minetest.set_node(pos, {name="mobs_m:mimic_chest", param2=1})
 			self.object:remove()
@@ -117,7 +117,7 @@ mobs:register_mob("mobs_m:mimic2", {
 		if self.state ~= "attack" then
 			minetest.after(3, function()
 			if self.state ~= "attack" and self.object ~= nil then
-			local pos = self.object:getpos()
+			local pos = self.object:get_pos()
 			if pos ~= nil then
 			minetest.set_node(pos, {name="mobs_m:mimic_chest2", param2=1})
 			self.object:remove()
@@ -345,7 +345,7 @@ mobs:register_mob("mobs_m:cow", {
 			if inv:room_for_item("main", {name = "mobs:bucket_milk"}) then
 				clicker:get_inventory():add_item("main", "mobs:bucket_milk")
 			else
-				local pos = self.object:getpos()
+				local pos = self.object:get_pos()
 				pos.y = pos.y + 0.5
 				minetest.add_item(pos, {name = "mobs:bucket_milk"})
 			end
@@ -742,7 +742,7 @@ mobs:register_arrow("mobs_m:stone", {
    
    on_activate = function(self)
 		self.object:set_properties({visual_size = {x=0, y=0},})
-		local pos = self.object:getpos()
+		local pos = self.object:get_pos()
 		local velo = self.object:get_velocity()
 		self.object:set_pos({x=pos.x, y=pos.y+1.5, z=pos.z})
 		minetest.after(0.5, function()
@@ -825,8 +825,8 @@ mobs:register_arrow("mobs_m:lightning", {
    end,
    
    on_step = function(self)
-		local velo = self.object:getvelocity()
-		local pos = self.object:getpos()
+		local velo = self.object:get_velocity()
+		local pos = self.object:get_pos()
 		minetest.add_particle({
 			pos = {x=pos.x, y=pos.y, z=pos.z},
 			velocity = {x=0, y=0, z=0},
@@ -1183,13 +1183,13 @@ for _, col in pairs(all_colours) do
 				self.gotten = true -- shaved
 
 				local obj = minetest.add_item(
-					self.object:getpos(),
+					self.object:get_pos(),
 					ItemStack( "wool:" .. col[1] .. " " .. math.random(1, 3) )
 				)
 
 				if obj then
 
-					obj:setvelocity({
+					obj:set_velocity({
 						x = math.random(-1, 1),
 						y = 5,
 						z = math.random(-1, 1)
@@ -1224,7 +1224,7 @@ for _, col in pairs(all_colours) do
 
 						if c[1] == colr then
 
-							local pos = self.object:getpos()
+							local pos = self.object:get_pos()
 
 							self.object:remove()
 
@@ -1235,7 +1235,7 @@ for _, col in pairs(all_colours) do
 							ent.tamed = true
 
 							-- take item
-							if not minetest.setting_getbool("creative_mode") then
+							if not minetest.settings:get_bool("creative_mode") then
 								item:take_item()
 								clicker:set_wielded_item(item)
 							end
@@ -1393,7 +1393,7 @@ mobs:register_mob("mobs_m:chicken", {
 			return
 		end
 
-		local pos = self.object:getpos()
+		local pos = self.object:get_pos()
 
 		minetest.add_item(pos, "mobs:egg")
 
@@ -1491,7 +1491,7 @@ local egg_VELOCITY = 19
 -- shoot egg
 local mobs_shoot_egg = function (item, player, pointed_thing)
 
-	local playerpos = player:getpos()
+	local playerpos = player:get_pos()
 
 	minetest.sound_play("default_place_node_hard", {
 		pos = playerpos,
@@ -1511,13 +1511,13 @@ local mobs_shoot_egg = function (item, player, pointed_thing)
 	ent.velocity = egg_VELOCITY -- needed for api internal timing
 	ent.switch = 1 -- needed so that egg doesn't despawn straight away
 
-	obj:setvelocity({
+	obj:set_velocity({
 		x = dir.x * egg_VELOCITY,
 		y = dir.y * egg_VELOCITY,
 		z = dir.z * egg_VELOCITY
 	})
 
-	obj:setacceleration({
+	obj:set_acceleration({
 		x = dir.x * -3,
 		y = -egg_GRAVITY,
 		z = dir.z * -3

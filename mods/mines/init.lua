@@ -1,6 +1,6 @@
-local MINE_DEEP_MIN = tonumber(minetest.setting_get("mines_deep_min")) or -64
-local MINE_DEEP_MAX = tonumber(minetest.setting_get("mines_deep_max")) or -380
-local MINE_FACTOR = tonumber(minetest.setting_get("mines_spawnfactor")) or 1.5
+local MINE_DEEP_MIN = tonumber(minetest.settings:get("mines_deep_min")) or -64
+local MINE_DEEP_MAX = tonumber(minetest.settings:get("mines_deep_max")) or -380
+local MINE_FACTOR = tonumber(minetest.settings:get("mines_spawnfactor")) or 1.5
 
 
 minetest.register_node("mines:dummy", {

@@ -233,7 +233,7 @@ end
 
 armor.update_armor = function(self, player)
 	-- Legacy support: Called when armor levels are changed
-	-- Other mods can hook on to this function, see hud mod for example 
+	-- Other mods can hook on to this function, see hud mod for example
 end
 
 armor.get_player_skin = function(self, name)
@@ -290,7 +290,7 @@ armor.update_inventory = function(self, player)
 			if page:find("detached:"..name.."_armor") then
 				inventory_plus.set_inventory_formspec(player, formspec)
 			end
-		elseif not core.setting_getbool("creative_mode") then
+		elseif not minetest.settings:get_bool("creative_mode") then
 			player:set_inventory_formspec(formspec)
 		end
 	end
@@ -307,7 +307,7 @@ armor.get_valid_player = function(self, player, msg)
 		minetest.log("error", "3d_armor: Player name is nil "..msg)
 		return
 	end
-	local pos = player:getpos()
+	local pos = player:get_pos()
 	local player_inv = player:get_inventory()
 	local armor_inv = minetest.get_inventory({type="detached", name=name.."_armor"})
 	if not pos then
@@ -406,7 +406,7 @@ minetest.register_on_joinplayer(function(player)
 	for i=1, 6 do
 		local stack = player_inv:get_stack("armor", i)
 		armor_inv:set_stack("armor", i, stack)
-	end	
+	end
 	armor.def[name] = {
 		state = 0,
 		count = 0,
@@ -468,7 +468,7 @@ if ARMOR_DROP == true or ARMOR_DESTROY == true then
 	armor.drop_armor = function(pos, stack)
 		local obj = minetest.add_item(pos, stack)
 		if obj then
-			obj:setvelocity({x=math.random(-1, 1), y=5, z=math.random(-1, 1)})
+			obj:set_velocity({x=math.random(-1, 1), y=5, z=math.random(-1, 1)})
 		end
 	end
 	minetest.register_on_dieplayer(function(player)
@@ -591,7 +591,7 @@ minetest.register_globalstep(function(dtime)
 	end
 	for _,player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
-		local pos = player:getpos()
+		local pos = player:get_pos()
 		local hp = player:get_hp()
 		-- water breathing
 		if name and armor.def[name].water > 0 then

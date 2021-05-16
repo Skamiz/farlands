@@ -57,7 +57,7 @@ function cart_entity:get_staticdata()
 end
 
 function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, direction)
-	local pos = self.object:getpos()
+	local pos = self.object:get_pos()
 	if not self.railtype then
 		local node = minetest.get_node(pos).name
 		self.railtype = minetest.get_item_group(node, "connect_to_raillike")
@@ -80,7 +80,7 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 		-- Detach driver and items
 		if self.driver then
 			if self.old_pos then
-				self.object:setpos(self.old_pos)
+				self.object:set_pos(self.old_pos)
 			end
 			local player = minetest.get_player_by_name(self.driver)
 			carts:manage_attachment(player, nil)
@@ -92,19 +92,19 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 		end
 		-- Pick up cart
 		local inv = puncher:get_inventory()
-		if not minetest.setting_getbool("creative_mode")
+		if not minetest.settings:get_bool("creative_mode")
 				or not inv:contains_item("main", "carts:cart") then
 			local leftover = inv:add_item("main", "carts:cart")
 			-- If no room in inventory add a replacement cart to the world
 			if not leftover:is_empty() then
-				minetest.add_item(self.object:getpos(), leftover)
+				minetest.add_item(self.object:get_pos(), leftover)
 			end
 		end
 		self.object:remove()
 		return
 	end
 	-- Player punches cart to alter velocity
-	local vel = self.object:getvelocity()
+	local vel = self.object:get_velocity()
 	if puncher:get_player_name() == self.driver then
 		if math.abs(vel.x + vel.z) > carts.punch_speed_max then
 			return
@@ -151,7 +151,7 @@ local function rail_sound(self, dtime)
 		self.sound_handle = nil
 		minetest.after(0.2, minetest.sound_stop, handle)
 	end
-	local vel = self.object:getvelocity()
+	local vel = self.object:get_velocity()
 	local speed = vector.length(vel)
 	if speed > 0 then
 		self.sound_handle = minetest.sound_play(
@@ -169,16 +169,16 @@ local function get_railparams(pos)
 end
 
 local function rail_on_step(self, dtime)
-	local vel = self.object:getvelocity()
+	local vel = self.object:get_velocity()
 	if self.punched then
 		vel = vector.add(vel, self.velocity)
-		self.object:setvelocity(vel)
+		self.object:set_velocity(vel)
 		self.old_dir.y = 0
 	elseif vector.equals(vel, {x=0, y=0, z=0}) then
 		return
 	end
 
-	local pos = self.object:getpos()
+	local pos = self.object:get_pos()
 	local update = {}
 
 	-- stop cart if velocity vector flips
@@ -186,8 +186,8 @@ local function rail_on_step(self, dtime)
 			(self.old_vel.x * vel.x < 0 or self.old_vel.z * vel.z < 0) then
 		self.old_vel = {x = 0, y = 0, z = 0}
 		self.old_pos = pos
-		self.object:setvelocity(vector.new())
-		self.object:setacceleration(vector.new())
+		self.object:set_velocity(vector.new())
+		self.object:set_acceleration(vector.new())
 		rail_on_step_event(get_railparams(pos).on_step, self, dtime)
 		return
 	end
@@ -293,7 +293,7 @@ local function rail_on_step(self, dtime)
 		end
 	end
 
-	self.object:setacceleration(new_acc)
+	self.object:set_acceleration(new_acc)
 	self.old_pos = vector.new(pos)
 	if not vector.equals(dir, {x=0, y=0, z=0}) then
 		self.old_dir = vector.new(dir)
@@ -331,7 +331,7 @@ local function rail_on_step(self, dtime)
 	elseif self.old_dir.z < 0 then
 		yaw = 1
 	end
-	self.object:setyaw(yaw * math.pi)
+	self.object:set_yaw(yaw * math.pi)
 
 	local anim = {x=0, y=0}
 	if dir.y == -1 then
@@ -341,9 +341,9 @@ local function rail_on_step(self, dtime)
 	end
 	self.object:set_animation(anim, 1, 0)
 
-	self.object:setvelocity(vel)
+	self.object:set_velocity(vel)
 	if update.pos then
-		self.object:setpos(pos)
+		self.object:set_pos(pos)
 	end
 
 	-- call event handler
@@ -376,7 +376,7 @@ minetest.register_craftitem("carts:cart", {
 		minetest.sound_play({name = "default_place_node_metal", gain = 0.5},
 			{pos = pointed_thing.above})
 
-		if not minetest.setting_getbool("creative_mode") then
+		if not minetest.settings:get_bool("creative_mode") then
 			itemstack:take_item()
 		end
 		return itemstack

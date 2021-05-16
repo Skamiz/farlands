@@ -12,7 +12,7 @@ local function check_for_mobs(pos, self)
 				full_punch_interval=2.0,
 				damage_groups={fleshy=1},
 			}, nil)
-			self.object:setvelocity(vector.multiply(self.object:getvelocity(), -1))
+			self.object:set_velocity(vector.multiply(self.object:get_velocity(), -1))
 			self.timeout = self.timer
 			break
 		end
@@ -58,7 +58,7 @@ local function register_clawshot(def)
 				self.object:remove()
 				return
 			end
-			local pos = self.object:getpos()
+			local pos = self.object:get_pos()
 			check_for_mobs(pos, self)
 
 			minetest.add_particle({
@@ -78,7 +78,7 @@ local function register_clawshot(def)
 					minetest.get_item_group(node_name, "choppy") == 0 then
 				return
 			end
-			local player_pos = self.launcher:getpos()
+			local player_pos = self.launcher:get_pos()
 			local attach_obj = minetest.add_entity(player_pos, "clawshot:dummy")
 			self.launcher:set_attach(attach_obj, "", {x=0, y=0, z=0}, {x=0, y=0.9, z=0})
 

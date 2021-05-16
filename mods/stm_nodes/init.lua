@@ -60,6 +60,7 @@ minetest.register_node("stm_nodes:silo", {
 	tiles = {
 		"stm_nodes_silo.png",
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "mesh",
 	mesh = "silo.obj",
 	paramtype = "light",
@@ -72,7 +73,7 @@ minetest.register_node("stm_nodes:silo", {
 	collision_box = {
 		type = "fixed",
 		fixed = {
-			{-0.5, -0.5, -0.5, 1.5, 2.8, 1.5}, 
+			{-0.5, -0.5, -0.5, 1.5, 2.8, 1.5},
 		}
 	},
 	groups = {cracky = 1},
@@ -117,6 +118,7 @@ minetest.register_node("stm_nodes:hopper", {
 		"stm_nodes_hopper.png",
 		"stm_nodes_hopper.png"
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -338,8 +340,9 @@ minetest.register_node("stm_nodes:porthole", {
 		"stm_nodes_block.png",
 		"stm_nodes_block.png",
 		"stm_nodes_porthole.png",
-		"stm_nodes_porthole.png"
+		"stm_nodes_porthole.png",
 	},
+	use_texture_alpha = "clip",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -365,8 +368,8 @@ minetest.register_node("stm_nodes:porthole", {
 			{-0.1875, -0.1875, 0.375, 0.1875, 0.1875, 0.375}, -- NodeBox18
 		}
 	},
-	sounds = default.node_sound_metal_defaults,
-	groups = {cracky=1, snappy=1}
+	sounds = default.node_sound_metal_defaults(),
+	groups = {cracky=1, snappy=1},
 })
 
 minetest.register_node("stm_nodes:tank", {
@@ -379,6 +382,7 @@ minetest.register_node("stm_nodes:tank", {
 		"stm_nodes_boiler.png",
 		"stm_nodes_boiler_pipe.png",
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -407,6 +411,7 @@ minetest.register_node("stm_nodes:tank2", {
 		"stm_nodes_boiler2.png",
 		"stm_nodes_boiler_pipe2.png"
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -520,7 +525,7 @@ minetest.register_abm({
 	chance = 1,
 	action = function(pos, node)
 		local active = true
-	
+
 		local steam_input = minetest.find_node_near(pos, 1, {"stm_nodes:pipe"})
 		local source = minetest.get_node({x=pos.x, y=pos.y-3, z=pos.z})
 		local source2 = minetest.get_node({x=pos.x, y=pos.y-2, z=pos.z})
@@ -528,16 +533,16 @@ minetest.register_abm({
 		active = false
 		steam_input = minetest.find_node_near(pos, 1, {"stm_nodes:pipe_active"})
 		end
-		
+
 		if not minetest.find_node_near(pos, 2, {"stm_nodes:boiler", "stm_nodes:large_boiler_top"}) then
-		active = false 
+		active = false
 		steam_input = minetest.find_node_near(pos, 1, {"stm_nodes:pipe_active"})
 		end
-		
-		if steam_input == nil then 
-		return 
+
+		if steam_input == nil then
+		return
 		end
-		
+
 		if not active then
 		for i = 1, 20 do
 		local name = minetest.get_node(steam_input).name
@@ -546,14 +551,14 @@ minetest.register_abm({
 		end
 		local nextpos = minetest.find_node_near(steam_input, 1, {"stm_nodes:pipe_active",})
 		if not nextpos then
-		return 
+		return
 		end
 		steam_input = nextpos
 		end
-		return 
+		return
 		end
-		
-		
+
+
 		for i = 1, 20 do
 		local name = minetest.get_node(steam_input).name
 		if name == "stm_nodes:pipe" then
@@ -561,7 +566,7 @@ minetest.register_abm({
 		end
 		local nextpos = minetest.find_node_near(steam_input, 1, {"stm_nodes:pipe",})
 		if not nextpos then
-		return 
+		return
 		end
 		steam_input = nextpos
 		end
@@ -740,6 +745,7 @@ minetest.register_node("stm_nodes:compressor_open", {
 		"stm_nodes_compressor_side.png",
 		"stm_nodes_compressor_side.png"
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -826,6 +832,7 @@ minetest.register_node("stm_nodes:compressor_closed", {
 		"stm_nodes_compressor_side.png",
 		"stm_nodes_compressor_side.png"
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -863,6 +870,7 @@ minetest.register_node("stm_nodes:lever_open", {
 		"stm_nodes_lever_back.png",
 		"stm_nodes_lever_front.png"
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -908,6 +916,7 @@ minetest.register_node("stm_nodes:lever_closed", {
 		"stm_nodes_lever_back.png",
 		"stm_nodes_lever_front2.png"
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -932,6 +941,7 @@ minetest.register_node("stm_nodes:cable", {
 	tiles = {
 		"stm_nodes_cable.png",
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -963,6 +973,7 @@ minetest.register_node("stm_nodes:cable", {
 
 minetest.register_node("stm_nodes:cable_active", {
 	tiles = {"stm_nodes_cable.png"},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -996,6 +1007,7 @@ minetest.register_node("stm_nodes:cable_active", {
 minetest.register_node("stm_nodes:cable_ceiling", {
 	description = "Ceiling Cable",
 	tiles = {"stm_nodes_cable.png"},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -1029,6 +1041,7 @@ minetest.register_node("stm_nodes:cable_ceiling_active", {
 	tiles = {
 		"stm_nodes_cable.png",
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -1068,16 +1081,16 @@ minetest.register_abm({
 		if sustainer then
 		minetest.set_node(sustainer, {name="stm_nodes:sustainer"})
 		end]]
-		
+
 		local nodename = minetest.get_node(pos).name
 		local newname = "stm_nodes:cable_ceiling"
 		if nodename == "stm_nodes:cable_active" then
 		newname = "stm_nodes:cable"
 		end
-	
+
 		local cable = minetest.find_node_near(pos, 1, {"stm_nodes:cable", "stm_nodes:cable_active", "stm_nodes:cable_ceiling", "stm_nodes:cable_ceiling_active"})
 		local power = minetest.find_node_near(pos, 10, {"stm_nodes:generator_active", "stm_nodes:sustainer"})
-		if not cable then 
+		if not cable then
 		minetest.set_node(pos, {name=newname, param2=node.param2})
 		elseif not power then
 		minetest.set_node(pos, {name=newname, param2=node.param2})
@@ -1106,7 +1119,7 @@ minetest.register_node("stm_nodes:incinerator", {
 			{-0.375, -0.5, -0.375, 0.375, 0.5, 0.375}, -- NodeBox3
 			{-0.125, 0.5, -0.0625, 0.125, 1.5, 0.1875}, -- NodeBox4
 		}
-	}, 
+	},
 	groups = {cracky=1},
 	sounds = default.node_sound_metal_defaults(),
 	on_rightclick = function(pos, node, clicker, itemstack)
@@ -1303,6 +1316,7 @@ minetest.register_node("stm_nodes:barrel", {
 		"stm_nodes_barrel.png",
 		"stm_nodes_barrel.png"
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -1341,6 +1355,7 @@ minetest.register_node("stm_nodes:lever2_off", {
 	tiles = {
 		"stm_nodes_plate.png",
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -1363,6 +1378,7 @@ minetest.register_node("stm_nodes:lever2_on", {
 	tiles = {
 		"stm_nodes_plate.png",
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -1392,6 +1408,7 @@ minetest.register_node("stm_nodes:big_vent", {
 		"stm_nodes_block.png",
 		"stm_nodes_vent.png"
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -1561,6 +1578,7 @@ minetest.register_node("stm_nodes:large_boiler_base", {
 		"stm_nodes_lboiler_bottom.png",
 		"stm_nodes_lboiler.png^[transformFY",
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -1598,6 +1616,7 @@ minetest.register_node("stm_nodes:large_boiler_top", {
 		"stm_nodes_lboiler_top.png",
 		"stm_nodes_lboiler.png",
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -1630,6 +1649,7 @@ minetest.register_node("stm_nodes:boiler_output", {
 		"stm_nodes_graveller_front.png",
 		"stm_nodes_boiler_output.png",
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -1670,6 +1690,7 @@ minetest.register_node("stm_nodes:motor", {
 		"stm_nodes_motor_front.png",
 		"stm_nodes_motor_front.png"
 	},
+	use_texture_alpha = "opaque",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -1720,7 +1741,7 @@ minetest.register_node("stm_nodes:light", {
 	light_source = 13,
 	drop = "stm_nodes:light_off",
 	groups = {cracky=1, electric=2},
-	sounds = default.node_sound_metal_defaults()	
+	sounds = default.node_sound_metal_defaults()
 })
 
 minetest.register_node("stm_nodes:light_off", {
@@ -1773,7 +1794,7 @@ minetest.register_node("stm_nodes:sustainer", {
 	},
 	drop = "stm_nodes:sustainer_inactive",
 	groups = {cracky=1, electric=2},
-	sounds = default.node_sound_metal_defaults()	
+	sounds = default.node_sound_metal_defaults()
 })
 
 minetest.register_node("stm_nodes:sustainer_inactive", {
@@ -1787,7 +1808,7 @@ minetest.register_node("stm_nodes:sustainer_inactive", {
 		"stm_nodes_sustainer.png"
 	},
 	groups = {cracky=1, electric=2},
-	sounds = default.node_sound_metal_defaults()	
+	sounds = default.node_sound_metal_defaults()
 })
 
 minetest.register_abm({
@@ -1905,12 +1926,12 @@ minetest.register_abm({
 		minetest.set_node(pos, {name="stm_nodes:sustainer_inactive"})
 		return
 		end
-		
+
 		local power = minetest.find_node_near(pos, 1, {"stm_nodes:cable", "stm_nodes:cable_ceiling"})
 		if not power then
-		return 
+		return
 		end
-		
+
 		for i = 1, 11 do
 		local name = minetest.get_node(power).name
 		if name == "stm_nodes:cable" then
@@ -1920,7 +1941,7 @@ minetest.register_abm({
 		end
 		local nextpos = minetest.find_node_near(power, 1, {"stm_nodes:cable", "stm_nodes:cable_ceiling"})
 		if not nextpos then
-		return 
+		return
 		end
 		power = nextpos
 		end
@@ -1965,7 +1986,7 @@ minetest.register_abm({
 				return end
 				if obj:get_luaentity() ~= nil then
 					local dir = minetest.facedir_to_dir(node.param2)
-					obj:setvelocity({x=2*dir.x, y=2*dir.y, z=2*dir.z})
+					obj:set_velocity({x=2*dir.x, y=2*dir.y, z=2*dir.z})
 				end
 			end
 		end
@@ -2026,7 +2047,7 @@ minetest.register_abm({
 	chance = 1,
 	action = function(pos, node)
 		if minetest.find_node_near(pos, 1, {"stm_nodes:lever2_off",}) then
-		return 
+		return
 		end
 		local power = minetest.find_node_near(pos, 1, {"stm_nodes:cable_active", "stm_nodes:cable_ceiling_active",})
 		if power then
@@ -2110,7 +2131,7 @@ minetest.register_abm({
 	chance = 1,
 	action = function(pos, node)
 		if minetest.find_node_near(pos, 1, {"stm_nodes:lever2_off",}) then
-		return 
+		return
 		end
 		local power = minetest.find_node_near(pos, 1, {"stm_nodes:cable_active", "stm_nodes:cable_ceiling_active",})
 		if power then
@@ -2162,7 +2183,7 @@ minetest.register_node("stm_nodes:bulb", {
 	drawtype = "plantlike",
 	paramtype = "light",
 	--light_source = 5,
-	use_texture_alpha = true,
+	use_texture_alpha = "clip",
 	groups = {cracky=1, oddly_breakeable_by_hand=1, electric=1},
 	selection_box = {
 		type = "fixed",
@@ -2190,7 +2211,7 @@ minetest.register_node("stm_nodes:bulb_active", {
 	drawtype = "plantlike",
 	paramtype = "light",
 	light_source = 8,
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	groups = {cracky=1, oddly_breakeable_by_hand=1, electric=1},
 	sounds = default.node_sound_glass_defaults(),
 	on_rightclick = function(pos, node)

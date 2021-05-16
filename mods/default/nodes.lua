@@ -1121,6 +1121,7 @@ minetest.register_node("default:cactus", {
 	tiles = {
 		"default_cactus.png",
 	},
+	use_texture_alpha = "clip",
 	visual_scale = 0.5,
 	groups = {choppy = 3},
 	sounds = default.node_sound_wood_defaults(),
@@ -1472,7 +1473,7 @@ minetest.register_node("default:water_source", {
 	drawtype = "liquid",
 	tiles = {
 		{
-			name = "default_water_source_animated.png",
+			name = "default_water_source_animated.png^[opacity:200",
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -1481,20 +1482,21 @@ minetest.register_node("default:water_source", {
 			},
 		},
 	},
-	special_tiles = {
-		-- New-style water source material (mostly unused)
-		{
-			name = "default_water_source_animated.png",
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 2.0,
-			},
-			backface_culling = false,
-		},
-	},
-	alpha = 160,
+	-- special_tiles = {
+	-- 	-- New-style water source material (mostly unused)
+	-- 	{
+	-- 		name = "default_water_source_animated.png",
+	-- 		animation = {
+	-- 			type = "vertical_frames",
+	-- 			aspect_w = 16,
+	-- 			aspect_h = 16,
+	-- 			length = 2.0,
+	-- 		},
+	-- 		backface_culling = false,
+	-- 	},
+	-- },
+	-- alpha = 160,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	walkable = false,
 	pointable = false,
@@ -1515,10 +1517,10 @@ minetest.register_node("default:water_source", {
 minetest.register_node("default:water_flowing", {
 	description = "Flowing Water",
 	drawtype = "flowingliquid",
-	tiles = {"default_water.png"},
+	-- tiles = {"default_water.png"},
 	special_tiles = {
 		{
-			name = "default_water_flowing_animated.png",
+			name = "default_water_flowing_animated.png^[opacity:200",
 			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
@@ -1528,7 +1530,7 @@ minetest.register_node("default:water_flowing", {
 			},
 		},
 		{
-			name = "default_water_flowing_animated.png",
+			name = "default_water_flowing_animated.png^[opacity:200",
 			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
@@ -1538,7 +1540,8 @@ minetest.register_node("default:water_flowing", {
 			},
 		},
 	},
-	alpha = 160,
+	-- alpha = 160,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	paramtype2 = "flowingliquid",
 	walkable = false,
@@ -1564,7 +1567,7 @@ minetest.register_node("default:river_water_source", {
 	drawtype = "liquid",
 	tiles = {
 		{
-			name = "default_river_water_source_animated.png",
+			name = "default_river_water_source_animated.png^[opacity:200",
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -1573,19 +1576,20 @@ minetest.register_node("default:river_water_source", {
 			},
 		},
 	},
-	special_tiles = {
-		{
-			name = "default_river_water_source_animated.png",
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 2.0,
-			},
-			backface_culling = false,
-		},
-	},
-	alpha = 160,
+	-- special_tiles = {
+	-- 	{
+	-- 		name = "default_river_water_source_animated.png",
+	-- 		animation = {
+	-- 			type = "vertical_frames",
+	-- 			aspect_w = 16,
+	-- 			aspect_h = 16,
+	-- 			length = 2.0,
+	-- 		},
+	-- 		backface_culling = false,
+	-- 	},
+	-- },
+	-- alpha = 160,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	walkable = false,
 	pointable = false,
@@ -1608,10 +1612,10 @@ minetest.register_node("default:river_water_source", {
 minetest.register_node("default:river_water_flowing", {
 	description = "Flowing River Water",
 	drawtype = "flowingliquid",
-	tiles = {"default_river_water.png"},
+	-- tiles = {"default_river_water.png"},
 	special_tiles = {
 		{
-			name = "default_river_water_flowing_animated.png",
+			name = "default_river_water_flowing_animated.png^[opacity:200",
 			backface_culling = false,
 			animation = {
 				type = "vertical_frames",
@@ -1621,7 +1625,7 @@ minetest.register_node("default:river_water_flowing", {
 			},
 		},
 		{
-			name = "default_river_water_flowing_animated.png",
+			name = "default_river_water_flowing_animated.png^[opacity:200",
 			backface_culling = true,
 			animation = {
 				type = "vertical_frames",
@@ -1631,7 +1635,8 @@ minetest.register_node("default:river_water_flowing", {
 			},
 		},
 	},
-	alpha = 160,
+	-- alpha = 160,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	paramtype2 = "flowingliquid",
 	walkable = false,
@@ -2134,6 +2139,7 @@ local function register_sign(material, desc, def)
 		description = desc .. " Sign",
 		drawtype = "nodebox",
 		tiles = {"default_sign_wall_" .. material .. ".png"},
+		use_texture_alpha = "opaque",
 		inventory_image = "default_sign_" .. material .. ".png",
 		wield_image = "default_sign_" .. material .. ".png",
 		paramtype = "light",
@@ -2282,6 +2288,7 @@ minetest.register_node("default:glass", {
 	description = "Glass",
 	drawtype = "glasslike_framed_optional",
 	tiles = {"default_glass.png", "default_glass_detail.png"},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	paramtype2 = "glasslikeliquidlevel",
 	sunlight_propagates = true,
@@ -2294,6 +2301,7 @@ minetest.register_node("default:obsidian_glass", {
 	description = "Obsidian Glass",
 	drawtype = "glasslike_framed_optional",
 	tiles = {"default_obsidian_glass.png", "default_obsidian_glass_detail.png"},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	paramtype2 = "glasslikeliquidlevel",
 	is_ground_content = false,

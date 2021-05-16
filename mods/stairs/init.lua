@@ -22,7 +22,7 @@ local function rotate_and_place(itemstack, placer, pointed_thing)
 	local p1 = pointed_thing.above
 	local param2 = 0
 
-	local placer_pos = placer:getpos()
+	local placer_pos = placer:get_pos()
 	if placer_pos then
 		param2 = minetest.dir_to_facedir(vector.subtract(p1, placer_pos))
 	end
@@ -52,6 +52,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 		drawtype = "mesh",
 		mesh = "stairs_stair.obj",
 		tiles = images,
+		use_texture_alpha = recipeitem and minetest.registered_items[recipeitem].use_texture_alpha or "opaque",
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,
@@ -137,6 +138,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 		description = description,
 		drawtype = "nodebox",
 		tiles = images,
+		use_texture_alpha = recipeitem and minetest.registered_items[recipeitem].use_texture_alpha or "opaque",
 		paramtype = "light",
 		paramtype2 = "facedir",
 		is_ground_content = false,

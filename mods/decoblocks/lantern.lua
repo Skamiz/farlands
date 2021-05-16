@@ -41,6 +41,7 @@ minetest.register_node("decoblocks:lantern", {
 		    name = "decoblocks_lantern.png",
 		    animation = {type = "vertical_frames", aspect_w = 32, aspect_h = 32, length = 3.3}
 	}},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,
@@ -88,7 +89,7 @@ minetest.register_abm({
 	chance = 1,
 	action = function(pos, node)
 		if minetest.get_timeofday() <= 0.6 and minetest.get_timeofday() >= 0.2 then
-		return 
+		return
 		end
 		minetest.add_particle({
 			pos = {x=pos.x, y=pos.y, z=pos.z},
@@ -113,6 +114,7 @@ minetest.register_node("decoblocks:lantern_wall", {
 		    name = "decoblocks_lantern.png",
 		    animation = {type = "vertical_frames", aspect_w = 32, aspect_h = 32, length = 3.3}
 	}},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,
@@ -133,7 +135,7 @@ minetest.register_abm({
 	chance = 1,
 	action = function(pos, node)
 		if minetest.get_timeofday() <= 0.6 and minetest.get_timeofday() >= 0.2 then
-		return 
+		return
 		end
 		local dir = minetest.facedir_to_dir(node.param2)
 		--minetest.chat_send_all(dir.x.." z:"..dir.z)
@@ -168,6 +170,7 @@ minetest.register_node("decoblocks:lantern_ceiling", {
 		    name = "decoblocks_lantern.png",
 		    animation = {type = "vertical_frames", aspect_w = 32, aspect_h = 32, length = 3.3}
 	}},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,
@@ -198,4 +201,3 @@ minetest.register_lbm({
 		end
 	end
 })
-

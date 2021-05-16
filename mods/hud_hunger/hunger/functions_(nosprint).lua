@@ -40,7 +40,7 @@ function hunger.update_hunger(player, new_lvl)
 	if not name then
 		return false
 	end
-	if minetest.setting_getbool("enable_damage") == false then
+	if minetest.settings:get_bool("enable_damage") == false then
 		hunger.players[name] = 20
 		return
 	end
@@ -163,7 +163,7 @@ local function hunger_globaltimer(dtime)
 	end
 end
 
-if minetest.setting_getbool("enable_damage") then
+if minetest.settings:get_bool("enable_damage") then
 	minetest.register_globalstep(hunger_globaltimer)
 end
 
@@ -268,7 +268,7 @@ function hunger.item_eat(hunger_change, replace_with_item, poisen, heal, sound)
 				if inv:room_for_item("main", {name = replace_with_item}) then
 					inv:add_item("main", replace_with_item)
 				else
-					local pos = user:getpos()
+					local pos = user:get_pos()
 					pos.y = math.floor(pos.y + 0.5)
 					core.add_item(pos, replace_with_item)
 				end
