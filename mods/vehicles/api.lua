@@ -145,13 +145,13 @@ function vehicles.object_drive(entity, dtime, def)
 	local brakes = def.brakes or false
 	local handling = def.handling or {initial=1.1, braking=2.2}
 	local braking_effect = def.braking_effect or "vehicles_dust.png"
-	
+
 	local moving_anim = def.moving_anim or nil
 	local stand_anim = def.stand_anim or nil
 	local jump_anim = def.jump_anim or nil
 	local shoot_anim = def.shoot_anim or nil
 	local shoot_anim2 = def.shoot_anim2 or nil
-	
+
 	--variables
 	local ctrl = entity.driver:get_player_control()
 	local velo = entity.object:get_velocity()
@@ -163,13 +163,13 @@ function vehicles.object_drive(entity, dtime, def)
 	local node = minetest.get_node(pos).name
 	local node_under = minetest.get_node({x=pos.x, y=pos.y+2, z=pos.z})
 	local accell = 1
-	
+
 	--dummy variables
 	local vec_rise = {}
 	local vec_forward_simple = {}
 	local inv = nil
 	local hovering = nil
-	
+
 	--definition dependant variables
 	if fly then
 		vec_rise = {x=velo.x, y=speed*rise_speed, z=velo.z}
@@ -181,7 +181,7 @@ function vehicles.object_drive(entity, dtime, def)
 		local pname = entity.driver:get_player_name();
 		inv = minetest.get_inventory({type="player", name=pname});
 	end
-	
+
 	--timer
 	local absolute_speed = math.sqrt(math.pow(velo.x, 2)+math.pow(velo.z, 2))
 	--decell = (absolute_speed/100)+((def.decell)-(speed/100))
@@ -192,16 +192,16 @@ function vehicles.object_drive(entity, dtime, def)
 	if not ctrl.up then
 	timer = 0
 	end
-	
+
 	--boost reset
 	if boost and not entity.boost then
 		minetest.after(boost_charge, function()
 		entity.boost = true
 		end)
 	end
-	
+
 	--minetest.chat_send_all("decell:"..decell.." speed"..absolute_speed)
-	
+
 	--death_node
 	if death_node ~= nil and node == death_node then
 		if entity.driver then
@@ -211,7 +211,7 @@ function vehicles.object_drive(entity, dtime, def)
 		entity.object:remove()
 		return
 	end
-	
+
 	--place node
 	if place_node ~= nil and node == "air" or place_node ~= nil and node == "default:snow" or place_node ~= nil and minetest.get_item_group(node, "flora") ~= 0 then
 		if place_trigger == nil and math.random(1, place_chance) == 1 then
@@ -222,7 +222,7 @@ function vehicles.object_drive(entity, dtime, def)
 			minetest.set_node(pos, {name=place_node, param2=facedir})
 		end
 	end
-	
+
 	--destroy node
 	if destroy_node ~= nil and node == destroy_node then
 			minetest.dig_node(pos)
@@ -234,9 +234,9 @@ function vehicles.object_drive(entity, dtime, def)
 				minetest.add_item(pos, item[1])
 			end
 	end
-	
+
 	local turning_factor = 2
-	
+
 	--brakes
 	local braking = 0
 	local timer2 = 0
@@ -269,8 +269,8 @@ function vehicles.object_drive(entity, dtime, def)
 		timer2 = 0
 		turning_factor = handling.braking
 	end
-	
-	
+
+
 	--face the right way
 	local target_yaw = yaw+math.pi+math.pi/2+extra_yaw
 	local entity_yaw = entity.object:get_yaw()
@@ -291,7 +291,7 @@ function vehicles.object_drive(entity, dtime, def)
 		dir.x = -math.sin(entity_yaw)
 		dir.z = math.cos(entity_yaw)
 	end
-	
+
 	--lava explode
 	if node == "default:lava_source" or node == "default:lava_flowing" then
 		if entity.driver then
@@ -308,7 +308,7 @@ function vehicles.object_drive(entity, dtime, def)
 	end
 	entity.on_water = is_water(node)
 	entity.in_water = is_water(minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name) or is_water(node_under.name)
-	
+
 	--apply water effects
 	if is_watercraft and entity.in_water then
 		entity.object:set_velocity({x=velo.x*0.9, y=velo.y+1, z=velo.z*0.9})
@@ -316,7 +316,7 @@ function vehicles.object_drive(entity, dtime, def)
 		entity.object:set_velocity({x=velo.x*decell,y=velo.y-1,z=velo.z*decell})
 	elseif (entity.on_water or entity.in_water) and not is_watercraft then
 		entity.object:set_velocity({x=velo.x*0.9, y=-1, z=velo.z*0.9})
-	
+
 	--brakes
 	elseif ctrl.jump and brakes and not ctrl.up then
 		local velo2 = nil
@@ -370,7 +370,7 @@ function vehicles.object_drive(entity, dtime, def)
 		if timer >= 0.5 then
 		timer = timer-timer/25
 		end]]
-	
+
 	--boost
 	elseif ctrl.up and not shoots2 and ctrl.aux1 and entity.boost then
 		entity.object:set_velocity({x=dir.x*(speed*0.2)*math.log(timer+0.5)+8*dir.x,y=velo.y-gravity/2,z=dir.z*(speed*0.2)*math.log(timer+0.5)+8*dir.z})
@@ -527,7 +527,7 @@ function vehicles.object_drive(entity, dtime, def)
 			end)
 			end
 	end
-	
+
 	if ctrl.aux1 and shoots2 and entity.loaded2 then
 			if inv:contains_item("main", arrow2.."_item") or infinite_arrow2 then
 			local remov = inv:remove_item("main", arrow2.."_item")
@@ -591,17 +591,17 @@ function vehicles.object_drive(entity, dtime, def)
 		hovering = false
 		end)
 	end
-	
+
 	--play sound
 	if entity.sound_ready then
-	minetest.sound_play(driving_sound, 
+	minetest.sound_play(driving_sound,
 		{to_player=entity.driver:get_player_name(), gain = 4, max_hear_distance = 3, loop = false})
 	entity.sound_ready = false
 	minetest.after(sound_duration, function()
 	entity.sound_ready = true
 	end)
 	end
-	
+
 end
 
 --simplified in an attempt to reduce lag
@@ -827,7 +827,8 @@ function vehicles.object_no_drive(entity, dtime, def)
 	--stop
 		entity.object:set_velocity(vec_stop)
 		--animation
-		if moving_anim ~= nil and entity.moving and not hovering then
+		-- if moving_anim ~= nil and entity.moving and not hovering then -- 'moving_anim' isn't declared
+		if entity.moving and not hovering then
 			entity.object:set_animation(stand_anim, 20, 0)
 			entity.moving = false
 		end

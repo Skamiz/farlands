@@ -1,1 +1,27 @@
+also see this: https://github.com/D00Med/farlands/issues
+
+also this:https://github.com/D00Med/farlands/projects
+
 mapgen:bamboo_grass isn't buidable_to
+
+Palm leaves don't decay
+
+papyrus can't spawn
+
+decoblocks:bamboo_block should be rotatable
+
+trader formspec is kinda broken
+
+villagers work... not great
+
+whale noises are supper annoying
+
+default:bush_leaves have no transparency
+
+watering can has no recipe
+
+OMG, there's airships, they don't have a recipe and can't? ascend
+
+move workbench repairing to anvil
+
+make sure candles can be lit (flint'n steel/torch/etc...)
