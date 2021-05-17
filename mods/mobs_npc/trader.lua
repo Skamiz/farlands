@@ -21,7 +21,7 @@ mobs.travelling_merchant = {
 		{"default:shovel_steel 1", "default:gold_ingot 1", 17},
 	},
 	names = {
-		"James", "John", "Bill", "Tom", "David", "Ian", "Thomas", "Steven", "Eric", "Jack", "Frank", "Peter", "Adam", "	Carl", "Joe", "Bruce", "Philip", "Steve" 
+		"James", "John", "Bill", "Tom", "David", "Ian", "Thomas", "Steven", "Eric", "Jack", "Frank", "Peter", "Adam", "	Carl", "Joe", "Bruce", "Philip", "Steve"
 	}
 }
 
@@ -45,7 +45,7 @@ mobs.human = {
 		{"default:shovel_steel 1", "default:gold_ingot 1", 17},
 	},
 	names = {
-		"James", "John", "Bill", "Tom", "David", "Ian", "Thomas", "Steven", "Eric", "Jack", "Frank", "Peter", "Adam", "	Carl", "Joe", "Bruce", "Philip", "Steve" 
+		"James", "John", "Bill", "Tom", "David", "Ian", "Thomas", "Steven", "Eric", "Jack", "Frank", "Peter", "Adam", "	Carl", "Joe", "Bruce", "Philip", "Steve"
 	}
 }
 
@@ -180,29 +180,30 @@ mobs:register_mob("mobs_npc:trader", {
 
 function mobs.allow_move(inv, from_list, from_index, to_list, to_index, count, player)
 
-	if to_list ~= "selection"
-	or from_list == "price"
-	or from_list == "payment"
-	or from_list == "takeaway"
-	or from_list == "identifier" then
+	-- local from = inv:get_stack(from_list, from_index)
+	-- local to = inv:get_stack(to_list, to_index)
+	-- print("Transaction start------------")
+	-- print(from_list, from:get_name(), from:get_count())
+	-- print(to_list, to:get_name(), to:get_count())
+	-- print("Count is: " .. count)
 
-		return 0
+	if to_list == "selection" and from_list == "goods" or
+			to_list == "goods" and from_list == "selection" or
+			to_list == "goods" and from_list == "goods" then
+
+		-- forbid moving split stacks
+		local old_stack = inv:get_stack(from_list, from_index)
+		if count == old_stack:get_count() then
+			return count
+		end
 	end
 
-	-- forbid moving split stacks
-	local old_stack = inv.get_stack(inv, from_list, from_index)
-
-	if count ~= old_stack.get_count(old_stack) then
-		return 0
-	end
-
-	return count
+	return 0
 end
 
 function mobs.allow_put(inv, listname, index, stack, player)
-
 	if listname == "payment" then
-		return 99
+		return stack:get_count()
 	end
 
 	return 0
@@ -210,97 +211,12 @@ end
 
 function mobs.allow_take(inv, listname, index, stack, player)
 
-	if listname == "takeaway"
-	or listname == "payment" then
-
-		return 99
+	if listname == "payment" or (listname == "takeaway" and
+			stack:get_count() == inv:get_stack(listname, index):get_count()) then
+		return stack:get_count()
 	else
 		return 0
 	end
-end
-
-function mobs.on_put(inv, listname, index, stack)
-
-	if listname == "payment" then
-		mobs.update_takeaway(inv)
-	end
-end
-
-function mobs.on_take(inv, listname, count, index, stack, player)
-
-	if listname == "takeaway" then
-
-		local amount = inv:get_stack("payment", 1):get_count()
-		local price = inv:get_stack("price", 1):get_count()
-		local thing = inv:get_stack("payment", 1):get_name()
-
-		inv.set_stack(inv,"selection", 1, nil)
-		inv.set_stack(inv,"price", 1, nil)
-		inv.set_stack(inv,"takeaway", 1, nil)
-		inv.set_stack(inv,"payment", 1, thing .. " " .. amount - price)
-	end
-
-	if listname == "payment" then
-
-		if mobs.check_pay(inv, false) then
-
-			local selection = inv.get_stack(inv, "selection", 1)
-
-			if selection ~= nil then
-				inv.set_stack(inv,"takeaway", 1, selection)
-			end
-		else
-			inv.set_stack(inv, "takeaway", 1, nil)
-		end
-	end
-end
-
-function mobs.update_takeaway(inv)
-
-	if mobs.check_pay(inv,false) then
-
-		local selection = inv.get_stack(inv,"selection", 1)
-
-		if selection ~= nil then
-			inv.set_stack(inv,"takeaway", 1, selection)
-		end
-	else
-		inv.set_stack(inv,"takeaway", 1, nil)
-	end
-end
-
-function mobs.check_pay(inv, paynow)
-
-	local now_at_pay = inv.get_stack(inv,"payment", 1)
-	local count = now_at_pay.get_count(now_at_pay)
-	local name  = now_at_pay.get_name(now_at_pay)
-	local price = inv.get_stack(inv, "price", 1)
-
-	if price:get_name() == name then
-
-		local price = price:get_count()
-
-		if price > 0
-		and price <= count then
-
-			if paynow then
-
-				now_at_pay.take_item(now_at_pay, price)
-
-				inv.set_stack(inv,"payment", 1, now_at_pay)
-
-				return true
-			else
-				return true
-			end
-		else
-			if paynow then
-				inv.set_stack(inv, "payment", 1, nil)
-			end
-		end
-	end
-
-	return false
 end
 
 mobs.trader_inventories = {}
@@ -312,8 +228,35 @@ function mobs.add_goods(entity, race)
 	for i = 1, 15 do
 
 		if math.random(0, 100) > race.items[i][3] then
-			mobs.trader_inventory.set_stack(mobs.trader_inventory,
-				"goods", i, race.items[i][1])
+			mobs.trader_inventory:set_stack("goods", i, race.items[i][1])
+		end
+	end
+end
+
+local function update_inventry(inv, race)
+	-- print("Updating inventory.")
+	-- print("Selection contains: ", inv:get_stack("selection", 1):to_string())
+	local selection = inv:get_stack("selection", 1)
+	if selection:is_empty() then
+		inv:set_stack("price", 1, nil)
+		inv:set_stack("takeaway", 1, nil)
+	else
+		local price = nil
+		local selction_string = selection:get_name() .. " " .. selection:get_count()
+
+		for i = 1, #race.items do
+			if race.items[i][1] == selction_string then
+				price = ItemStack(race.items[i][2])
+			end
+		end
+		inv:set_stack("price", 1, price)
+
+		local payment = inv:get_stack("payment", 1)
+		if payment:get_name() == price:get_name() and
+				payment:get_count() >= price:get_count() then
+			inv:set_stack("takeaway", 1, selection)
+		else
+			inv:set_stack("takeaway", 1, nil)
 		end
 	end
 end
@@ -349,54 +292,21 @@ function mobs_trader(self, clicker, entity, race)
 		allow_put = mobs.allow_put,
 		allow_take = mobs.allow_take,
 
-		on_move = function(inventory, from_list, from_index, to_list, to_index, count, player)
-
-			if from_list == "goods"
-			and to_list == "selection" then
-
-				local inv = inventory
-				local moved = inv.get_stack(inv,to_list, to_index)
-				local goodname = moved.get_name(moved)
-				local elements = moved.get_count(moved)
-
-				if elements > count then
-
-					-- remove the surplus parts
-					inv.set_stack(inv,"selection", 1,
-						goodname .. " " .. tostring(count))
-
-					-- the slot we took from is now free
-					inv.set_stack(inv,"goods",from_index,
-						goodname .. " " .. tostring(elements - count))
-
-					-- update the real amount of items in the slot now
-					elements = count
-				end
-
-				local good = nil
-
-				for i = 1, #race.items, 1 do
-
-					local stackstring = goodname .." " .. count
-
-					if race.items[i][1] == stackstring then
-						good = race.items[i]
-					end
-				end
-
-				if good ~= nil then
-					inventory.set_stack(inventory,"price", 1, good[2])
-				else
-					inventory.set_stack(inventory,"price", 1, nil)
-				end
-
-			mobs.update_takeaway(inv)
-
-			end
+		on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
+			update_inventry(inv, race)
 		end,
-
-		on_put = mobs.on_put,
-		on_take = mobs.on_take
+		on_put = function(inv, listname, index, stack, player)
+			update_inventry(inv, race)
+		end,
+		on_take = function(inv, listname, index, stack, player)
+			if listname == "takeaway" then
+				inv:set_stack("selection", 1, nil)
+				local payment = inv:get_stack("payment", 1)
+				payment:take_item(inv:get_stack("price", 1):get_count())
+				inv:set_stack("payment", 1, payment)
+			end
+			update_inventry(inv, race)
+		end,
 	}
 
 	if is_inventory == nil then
