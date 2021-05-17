@@ -25,3 +25,11 @@ OMG, there's airships, they don't have a recipe and can't? ascend
 move workbench repairing to anvil
 
 make sure candles can be lit (flint'n steel/torch/etc...)
+
+wild oat?
+
+deco chest eats wielded item and disappears
+
+.env: is still used all over
+
+make this work: 'armor:get_preview' so there isn't just a gray area
