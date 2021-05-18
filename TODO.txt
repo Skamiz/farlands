@@ -4,8 +4,6 @@ also this:https://github.com/D00Med/farlands/projects
 
 mapgen:bamboo_grass isn't buidable_to
 
-Palm leaves don't decay
-
 papyrus can't spawn
 
 villagers work... not great
@@ -24,17 +22,11 @@ wild oat?
 
 deco chest eats wielded item and disappears
 
-env. is still used all over
-
 make this work: 'armor:get_preview' so there isn't just a gray area
 
 the chance for a trader to carry a particular good is inversed: "if math.random(0, 100) > race.items[i][3] then"
 
-do bamboo leaves despawn?
-
-default:pine_needles spawn with param2:1 in large pine schematic
-
-decoblocks:dart2 automatic_rotate should be number not boolean
+decoblocks:dart2 'automatic_rotate' should be number not boolean
 
 animals don't face the direction they are going when running away after being punched
 
@@ -47,3 +39,5 @@ moss looks cool
 powered rail image has wrong color
 
 watering can is OP
+
+random rotation of ipe schematic causes crooked trunks

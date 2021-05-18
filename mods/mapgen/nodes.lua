@@ -243,7 +243,8 @@ minetest.register_node("mapgen:willow_leaves", {
 		},
 	},
 	groups = {snappy = 3, flammable = 1, leaves = 1, leafdecay = 1},
-	sounds = default.node_sound_leaves_defaults()
+	sounds = default.node_sound_leaves_defaults(),
+	after_place_node = default.after_place_leaves,
 })
 
 minetest.register_node("mapgen:willow_wood", {
@@ -284,7 +285,9 @@ minetest.register_node("mapgen:baobab_leaves", {
 		},
 	},
 	groups = {snappy = 3, flammable = 1, leaves = 1, leafdecay = 1},
-	sounds = default.node_sound_leaves_defaults()
+	sounds = default.node_sound_leaves_defaults(),
+
+	after_place_node = default.after_place_leaves,
 })
 
 minetest.register_node("mapgen:baobab_wood", {
@@ -337,7 +340,8 @@ minetest.register_node("mapgen:yellow_ipe_leaves", {
 		},
 	},
 	groups = {snappy = 3, flammable = 1, leaves = 1, leafdecay = 1},
-	sounds = default.node_sound_leaves_defaults()
+	sounds = default.node_sound_leaves_defaults(),
+	after_place_node = default.after_place_leaves,
 })
 
 minetest.register_node("mapgen:yellow_ipe_wood", {
@@ -507,7 +511,8 @@ minetest.register_node("mapgen:palm_leaves", {
 		},
 	},
 	groups = {snappy = 3, flammable = 1, leaves = 1, leafdecay = 1},
-	sounds = default.node_sound_leaves_defaults()
+	sounds = default.node_sound_leaves_defaults(),
+	after_place_node = default.after_place_leaves,
 })
 
 minetest.register_node("mapgen:pineapple_plant_growing", {
@@ -770,6 +775,7 @@ minetest.register_node("mapgen:bamboo_leaves", {
 			{items = {"mapgen:bamboo_leaves",}},
 		},
 	},
+	after_place_node = default.after_place_leaves,
 })
 
 minetest.register_node("mapgen:bush", {
@@ -2173,4 +2179,34 @@ minetest.register_node("mapgen:glowing_mushroom_white", {
 		fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
 	},
 	walkable = false,
+})
+
+default.register_leafdecay({
+	trunks = {"mapgen:bamboo", "mapgen:bamboo_with_leaves"},
+	leaves = {"mapgen:bamboo_leaves"},
+	radius = 1,
+})
+
+default.register_leafdecay({
+	trunks = {"mapgen:baobab_tree"},
+	leaves = {"mapgen:baobab_leaves"},
+	radius = 3,
+})
+
+default.register_leafdecay({
+	trunks = {"mapgen:yellow_ipe_tree"},
+	leaves = {"mapgen:yellow_ipe_leaves"},
+	radius = 3,
+})
+
+default.register_leafdecay({
+	trunks = {"mapgen:palm_tree"},
+	leaves = {"mapgen:palm_leaves"},
+	radius = 3,
+})
+
+default.register_leafdecay({
+	trunks = {"mapgen:willow_tree"},
+	leaves = {"mapgen:willow_leaves"},
+	radius = 3,
 })

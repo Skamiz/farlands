@@ -2406,7 +2406,7 @@ else
 	default.register_leafdecay({
 		trunks = {"default:pine_tree"},
 		leaves = {"default:pine_needles"},
-		radius = 2,
+		radius = 3,
 	})
 end
 

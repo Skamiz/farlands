@@ -18,7 +18,7 @@ end
 function default.grow_new_ipe_tree(pos)
 	local path = minetest.get_modpath("mapgen") ..
 		"/schematics/ipe.mts"
-	minetest.place_schematic({x = pos.x - 7, y = pos.y - 1, z = pos.z - 6},
+	minetest.place_schematic({x = pos.x - 6, y = pos.y - 1, z = pos.z - 6},
 		path, "random", nil, false)
 	minetest.set_node(pos, {name="mapgen:yellow_ipe_tree"})
 end
@@ -34,7 +34,7 @@ end
 function default.grow_new_big_pine_tree(pos)
 	local path = minetest.get_modpath("mapgen") ..
 		"/schematics/pine.mts"
-	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 3},
+	minetest.place_schematic({x = pos.x - 3, y = pos.y - 1, z = pos.z - 3},
 		path, "random", nil, false)
 	minetest.set_node(pos, {name="default:pine_tree"})
 end
