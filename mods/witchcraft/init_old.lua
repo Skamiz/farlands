@@ -1183,9 +1183,9 @@ minetest.register_entity("witchcraft:fire", {
 							for dz=0,1 do
 								local p = {x=pos.x+dx, y=pos.y, z=pos.z+dz}
 								local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-								local n = minetest.env:get_node(p).name
+								local n = minetest.get_node(p).name
 								if n ~= "witchcraft:fire" and n ~= "air" and n ~="default:dirt_with_grass" and n ~="default:dirt_with_dry_grass" and n ~="default:stone"  then	
-									minetest.env:set_node(t, {name="fire:basic_flame"})
+									minetest.set_node(t, {name="fire:basic_flame"})
 								elseif n =="default:dirt_with_grass" or n =="default:dirt_with_dry_grass" then
 									self.object:remove()
 									return
@@ -1200,12 +1200,12 @@ minetest.register_entity("witchcraft:fire", {
 				for dz=-4,4 do
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 					local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					local n = minetest.env:get_node(pos).name
+					local n = minetest.get_node(pos).name
 					if math.random(1, 50) <= 35 then
-						minetest.env:remove_node(p)
+						minetest.remove_node(p)
 					end
 					if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <=5 then
-										minetest.env:set_node(t, {name="fire:basic_flame"})
+										minetest.set_node(t, {name="fire:basic_flame"})
 					end
 				end
 			end
@@ -1260,7 +1260,7 @@ minetest.register_entity("witchcraft:tnt_splash", {
 							for dz=0,1 do
 								local p = {x=pos.x+dx, y=pos.y, z=pos.z+dz}
 								local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-								local n = minetest.env:get_node(p).name
+								local n = minetest.get_node(p).name
 								if n ~= "witchcraft:tnt_splash" and n ~="default:obsidian" and n ~= "air" then	
 									local pos = self.object:get_pos()
 									minetest.sound_play("default_break_glass.1.ogg", {
@@ -1282,12 +1282,12 @@ minetest.register_entity("witchcraft:tnt_splash", {
 				for dz=-4,4 do
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 					local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					local n = minetest.env:get_node(pos).name
+					local n = minetest.get_node(pos).name
 					if math.random(1, 50) <= 35 then
 						tnt.boom(n, {damage_radius=5,radius=3,ignore_protection=false})
 					end
 					if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <=5 then
-										minetest.env:set_node(t, {name="fire:basic_flame"})
+										minetest.set_node(t, {name="fire:basic_flame"})
 					end
 				end
 			end
@@ -1325,9 +1325,9 @@ minetest.register_entity("witchcraft:fire_splash", {
 							for dz=0,1 do
 								local p = {x=pos.x+dx, y=pos.y, z=pos.z+dz}
 								local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-								local n = minetest.env:get_node(p).name
+								local n = minetest.get_node(p).name
 								if n ~= "witchcraft:fire_splash" and n ~= "air" then
-										minetest.env:set_node(t, {name="fire:basic_flame"})
+										minetest.set_node(t, {name="fire:basic_flame"})
 									minetest.sound_play("default_break_glass.1", {
 									pos = self.object:get_pos(),
 									max_hear_distance = 20,
@@ -1348,12 +1348,12 @@ minetest.register_entity("witchcraft:fire_splash", {
 				for dz=-4,4 do
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 					local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					local n = minetest.env:get_node(pos).name
+					local n = minetest.get_node(pos).name
 					if math.random(1, 50) <= 1 then
-						minetest.env:remove_node(p)
+						minetest.remove_node(p)
 					end
 					if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <=5 then
-										minetest.env:set_node(t, {name="fire:basic_flame"})
+										minetest.set_node(t, {name="fire:basic_flame"})
 					end
 				end
 			end
@@ -1383,7 +1383,7 @@ minetest.register_node("witchcraft:potion_orange", {
 	local dir = placer:get_look_dir();
 	local playerpos = placer:get_pos();
 	local vec = {x=dir.x*2,y=dir.y*2.5,z=dir.z*2}
-	local obj = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:fire")
+	local obj = minetest.add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:fire")
 	obj:set_velocity(vec)
 	local part = minetest.add_particlespawner(
 			10, --amount
@@ -1428,7 +1428,7 @@ minetest.register_node("witchcraft:splash_orange", {
 	local playerpos = placer:get_pos();
 	local vec = {x=dir.x*6,y=dir.y*3.5,z=dir.z*6}
 	local acc = {x=0,y=-9.8,z=0}
-	local obj = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+2+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:fire_splash")
+	local obj = minetest.add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+2+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:fire_splash")
 	obj:set_velocity(vec)
 	obj:set_acceleration(acc)
 		item:take_item()
@@ -1457,7 +1457,7 @@ minetest.register_node("witchcraft:splash_yellwgrn", {
 	local playerpos = placer:get_pos();
 	local vec = {x=dir.x*7,y=dir.y*3.5,z=dir.z*7}
 	local acc = {x=0,y=-9.8,z=0}
-	local obj = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+2+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:tnt_splash")
+	local obj = minetest.add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+2+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:tnt_splash")
 	obj:set_velocity(vec)
 	obj:set_acceleration(acc)
 		item:take_item()
@@ -1692,11 +1692,11 @@ minetest.register_node("witchcraft:potion_aqua", {
 			false, --collisiondetection
 			"orb.png" --texture
 		)
-	minetest.env:add_entity(pos, "experience:orb")
-	minetest.env:add_entity(pos, "experience:orb")
-	minetest.env:add_entity(pos, "experience:orb")
-	minetest.env:add_entity(pos, "experience:orb")
-	minetest.env:add_entity(pos, "experience:orb")
+	minetest.add_entity(pos, "experience:orb")
+	minetest.add_entity(pos, "experience:orb")
+	minetest.add_entity(pos, "experience:orb")
+	minetest.add_entity(pos, "experience:orb")
+	minetest.add_entity(pos, "experience:orb")
 	
 		item:replace("vessels:glass_bottle")
 		return item
@@ -2047,7 +2047,7 @@ minetest.register_craftitem("witchcraft:scroll_wild", {
 	stack_max = 1,
 	on_use = function(item, placer)
 	local pos = placer:get_pos();
-	minetest.env:add_entity(pos, "pmobs:dog")
+	minetest.add_entity(pos, "pmobs:dog")
 	item:take_item()
 	return item
 	end,
@@ -2062,7 +2062,7 @@ minetest.register_craftitem("witchcraft:scroll_fireball", {
 	local dir = placer:get_look_dir();
 	local playerpos = placer:get_pos();
 	local vec = {x=dir.x*7,y=dir.y*7,z=dir.z*7}
-	local obj = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:fireball")
+	local obj = minetest.add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:fireball")
 	obj:set_velocity(vec)
 	
 		item:take_item()
@@ -2092,7 +2092,7 @@ minetest.register_craftitem("witchcraft:scroll_lightning", {
 	local dir = placer:get_look_dir();
 	local playerpos = placer:get_pos();
 	local vec = {x=dir.x*7,y=dir.y*7,z=dir.z*7}
-	local obj = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:lightning")
+	local obj = minetest.add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:lightning")
 	obj:set_velocity(vec)
 	
 		item:take_item()
@@ -2109,9 +2109,9 @@ minetest.register_craftitem("witchcraft:scroll_icicle", {
 	local dir = placer:get_look_dir();
 	local playerpos = placer:get_pos();
 	local vec = {x=dir.x*7,y=dir.y*7,z=dir.z*7}
-	local obj = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:ice")
-	local obj2 = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+1+dir.z}, "witchcraft:ice")
-	local obj3 = minetest.env:add_entity({x=playerpos.x+1+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:ice")
+	local obj = minetest.add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:ice")
+	local obj2 = minetest.add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+1+dir.z}, "witchcraft:ice")
+	local obj3 = minetest.add_entity({x=playerpos.x+1+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:ice")
 	obj:set_velocity(vec)
 	obj2:set_velocity(vec)
 	obj3:set_velocity(vec)
@@ -2130,7 +2130,7 @@ minetest.register_craftitem("witchcraft:scroll_nature", {
 	local dir = placer:get_look_dir();
 	local playerpos = placer:get_pos();
 	local vec = {x=dir.x*6,y=dir.y*6,z=dir.z*6}
-	local obj = minetest.env:add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:tree")
+	local obj = minetest.add_entity({x=playerpos.x+dir.x*1.5,y=playerpos.y+1.5+dir.y,z=playerpos.z+0+dir.z}, "witchcraft:tree")
 	obj:set_velocity(vec)
 	
 		item:take_item()
@@ -2241,10 +2241,10 @@ minetest.register_entity("witchcraft:fireball", {
 							for dz=0,1 do
 								local p = {x=pos.x+dx, y=pos.y, z=pos.z+dz}
 								local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-								local n = minetest.env:get_node(p).name
+								local n = minetest.get_node(p).name
 								if n ~= "witchcraft:fireball" and n ~="default:dirt_with_grass" and n ~="default:dirt_with_dry_grass" and n ~="default:stone"  then	
 									if minetest.registered_nodes[n].groups.flammable --[[or math.random(1, 100) <= 1]] then
-										minetest.env:set_node(t, {name="fire:basic_flame"})
+										minetest.set_node(t, {name="fire:basic_flame"})
 									self.object:remove()
 									return
 									end
@@ -2259,12 +2259,12 @@ minetest.register_entity("witchcraft:fireball", {
 				for dz=-4,4 do
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 					local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					local n = minetest.env:get_node(pos).name
+					local n = minetest.get_node(pos).name
 					if math.random(1, 50) <= 35 then
-						minetest.env:remove_node(p)
+						minetest.remove_node(p)
 					end
 					if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <=5 then
-										minetest.env:set_node(t, {name="fire:basic_flame"})
+										minetest.set_node(t, {name="fire:basic_flame"})
 					end
 				end
 			end
@@ -2319,10 +2319,10 @@ minetest.register_entity("witchcraft:lightning", {
 							for dz=0,1 do
 								local p = {x=pos.x+dx, y=pos.y, z=pos.z+dz}
 								local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-								local n = minetest.env:get_node(p).name
+								local n = minetest.get_node(p).name
 								if n ~= "witchcraft:lightning" and n ~="default:dirt_with_grass" and n ~="default:dirt_with_dry_grass" and n ~="default:stone"  then	
 									if minetest.registered_nodes[n].groups.flammable --[[or math.random(1, 100) <= 1]] then
-										minetest.env:set_node(t, {name="fire:basic_flame"})
+										minetest.set_node(t, {name="fire:basic_flame"})
 									end
 								elseif n == "default:wood" or n =="default:tree" or n =="default:dirt_with_grass" or n =="default:dirt_with_dry_grass" then
 									self.object:remove()
@@ -2379,7 +2379,7 @@ minetest.register_entity("witchcraft:tree", {
 							for dz=0,1 do
 								local p = {x=pos.x+dx, y=pos.y, z=pos.z+dz}
 								local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-								local n = minetest.env:get_node(p).name
+								local n = minetest.get_node(p).name
 								if n ~= "witchcraft:tree" and n ~="air" then	
 						local treepos = self.object:get_pos()
 						default.grow_new_jungle_tree(treepos)

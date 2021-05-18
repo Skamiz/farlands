@@ -2096,10 +2096,10 @@ local mob_punch = function(self, hitter, tflp, tool_capabilities, dir)
 		end
 
 		--[[ add healthy afterglow when hit (can cause hit lag with larger textures)
-		core.after(0.1, function()
+		minetest.after(0.1, function()
 			self.object:settexturemod("^[colorize:#c9900070")
 
-			core.after(0.3, function()
+			minetest.after(0.3, function()
 				self.object:settexturemod("")
 			end)
 		end) ]]

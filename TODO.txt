@@ -24,7 +24,7 @@ wild oat?
 
 deco chest eats wielded item and disappears
 
-.env: is still used all over
+env. is still used all over
 
 make this work: 'armor:get_preview' so there isn't just a gray area
 

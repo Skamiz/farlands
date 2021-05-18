@@ -275,7 +275,7 @@ minetest.register_tool("fireworks:gun", {
 		local pos = placer:get_pos()
 		if pointed_thing ~= nil then
 			local dir = placer:get_look_dir()
-			local obj =  minetest.env:add_entity({x=pos.x+dir.x, y=pos.y+dir.y+0.5, z=pos.z+dir.z}, "fireworks:firework_"..number.."_rocket")
+			local obj =  minetest.add_entity({x=pos.x+dir.x, y=pos.y+dir.y+0.5, z=pos.z+dir.z}, "fireworks:firework_"..number.."_rocket")
 			minetest.sound_play("firework_whistle", {pos = pos, gain = 0.2, max_hear_distance = 15})
 			obj:set_velocity({x=dir.x*15, y=dir.y*20, z=dir.z*15})
 			obj:set_acceleration({x=dir.x*2, y=-2, z=dir.z*2})
@@ -308,7 +308,7 @@ minetest.register_tool("fireworks:gun", {
 
 function firework_launch(pos, name)
 minetest.remove_node(pos)
-local obj =  minetest.env:add_entity({x=pos.x, y=pos.y, z=pos.z}, name.."_rocket")
+local obj =  minetest.add_entity({x=pos.x, y=pos.y, z=pos.z}, name.."_rocket")
 			minetest.sound_play("firework_whistle", {pos = pos, gain = 0.2, max_hear_distance = 15})
 			obj:set_velocity({x=0, y=15, z=0})
 			obj:set_acceleration({x=0, y=2, z=0})

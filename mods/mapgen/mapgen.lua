@@ -2783,7 +2783,7 @@ minetest.register_on_generated(function(minp, maxp)
 			local pos = {x = dirt[n].x, y = dirt[n].y, z = dirt[n].z }
 			local name = minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name
 				if name == "mapgen:lavender_flower" or name == "mapgen:swamp_grass_1" or name == "mapgen:giantgrass" or name == "mapgen:swamp_grass_2" or name == "mapgen:swamp_grass_3" or name == "mapgen:swamp_grass_4" or name == "mapgen:swamp_grass_5" then
-					minetest.env:remove_node({x=pos.x, y=pos.y+1, z=pos.z})
+					minetest.remove_node({x=pos.x, y=pos.y+1, z=pos.z})
 				end
 	end
 end)

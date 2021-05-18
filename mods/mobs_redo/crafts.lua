@@ -7,7 +7,7 @@ minetest.register_craftitem("mobs:nametag", {
 	inventory_image = "mobs_nametag.png",
 })
 
-core.register_craft({
+minetest.register_craft({
 	type = "shapeless",
 	output = "mobs:nametag",
 	recipe = {"default:paper", "dye:black", "farming:string"},

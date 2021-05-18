@@ -508,7 +508,7 @@ function vehicles.object_drive(entity, dtime, def)
 			if inv:contains_item("main", arrow.."_item") or infinite_arrow then
 			local remov = inv:remove_item("main", arrow.."_item")
 			entity.loaded = false
-			local obj = minetest.env:add_entity({x=pos.x+0+dir.x*2,y=pos.y+shoot_y+dir.y,z=pos.z+0+dir.z*2}, arrow)
+			local obj = minetest.add_entity({x=pos.x+0+dir.x*2,y=pos.y+shoot_y+dir.y,z=pos.z+0+dir.z*2}, arrow)
 			local vec = {x=dir.x*14,y=dir.y*14+shoot_angle,z=dir.z*14}
 			obj:set_yaw(yaw+math.pi/2+extra_yaw)
 			obj:set_velocity(vec)
@@ -532,7 +532,7 @@ function vehicles.object_drive(entity, dtime, def)
 			if inv:contains_item("main", arrow2.."_item") or infinite_arrow2 then
 			local remov = inv:remove_item("main", arrow2.."_item")
 			entity.loaded2 = false
-			local obj = minetest.env:add_entity({x=pos.x+0+dir.x*2,y=pos.y+shoot_y2+dir.y,z=pos.z+0+dir.z*2}, arrow2)
+			local obj = minetest.add_entity({x=pos.x+0+dir.x*2,y=pos.y+shoot_y2+dir.y,z=pos.z+0+dir.z*2}, arrow2)
 			local vec = {x=dir.x*20,y=dir.y*20+shoot_angle,z=dir.z*20}
 			obj:set_yaw(yaw+math.pi/2+extra_yaw)
 			obj:set_velocity(vec)
@@ -648,7 +648,7 @@ function vehicles.object_glide(entity, dtime, speed, decell, gravity, moving_ani
 							for dz=-1,1 do
 								local p = {x=pos.x+dx, y=pos.y-1, z=pos.z+dz}
 								local t = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-								local n = minetest.env:get_node(p).name
+								local n = minetest.get_node(p).name
 								if n ~= "massdestruct:parachute" and n ~= "air" then
 									local pos = entity.object:get_pos()
 									entity.object:remove()
@@ -670,7 +670,7 @@ minetest.register_craftitem(vehicle.."_spawner", {
 			local dir = placer:get_look_dir();
 			local playerpos = placer:get_pos();
 			if pointed_thing.type == "node" and not is_boat then
-			local obj = minetest.env:add_entity(pointed_thing.above, vehicle)
+			local obj = minetest.add_entity(pointed_thing.above, vehicle)
 			local object = obj:get_luaentity()
 			object.owner = placer
 			if not minetest.settings:get_bool("creative_mode") then
@@ -678,7 +678,7 @@ minetest.register_craftitem(vehicle.."_spawner", {
 			return item
 			end
 			elseif pointed_thing.type == "node" and minetest.get_item_group(pointed_thing.name, "water") then
-			local obj = minetest.env:add_entity(pointed_thing.under, vehicle)
+			local obj = minetest.add_entity(pointed_thing.under, vehicle)
 			obj:set_velocity({x=0, y=-1, z=0})
 			local object = obj:get_luaentity()
 			object.owner = placer
@@ -779,7 +779,7 @@ function vehicles.on_punch(self, puncher)
 	if self.driver == puncher and (hp == self.hp_max-5 or hp == self.hp_max or creative_mode) then
 		local name = self.object:get_luaentity().name
 		local pos = self.object:get_pos()
-		minetest.env:add_item(pos, name.."_spawner")
+		minetest.add_item(pos, name.."_spawner")
 		vehicles.object_detach(self, self.driver, {x=1, y=0, z=1})
 		self.object:remove()
 	end

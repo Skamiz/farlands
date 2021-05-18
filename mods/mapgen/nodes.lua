@@ -532,7 +532,7 @@ minetest.register_abm({
 	interval = 30,
 	chance = 2,
 	action = function(pos, node)
-		minetest.env:set_node(pos, {name="mapgen:pineapple_plant"})
+		minetest.set_node(pos, {name="mapgen:pineapple_plant"})
 	end
 })
 
@@ -552,8 +552,8 @@ minetest.register_node("mapgen:pineapple_plant", {
 	groups = {snappy = 1, oddly_breakable_by_hand = 1, flammable = 1, dig_immediate = 1, flora = 1,},
 	sounds = default.node_sound_leaves_defaults(),
 	on_rightclick = function(pos, node)
-		minetest.env:set_node(pos, {name="mapgen:pineapple_plant_growing"})
-		minetest.env:add_item(pos, "mapgen:pineapple")
+		minetest.set_node(pos, {name="mapgen:pineapple_plant_growing"})
+		minetest.add_item(pos, "mapgen:pineapple")
 	end,
 })
 
@@ -928,7 +928,7 @@ minetest.register_node("mapgen:jungle_grass_5", {
 	walkable = false,
 	on_construct = function(pos)
 		local num = math.random(1,5)
-		minetest.env:set_node(pos, {name="mapgen:jungle_grass_"..num})
+		minetest.set_node(pos, {name="mapgen:jungle_grass_"..num})
 	end,
 })
 
@@ -1122,7 +1122,7 @@ minetest.register_node("mapgen:swamp_grass_5", {
 	walkable = false,
 	on_construct = function(pos)
 		local num = math.random(1,5)
-		minetest.env:set_node(pos, {name="mapgen:swamp_grass_"..num})
+		minetest.set_node(pos, {name="mapgen:swamp_grass_"..num})
 	end,
 })
 
@@ -1371,7 +1371,7 @@ minetest.register_node("mapgen:dead_grass_5", {
 	walkable = false,
 	on_construct = function(pos)
 		local num = math.random(1,5)
-		minetest.env:set_node(pos, {name="mapgen:dead_grass_"..num})
+		minetest.set_node(pos, {name="mapgen:dead_grass_"..num})
 	end
 })
 
@@ -1529,7 +1529,7 @@ minetest.register_node("mapgen:seagrass_1", {
 	walkable = false,
 	on_construct = function(pos)
 		local num = math.random(1,3)
-		minetest.env:set_node(pos, {name="mapgen:seagrass_"..num})
+		minetest.set_node(pos, {name="mapgen:seagrass_"..num})
 	end,
 })
 

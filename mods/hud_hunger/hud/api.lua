@@ -128,7 +128,7 @@ function hud.change_item(player, name, def)
 	local i_name = player:get_player_name().."_"..name
 	local elem = hud_id[i_name]
 	if not elem then
-		throw_error("Given HUD element " .. dump(name) .. " does not exist".." hääää")
+		throw_error("Given HUD element " .. dump(name) .. " does not exist".." hï¿½ï¿½ï¿½ï¿½")
 		return false
 	end
 
@@ -272,4 +272,4 @@ function hud.player_event(player, event)
 	end, player) -- ADDED , player)
 end
 
-core.register_playerevent(hud.player_event)
+minetest.register_playerevent(hud.player_event)

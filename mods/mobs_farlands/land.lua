@@ -7,8 +7,8 @@ minetest.register_node("mobs_m:mimic_chest", {
 	paramtype2 = "facedir",
 	groups = {cracky=4},
 	on_rightclick = function(pos, node, clicker)
-		minetest.env:remove_node(pos)
-		minetest.env:add_entity(pos, "mobs_m:mimic")
+		minetest.remove_node(pos)
+		minetest.add_entity(pos, "mobs_m:mimic")
 	end
 })
 
@@ -79,8 +79,8 @@ minetest.register_node("mobs_m:mimic_chest2", {
 	paramtype2 = "facedir",
 	groups = {cracky=4},
 	on_rightclick = function(pos, node, clicker)
-		minetest.env:remove_node(pos)
-		minetest.env:add_entity(pos, "mobs_m:mimic2")
+		minetest.remove_node(pos)
+		minetest.add_entity(pos, "mobs_m:mimic2")
 	end
 })
 

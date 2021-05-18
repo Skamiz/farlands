@@ -195,11 +195,11 @@ local function poisenp(tick, time, time_left, player)
 end
 
 -- wrapper for minetest.item_eat (this way we make sure other mods can't break this one)
-local org_eat = core.do_item_eat
-core.do_item_eat = function(hp_change, replace_with_item, itemstack, user, pointed_thing)
+local org_eat = minetest.do_item_eat
+minetest.do_item_eat = function(hp_change, replace_with_item, itemstack, user, pointed_thing)
 	local old_itemstack = itemstack
 	itemstack = hunger.eat(hp_change, replace_with_item, itemstack, user, pointed_thing)
-	for _, callback in pairs(core.registered_on_item_eats) do
+	for _, callback in pairs(minetest.registered_on_item_eats) do
 		local result = callback(hp_change, replace_with_item, itemstack, user, pointed_thing, old_itemstack)
 		if result then
 			return result
@@ -215,7 +215,7 @@ function hunger.eat(hp_change, replace_with_item, itemstack, user, pointed_thing
 		def = {}
 		if type(hp_change) ~= "number" then
 			hp_change = 1
-			core.log("error", "Wrong on_use() definition for item '" .. item .. "'")
+			minetest.log("error", "Wrong on_use() definition for item '" .. item .. "'")
 		end
 		def.saturation = hp_change * 1.3
 		def.replace = replace_with_item
@@ -270,7 +270,7 @@ function hunger.item_eat(hunger_change, replace_with_item, poisen, heal, sound)
 				else
 					local pos = user:get_pos()
 					pos.y = math.floor(pos.y + 0.5)
-					core.add_item(pos, replace_with_item)
+					minetest.add_item(pos, replace_with_item)
 				end
 			end
 		end

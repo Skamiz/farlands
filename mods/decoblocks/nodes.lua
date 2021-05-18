@@ -391,8 +391,8 @@ minetest.register_node("decoblocks:chest", {
 				end
 				end
 			end
-			minetest.env:add_item(pos, item)
-			minetest.env:remove_node(pos)
+			minetest.add_item(pos, item)
+			minetest.remove_node(pos)
 		--else
 		--minetest.chat_send_player(name, "It is locked, you need a key!")
 		--end
@@ -578,7 +578,7 @@ minetest.register_abm({
 		local objs = minetest.get_objects_inside_radius({x=pos.x+x*num, y=pos.y-0.5, z=pos.z+z*num}, 1.5)
 		for _, obj in ipairs(objs) do
 			if obj:is_player() then
-				local ent = minetest.env:add_entity(pos, "decoblocks:dart")
+				local ent = minetest.add_entity(pos, "decoblocks:dart")
 				ent:set_velocity({x=7*x, y=0, z=7*z})
 			end
 		end
@@ -655,11 +655,11 @@ minetest.register_tool("decoblocks:blowpipe", {
 		local pname = placer:get_player_name();
 		inv = minetest.get_inventory({type="player", name=pname})
 		if inv:contains_item("main", "decoblocks:dart_item2") then
-		local ent = minetest.env:add_entity({x=pos.x+1*dir.x, y=pos.y+1.5, z=pos.z+1*dir.z}, "decoblocks:dart2")
+		local ent = minetest.add_entity({x=pos.x+1*dir.x, y=pos.y+1.5, z=pos.z+1*dir.z}, "decoblocks:dart2")
 		ent:set_velocity({x=15*dir.x, y=15*dir.y, z=15*dir.z})
 		local remov = inv:remove_item("main", "decoblocks:dart_item2")
 		elseif inv:contains_item("main", "decoblocks:dart_item") then
-		local ent = minetest.env:add_entity({x=pos.x+1*dir.x, y=pos.y+1.5, z=pos.z+1*dir.z}, "decoblocks:dart")
+		local ent = minetest.add_entity({x=pos.x+1*dir.x, y=pos.y+1.5, z=pos.z+1*dir.z}, "decoblocks:dart")
 		ent:set_velocity({x=15*dir.x, y=15*dir.y, z=15*dir.z})
 		local remov = inv:remove_item("main", "decoblocks:dart_item")
 		end
