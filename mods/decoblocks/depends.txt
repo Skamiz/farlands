@@ -1,1 +1,5 @@
 default
+witchcraft
+mapgen
+vessels
+xpanes

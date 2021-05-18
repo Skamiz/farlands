@@ -17,25 +17,21 @@ minetest.register_node("decoblocks:bamboo_fence", {
 			{-0.125, -0.5, -0.125, 0.125, 0.5, 0.125}, -- NodeBox1
 		},
 		connect_back = {
-			{-0.125, -0.5, -0.125, 0.125, 0.5, 0.125}, -- NodeBox1
 			{-0.0625, 0.25, -0.0625, 0.0625, 0.375, 0.5}, -- NodeBox2
 			{-0.0625, -0.0625, -0.0625, 0.0625, 0.0625, 0.5}, -- NodeBox3
 			{-0.0625, -0.375, -0.0625, 0.0625, -0.25, 0.5}, -- NodeBox4
 		},
 		connect_front = {
-			{-0.125, -0.5, -0.125, 0.125, 0.5, 0.125}, -- NodeBox1
 			{-0.0625, 0.25, -0.5, 0.0625, 0.375, 0.0625}, -- NodeBox2
 			{-0.0625, -0.0625, -0.5, 0.0625, 0.0625, 0.0625}, -- NodeBox3
 			{-0.0625, -0.375, -0.5, 0.0625, -0.25, 0.0625}, -- NodeBox4
 		},
 		connect_left = {
-			{-0.125, -0.5, -0.125, 0.125, 0.5, 0.125}, -- NodeBox1
 			{-0.5, 0.25, -0.0625, 0.0625, 0.375, 0.0625}, -- NodeBox2
 			{-0.5, -0.0625, -0.0625, 0.0625, 0.0625, 0.0625}, -- NodeBox3
 			{-0.5, -0.375, -0.0625, 0.0625, -0.25, 0.0625}, -- NodeBox4
 		},
 		connect_right = {
-			{-0.125, -0.5, -0.125, 0.125, 0.5, 0.125}, -- NodeBox1
 			{0, 0.25, -0.0625, 0.5, 0.375, 0.0625}, -- NodeBox2
 			{0, -0.0625, -0.0625, 0.5, 0.0625, 0.0625}, -- NodeBox3
 			{0, -0.375, -0.0625, 0.5, -0.25, 0.0625}, -- NodeBox4
@@ -86,10 +82,11 @@ minetest.register_node("decoblocks:sandstone_pillar", {
 minetest.register_node("decoblocks:bamboo_block", {
 	description = "Bamboo Block",
 	tiles = {
-	"decoblocks_bamboo_top.png",
-	"decoblocks_bamboo_top.png",
-	"decoblocks_bamboo.png",
+		"decoblocks_bamboo_top.png",
+		"decoblocks_bamboo_top.png",
+		"decoblocks_bamboo.png",
 	},
+	paramtype2 = "facedir",
 	groups = {choppy = 1, oddly_breakable_by_hand = 2, wood=1},
 	sounds = default.node_sound_wood_defaults(),
 	on_place = minetest.rotate_node
@@ -818,6 +815,19 @@ minetest.register_node("decoblocks:framed_glass", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
+xpanes.register_pane("framed_pane", {
+	description = "Glass Pane With Wood Frame",
+	textures = {"decoblocks_framed_glass.png","xpanes_wood_frame_half.png","xpanes_wood_frame_half_top.png"},
+	inventory_image = "decoblocks_framed_glass.png",
+	wield_image = "decoblocks_framed_glass.png",
+	sounds = default.node_sound_glass_defaults(),
+	groups = {snappy=2, cracky=3, oddly_breakable_by_hand=3},
+	recipe = {
+		{"decoblocks:framed_glass", "decoblocks:framed_glass", "decoblocks:framed_glass"},
+		{"decoblocks:framed_glass", "decoblocks:framed_glass", "decoblocks:framed_glass"},
+	}
+})
+
 minetest.register_node("decoblocks:refined_granite", {
 	description = "Refined Granite",
 	tiles = {"decoblocks_refined_granite.png"},
@@ -1314,10 +1324,10 @@ local colours = {
 {"cyan", "Cyan"},
 {"brown", "Brown"},
 {"orange", "Orange"},
-{"purple", "Purple"},
+{"violet", "Violet"},
 {"magenta", "Magenta"},
-{"darkgreen", "Dark Green"},
-{"darkgrey", "Dark Grey"},
+{"dark_green", "Dark Green"},
+{"dark_grey", "Dark Grey"},
 {"grey", "Grey"},
 {"white", "White"},
 {"black", "Black"},
@@ -1333,7 +1343,7 @@ minetest.register_node("decoblocks:"..colour.."_glass", {
 	tiles = {"decoblocks_"..colour.."_glass.png"},
 	use_texture_alpha = "blend",
 	sounds = default.node_sound_glass_defaults(),
-	groups = {cracky=1, oddly_breakable_by_hand=3, snappy=2}
+	groups = {cracky=1, oddly_breakable_by_hand=3, snappy=2},
 })
 xpanes.register_pane(""..colour.."_glass", {
 	description = ""..desc.." Stained Glass Pane",
@@ -1344,8 +1354,23 @@ xpanes.register_pane(""..colour.."_glass", {
 	sounds = default.node_sound_glass_defaults(),
 	groups = {snappy=2, cracky=3, oddly_breakable_by_hand=3},
 	recipe = {
-		{"", "dye:"..colour, ""},
-		{"", "xpanes:pane", ""}
+		{"decoblocks:"..colour.."_glass", "decoblocks:"..colour.."_glass", "decoblocks:"..colour.."_glass"},
+		{"decoblocks:"..colour.."_glass", "decoblocks:"..colour.."_glass", "decoblocks:"..colour.."_glass"},
+	}
+})
+minetest.register_craft({
+	type = "shapeless",
+	output = 'decoblocks:'..colour..'_glass 8',
+	recipe = {
+		'default:glass',
+		'default:glass',
+		'default:glass',
+		'default:glass',
+		"dye:"..colour,
+		'default:glass',
+		'default:glass',
+		'default:glass',
+		'default:glass',
 	}
 })
 end

@@ -211,7 +211,8 @@ bucket.register_liquid(
 	"mapgen:dirty_water_flowing",
 	"bucket:bucket_dirty_water",
 	"bucket_dirty_water.png",
-	"Dirty Water Bucket"
+	"Dirty Water Bucket",
+	{water_bucket = 1}
 )
 
 minetest.register_craft({
@@ -220,4 +221,3 @@ minetest.register_craft({
 	burntime = 60,
 	replacements = {{"bucket:bucket_lava", "bucket:bucket_empty"}},
 })
-

@@ -8,17 +8,11 @@ Palm leaves don't decay
 
 papyrus can't spawn
 
-decoblocks:bamboo_block should be rotatable
-
-trader formspec is kinda broken
-
 villagers work... not great
 
 whale noises are supper annoying
 
 default:bush_leaves have no transparency
-
-watering can has no recipe
 
 OMG, there's airships, they don't have a recipe and can't? ascend
 
@@ -33,3 +27,23 @@ deco chest eats wielded item and disappears
 .env: is still used all over
 
 make this work: 'armor:get_preview' so there isn't just a gray area
+
+the chance for a trader to carry a particular good is inversed: "if math.random(0, 100) > race.items[i][3] then"
+
+do bamboo leaves despawn?
+
+default:pine_needles spawn with param2:1 in large pine schematic
+
+decoblocks:dart2 automatic_rotate should be number not boolean
+
+animals don't face the direction they are going when running away after being punched
+
+soo many missing recipes
+
+ice chest needs own texture
+
+moss looks cool
+
+powered rail image has wrong color
+
+watering can is OP
