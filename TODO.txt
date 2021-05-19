@@ -2,9 +2,7 @@ also see this: https://github.com/D00Med/farlands/issues
 
 also this:https://github.com/D00Med/farlands/projects
 
-mapgen:bamboo_grass isn't buidable_to
-
-papyrus can't spawn
+papyrus can spawn only in savanna_shore
 
 villagers work... not great
 
@@ -20,7 +18,7 @@ make sure candles can be lit (flint'n steel/torch/etc...)
 
 wild oat?
 
-deco chest eats wielded item and disappears
+make deco chest require key?
 
 make this work: 'armor:get_preview' so there isn't just a gray area
 
@@ -50,12 +48,25 @@ zombie brute boss health bar is broken
 
 shears don't have a fitting texture
 
+paintings:easel doesn't have a recipe
+
+pineapple growth runs on an ABM
+
+'mapgen:stone_with_ammonite' and 'mapgen:stone_with_bone' spawn only over y = 625
+
+stalagtites are placed by voxelmanip instead of decoration
+	as are several other things in that code chunk
 
 
 =======================================================
 Beyond:
 
 charkcoal made from trunk instead of planks
+	does charkcoal even work?
 
 watering can to speed up grass spread
 maybe also let grass grow on dirt with grass
+
+make glow of crystal/torches optional
+
+nerf amount of wood/bamboo blocks gained per craft

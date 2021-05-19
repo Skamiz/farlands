@@ -376,7 +376,7 @@ minetest.register_node("decoblocks:chest", {
 	on_rightclick = function(pos, node, clicker, item, _)
 		local name = clicker:get_player_name()
 		--if clicker:get_wielded_item():get_name() == "hyruletools:key" then
-			item:take_item()
+			-- item:take_item()
 			local meta = minetest.get_meta(pos)
 			local item = meta:get_string("item")
 			if item == nil then
