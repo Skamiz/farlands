@@ -117,7 +117,12 @@ minetest.register_craft({
 		'group:sand',
 		'group:sand',
 		'group:sand',
-	}
+	},
+	replacements = {
+		{"bucket:bucket_water", "bucket:bucket_empty"},
+		{"bucket:bucket_river_water", "bucket:bucket_empty"},
+		{"bucket:bucket_dirty_water", "bucket:bucket_empty"},
+	},
 })
 minetest.register_craft({
 	type = "shapeless",
@@ -125,7 +130,12 @@ minetest.register_craft({
 	recipe = {
 		'default:steelblock',
 		"group:water_bucket",
-	}
+	},
+	replacements = {
+		{"bucket:bucket_water", "bucket:bucket_empty"},
+		{"bucket:bucket_river_water", "bucket:bucket_empty"},
+		{"bucket:bucket_dirty_water", "bucket:bucket_empty"},
+	},
 })
 
 minetest.register_craft({

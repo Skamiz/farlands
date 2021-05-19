@@ -41,3 +41,21 @@ powered rail image has wrong color
 watering can is OP
 
 random rotation of ipe schematic causes crooked trunks
+
+Warning: crumblestone is in fact not a good building material
+
+occasionally hud bars are placed wrong
+
+zombie brute boss health bar is broken
+
+shears don't have a fitting texture
+
+
+
+=======================================================
+Beyond:
+
+charkcoal made from trunk instead of planks
+
+watering can to speed up grass spread
+maybe also let grass grow on dirt with grass
