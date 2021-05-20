@@ -427,7 +427,6 @@ minetest.register_entity("decoblocks:dart", {
 	visual_size={x=0.1,y=0.1},
 	collisionbox = {0, 0, 0, 0, 0, 0},
 	physical = false,
-	automatic_rotate = true,
 	automatic_face_movement_dir = 0,
 	on_activate = function(self)
 		minetest.after(3, function()
@@ -471,7 +470,6 @@ minetest.register_entity("decoblocks:dart2", {
 	visual_size={x=0.1,y=0.1},
 	collisionbox = {0, 0, 0, 0, 0, 0},
 	physical = false,
-	automatic_rotate = true,
 	automatic_face_movement_dir = 0,
 	on_activate = function(self)
 		minetest.after(3, function()

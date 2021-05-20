@@ -25,8 +25,6 @@ make this work: 'armor:get_preview' so there isn't just a gray area
 
 the chance for a trader to carry a particular good is inversed: "if math.random(0, 100) > race.items[i][3] then"
 
-decoblocks:dart2 'automatic_rotate' should be number not boolean
-
 soo many missing recipes
 
 ice chest needs own texture
