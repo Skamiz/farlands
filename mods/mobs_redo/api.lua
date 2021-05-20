@@ -2484,6 +2484,10 @@ function mobs:register_mob(name, def)
 
 	mobs.spawning_mobs[name] = true
 
+	if not def.attack_type then
+		def.runaway = true
+	end
+
 minetest.register_entity(name, {
 
 	stepheight = def.stepheight or 1.1, -- was 0.6

@@ -3,6 +3,7 @@ also see this: https://github.com/D00Med/farlands/issues
 also this:https://github.com/D00Med/farlands/projects
 
 papyrus can spawn only in savanna_shore
+	alternative papyrus sources?
 
 villagers work... not great
 
@@ -25,8 +26,6 @@ make this work: 'armor:get_preview' so there isn't just a gray area
 the chance for a trader to carry a particular good is inversed: "if math.random(0, 100) > race.items[i][3] then"
 
 decoblocks:dart2 'automatic_rotate' should be number not boolean
-
-animals don't face the direction they are going when running away after being punched
 
 soo many missing recipes
 
