@@ -18,8 +18,8 @@ end
 function default.grow_new_ipe_tree(pos)
 	local path = minetest.get_modpath("mapgen") ..
 		"/schematics/ipe.mts"
-	minetest.place_schematic({x = pos.x - 6, y = pos.y - 1, z = pos.z - 6},
-		path, "random", nil, false)
+	minetest.place_schematic({x = pos.x, y = pos.y - 1, z = pos.z},
+		path, "random", nil, false, "place_center_x, place_center_z")
 	minetest.set_node(pos, {name="mapgen:yellow_ipe_tree"})
 end
 

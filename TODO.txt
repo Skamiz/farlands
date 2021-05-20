@@ -2,14 +2,17 @@ also see this: https://github.com/D00Med/farlands/issues
 
 also this:https://github.com/D00Med/farlands/projects
 
+
+paintings:easel doesn't have a recipe
+
+default:bush_leaves have no transparency
+
 papyrus can spawn only in savanna_shore
 	alternative papyrus sources?
 
 villagers work... not great
 
 whale noises are supper annoying
-
-default:bush_leaves have no transparency
 
 OMG, there's airships, they don't have a recipe and can't? ascend
 
@@ -35,8 +38,6 @@ powered rail image has wrong color
 
 watering can is OP
 
-random rotation of ipe schematic causes crooked trunks
-
 Warning: crumblestone is in fact not a good building material
 
 occasionally hud bars are placed wrong
@@ -45,14 +46,14 @@ zombie brute boss health bar is broken
 
 shears don't have a fitting texture
 
-paintings:easel doesn't have a recipe
-
 pineapple growth runs on an ABM
 
 'mapgen:stone_with_ammonite' and 'mapgen:stone_with_bone' spawn only over y = 625
 
 stalagtites are placed by voxelmanip instead of decoration
 	as are several other things in that code chunk
+
+unify and standartize all the glowy light effects
 
 
 =======================================================
