@@ -89,7 +89,7 @@ local easel_formspec =
 	"list[current_player;main;0,4.85;8,1;]" ..
 	"list[current_player;main;0,6.08;8,3;8]" ..
 	"listring[current_name;input]" ..
-	"listring[current_name;output]" ..
+	-- "listring[current_name;output]" ..
 	"listring[current_player;main]" ..
 	default.get_hotbar_bg(0,4.85)
 
@@ -154,10 +154,12 @@ minetest.register_node("paintings:easel", {
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
-			local stack = inv:get_stack("input", 1)
-			local stack_name = stack:get_name()
-			inv:remove_item("input", stack_name.." 1")
+		local input = inv:get_stack("input", 1)
+		local stack_name = input:get_name()
+		inv:remove_item("input", stack_name.." 1")
+		inv:set_stack("output", index, stack)
 
+		if inv:is_empty("input") then
 			inv:set_stack("output", 1, "")
 			inv:set_stack("output", 2, "")
 			inv:set_stack("output", 3, "")
@@ -170,6 +172,16 @@ minetest.register_node("paintings:easel", {
 			inv:set_stack("output", 10, "")
 			inv:set_stack("output", 11, "")
 			inv:set_stack("output", 12, "")
+		end
 	end,
 	sounds = default.node_sound_wood_defaults()
+})
+
+minetest.register_craft({
+	output = 'paintings:easel',
+	recipe = {
+		{'default:paper', 'group:stick', 'default:paper'},
+		{'default:paper', 'group:wood', 'default:paper'},
+		{'group:stick', '', 'group:stick'},
+	}
 })

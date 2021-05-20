@@ -3,8 +3,6 @@ also see this: https://github.com/D00Med/farlands/issues
 also this:https://github.com/D00Med/farlands/projects
 
 
-paintings:easel doesn't have a recipe
-
 default:bush_leaves have no transparency
 
 papyrus can spawn only in savanna_shore
